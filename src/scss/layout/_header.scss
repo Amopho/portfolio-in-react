@@ -1,0 +1,29 @@
+.headings {
+  position: relative;
+  margin-top: 132px;
+  margin-left: 6px;
+  @include max(768px) {
+    margin-top: 161px;
+  }
+  h1 {
+    font-size: 4.5rem;
+    font-weight: 300;
+    max-width: 39.9rem;
+    line-height: 0.97;
+    outline: 2.3px solid #fff;
+    outline-offset: 0.35rem;
+    color: #fff;
+    text-transform: uppercase;
+    padding-top: 34px;
+    padding-left: 35px;
+    padding-bottom: 22px;
+    @include max(768px) {
+      padding-top: 20px;
+      padding-left: 29px;
+      padding-bottom: 10px;
+      font-size: 3.7rem;
+      max-width: 27rem;
+      padding-left: 25px;
+    }
+  }
+}
