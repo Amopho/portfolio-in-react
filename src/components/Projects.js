@@ -3,7 +3,7 @@ const Projects = () => {
     <div>
       <div class="row">
         <div class="col-sm-4">
-          <div class="project-wrap"></div>
+          <div class="project-wrap">Projects</div>
         </div>
       </div>
     </div>

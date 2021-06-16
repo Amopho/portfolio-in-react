@@ -7,11 +7,12 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <React.Fragment>
+    <Router>
       <Menu class="header" />
       <Home />
+      <Projects />
       <Footer />
-    </React.Fragment>
+    </Router>
   );
 }
 
