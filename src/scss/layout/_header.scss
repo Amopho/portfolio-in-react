@@ -1,29 +1,81 @@
-.headings {
-  position: relative;
-  margin-top: 132px;
-  margin-left: 6px;
-  @include max(768px) {
-    margin-top: 161px;
-  }
-  h1 {
-    font-size: 4.5rem;
-    font-weight: 300;
-    max-width: 39.9rem;
-    line-height: 0.97;
-    outline: 2.3px solid #fff;
-    outline-offset: 0.35rem;
-    color: #fff;
-    text-transform: uppercase;
-    padding-top: 34px;
-    padding-left: 35px;
-    padding-bottom: 22px;
-    @include max(768px) {
-      padding-top: 20px;
-      padding-left: 29px;
-      padding-bottom: 10px;
-      font-size: 3.7rem;
-      max-width: 27rem;
-      padding-left: 25px;
-    }
-  }
+a {
+  text-decoration: none;
+}
+
+header {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+}
+
+.header {
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+header div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  font-family: "Catamaran";
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+header nav ul li {
+  display: inline-block;
+  padding-right: 2rem;
+}
+
+header ul li {
+  list-style: none;
+  letter-spacing: 0.07rem;
+  margin-bottom: 0.5rem;
+}
+
+header a {
+  text-decoration: none;
+}
+
+.contact-btn {
+  margin-left: 3rem;
+  padding: 0 2rem;
+}
+
+.black-link a {
+  margin: 10px;
+}
+
+.contact-btn a {
+  background-color: rgb(0, 0, 0) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  user-select: none;
+  cursor: pointer;
+  max-width: 100%;
+  text-decoration: none;
+  background: none;
+}
+
+Link,
+Link:visited,
+Link:hover,
+Link:active {
+  color: inherit;
+}
+
+.contact-btn a {
+  color: #fff;
 }

@@ -2,7 +2,7 @@
 
 Let's get to know each other! A portfolio website of aspiring web developer made with :sparkling_heart: in ReactJS.
 
-![Preview](./src/img/portfolio-glimpse.png)
+![Preview](./public/img/portfolio-glimpse.png)
 
 # Getting Started with Create React App
 
