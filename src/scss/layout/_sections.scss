@@ -1,0 +1,12 @@
+sections {
+  background: url("../../img/pink-glasses.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 650px;
+  @include max(768px) {
+    background: url("../../img/pink-glasses.jpg");
+    height: 650px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
