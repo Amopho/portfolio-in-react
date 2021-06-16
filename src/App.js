@@ -6,8 +6,10 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <React.Fragment>
-      <Header />
-      <Sections />
+      <Header> </Header>
+      <Sections>
+        <div class="sections"></div>
+      </Sections>
       <Footer />
     </React.Fragment>
   );

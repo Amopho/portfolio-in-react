@@ -100,3 +100,9 @@ Import icons into each component.
  $ const element = <FontAwesomeIcon icon={faCoffee} />
  $ ReactDOM.render(element, document.body)
 ```
+
+## Installing Router to handle links
+
+```
+ $ npm install react-router-dom
+```
