@@ -90,7 +90,7 @@ $ npm run deploy
 $ npm install react-icons --save
 ```
 
-## To use fontawesome icons via Individual Use
+### To use fontawesome icons via Individual Use
 
 Import icons into each component.
 
@@ -102,6 +102,12 @@ Import icons into each component.
 ```
 
 ## Installing Router to handle links
+
+```
+ $ npm install react-router-dom
+```
+
+## Installing Bootstrap to handle cards
 
 ```
  $ npm install react-router-dom
