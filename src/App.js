@@ -21,7 +21,6 @@ function App() {
     // </Router>
     <Router>
       <Menu />
-      <h1>.my-portfolio</h1>
       <Switch>
         {
           // <Route path={process.env.PUBLIC_URL + "/"} exact component={Home} />
