@@ -7,8 +7,17 @@ const Menu = () => {
       <Link to="/">
         <li>.my-portfolio</li>
       </Link>
-      <Link to="">
+      <Link to="/">
+        <li>Home</li>
+      </Link>
+      <Link to="/projects">
         <li>Projects</li>
+      </Link>
+      <Link to="/blog">
+        <li>Blog</li>
+      </Link>
+      <Link to="/contact">
+        <li>Contact</li>
       </Link>
     </nav>
   );
