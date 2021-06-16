@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import Header from "./components/Header";
-import Sections from "./components/Sections";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Menu from "./components/Menu";
+import Home from "./components/Home";
+import Projects from "./components/Projects";
 import Footer from "./components/Footer";
 
 function App() {
   return (
     <React.Fragment>
-      <Header> </Header>
-      <Sections>
-        <div class="sections"></div>
-      </Sections>
+      <Menu class="header" />
+      <Home />
       <Footer />
     </React.Fragment>
   );
