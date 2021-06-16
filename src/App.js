@@ -5,6 +5,8 @@ import Menu from "./components/Menu";
 import Home from "./components/Home";
 import Projects from "./components/Projects";
 import ProjectsInfo from "./components/ProjectsInfo";
+import Blog from "./components/Blog";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Soon from "./components/Soon";
 
@@ -37,16 +39,13 @@ function App() {
             return <ProjectsInfo data={Portfolio} id={match.params.id} />;
           }}
         />
-        {
-          //  <Route  path="/products"
-          // exact >
-          // <Products data={Data} />
-          // </Route>
-        }
+        <Route path="/blog" exact component={Blog} />
+        <Route path="/contact" exact component={Contact} />
         <Route path={() => "/main" || "/admin" || "/any-other-word"}>
           <Soon />
         </Route>
       </Switch>
+      <Footer />
     </Router>
   );
 }
