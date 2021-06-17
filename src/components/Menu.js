@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const Menu = () => {
   return (
     <header>
-      <div></div>;
       <Link class="logo" to="/">
         <li>.my-portfolio</li>
       </Link>
