@@ -4,7 +4,6 @@ import Portfolio from "../src/projects.json";
 import Data from "./data.json";
 import Menu from "./components/Menu";
 import Home from "./components/Home";
-import Gallery from "./components/Gallery";
 import Projects from "./components/Projects";
 import ProjectsInfo from "./components/ProjectsInfo";
 import Blog from "./components/Blog";
@@ -41,7 +40,6 @@ function App() {
           }}
         />
         <Route path="/blog" exact component={Blog} />
-        <Route path="/gallery" exact component={Gallery} />
         <Route path="/contact" exact component={Contact} />
         <Route path={() => "/main" || "/admin" || "/any-other-word"}>
           <Soon />
