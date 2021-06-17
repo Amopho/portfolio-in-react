@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Data from "../data.json";
+import { FiArrowDownCircle } from "react-icons/fi";
 
 const Home = () => {
   const [data, setData] = useState(Data);
@@ -35,7 +36,7 @@ const Home = () => {
       <div class="go-down">
         <a href="#scroll" class="arrow-button">
           <span>
-            <i class="fas fa-arrow-down"></i> IoArrowDownCircleSharp
+            <FiArrowDownCircle />
           </span>
         </a>
       </div>
