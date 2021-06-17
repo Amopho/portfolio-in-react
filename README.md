@@ -112,3 +112,9 @@ Import icons into each component.
 ```
  $ npm install react-router-dom
 ```
+
+## Scss style
+
+```
+$ npm install normalize-scss
+```
