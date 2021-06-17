@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Data from "../data.json";
+import Story from "./Story";
 import { FiArrowDownCircle } from "react-icons/fi";
 
 const Home = () => {
@@ -40,6 +41,7 @@ const Home = () => {
           </span>
         </a>
       </div>
+      <Story />
     </Router>
   );
 };
