@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { FiArrowDownCircle } from "react-icons/fi";
+import { AiFillTwitterCircle } from "react-icons/ai";
 
 const Footer = () => {
   let year = new Date().getFullYear();
@@ -13,7 +13,7 @@ const Footer = () => {
               <div class="social">
                 <a href="#">
                   <span>
-                    <FiArrowDownCircle />
+                    <AiFillTwitterCircle />
                   </span>
                 </a>
               </div>
