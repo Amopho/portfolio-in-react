@@ -1,6 +1,7 @@
 {
   "name": "portfolio-in-react",
   "version": "0.1.0",
+  "_homepage": "http://amopho.github.io/portfolio-in-react",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",

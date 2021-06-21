@@ -9,7 +9,10 @@ const Home = () => {
   console.log(process.env);
   return (
     <Router>
-      <img src={`${process.env.PUBLIC_URL}/${data[0].img}`} alt="Sushi" />
+      <img
+        src={`${process.env.PUBLIC_URL}/${data[0].img}`}
+        alt="Pink glasses"
+      />
       <div className="text">
         <h1>Hi, I am Alina!</h1>
         <p>

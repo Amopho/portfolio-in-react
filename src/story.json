@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "title": "Home university",
+    "img": "./img/story-uni.jpg"
+  },
+  {
+    "id": 1,
+    "title": "Probes flasks",
+    "img": "./img/story-probes.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Green thumb",
+    "img": "./img/story-hand.jpg"
+  }
+]

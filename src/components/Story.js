@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Projects from "../data.json";
+import Stories from "../story.json";
 
 const Story = () => {
   const [projects, setProjects] = useState(Projects);
@@ -11,7 +12,10 @@ const Story = () => {
       <section class="story-container" id="scroll">
         <div class="my-story">
           <div class="photo">
-            <img src="./img/uni.jpg" alt="university" />
+            <img
+              src={`${process.env.PUBLIC_URL}/${Stories[0].img}`}
+              alt="Home university"
+            />
           </div>
           <div class="text">
             <h3>My Story</h3>
@@ -34,7 +38,10 @@ const Story = () => {
         </div>
         <div class="my-story">
           <div class="photo">
-            <img src="./img/probes.jpg" alt="analysis" />
+            <img
+              src={`${process.env.PUBLIC_URL}/${Stories[1].img}`}
+              alt="Chemical analysis"
+            />
           </div>
           <div class="text">
             <h3>My Project</h3>
@@ -58,7 +65,10 @@ const Story = () => {
         </div>
         <div class="my-story">
           <div class="photo">
-            <img src="./img/hand.jpg" alt="eco" />
+            <img
+              src={`${process.env.PUBLIC_URL}/${Stories[2].img}`}
+              alt="Hand with soaking water"
+            />
           </div>
           <div class="text">
             <h3>My Mission</h3>
