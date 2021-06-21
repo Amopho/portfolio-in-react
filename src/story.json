@@ -2,12 +2,16 @@
   {
     "id": 0,
     "title": "Home university",
-    "img": "./img/story-uni.jpg"
+    "img": "./img/story-uni.jpg",
+    "heading": "My Story",
+    "description": "Hi there! As an animal scientist, I have written my Ph.D. thesis in this field. During my candidature, I have faced multiple challenges in researching animal physiology of nutrition, as well as the nutritional value of feeds and raw materials. I also had the privilege of teaching students of animal breeding and veterinary on nutritional requirements of domestic animals as well as methodology of conducting scietific experiments. During my academia period I started to use R as a programming language for elaborating and visualizing scientific data. In 2020 I got a fantastic opportunity to join a web development training and as a result, it enabled me to add programming skills to my researcher's toolkit. Here is to present and share what I mastered during my academic life. And I’ve been learning ever since."
   },
   {
     "id": 1,
     "title": "Probes flasks",
-    "img": "./img/story-probes.jpg"
+    "img": "./img/story-probes.jpg",
+    "heading": "My Project",
+    "description": "I'm always working on something. Sometimes, it's a personal project that lets me explore new concepts and ideas. I am an enthusiastic and driven Animal Science graduate with an PhD degree from the University of Environmental and Life Sciences in Wroclaw. I am also   attending One-Year course for Full Stack Web Developer. I am currently looking to secure Junior Front-End Developer position with React, JS and scss. I may as well work as Junior Data Scintist with R ggplot, tidyverse to utilise my strong analytical skills and reseacrhing knowledge."
   },
   {
     "id": 2,
