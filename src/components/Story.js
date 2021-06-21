@@ -68,7 +68,7 @@ const Story = () => {
             </div>
           </div>
         </div> */}
-        <Card style={{ width: "25vh" }}>
+        <Card style={{ width: "30%" }}>
           <Card.Img
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[0].img}`}
@@ -89,7 +89,7 @@ const Story = () => {
             </div>
           </Card.Body>
         </Card>
-        <Card style={{ width: "25vh" }}>
+        <Card style={{ width: "30%" }}>
           <Card.Img
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[1].img}`}
@@ -110,7 +110,7 @@ const Story = () => {
             </div>
           </Card.Body>
         </Card>
-        <Card style={{ width: "25vh" }}>
+        <Card style={{ width: "30%" }}>
           <Card.Img
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[2].img}`}
