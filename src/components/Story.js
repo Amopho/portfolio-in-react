@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Projects from "../data.json";
 import Stories from "../story.json";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 const Story = () => {
   const [projects, setProjects] = useState(Projects);
@@ -63,33 +65,26 @@ const Story = () => {
             </div>
           </div>
         </div>
-        <div class="my-story">
-          <div class="photo">
-            <img
-              src={`${process.env.PUBLIC_URL}/${Stories[2].img}`}
-              alt="Hand with soaking water"
-            />
-          </div>
-          <div class="text">
-            <h3>My Mission</h3>
-            <p>
-              It’s easy to do great things when you believe in what you do.
-              That’s why I’m committed to helping more people like you, every
-              day. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Soluta neque repudiandae dolore velit modi facilis, et tempore
-              labore veritatis quo qui eius quam sit necessitatibus quia
-              doloribus obcaecati beatae repellat. As climate change confronts
-              us with new environmental challenges, we won't avoid the need to
-              fit into the constant changes and rigors of our planet's
-              protection.
-            </p>
+        <Card style={{ width: "25vh" }}>
+          <Card.Img
+            variant="top"
+            src={`${process.env.PUBLIC_URL}/${Stories[2].img}`}
+            alt="Hand with soaking water"
+          />
+          <Card.Body>
+            <Card.Title className="text">
+              <h3>{`${process.env.PUBLIC_URL}${Stories[2].heading}`}</h3>
+            </Card.Title>
+            <Card.Text>
+              <p className="lead">{`${process.env.PUBLIC_URL}${Stories[2].description}`}</p>
+            </Card.Text>
             <div class="story-button">
-              <button>
+              <Button variant="primary">
                 <a href="./contact.html">Read More</a>
-              </button>
+              </Button>
             </div>
-          </div>
-        </div>
+          </Card.Body>
+        </Card>
       </section>
     </Router>
   );
