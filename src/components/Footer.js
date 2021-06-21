@@ -16,7 +16,7 @@ const Footer = () => {
           <ul>
             <li>
               <div class="social">
-                <a href="#">
+                <a href="https://twitter.com/AdeMoPho">
                   <span>
                     <AiFillTwitterCircle />
                   </span>
@@ -25,7 +25,7 @@ const Footer = () => {
             </li>
             <li>
               <div class="social">
-                <a href="#">
+                <a href="https://github.com/Amopho">
                   <span>
                     <AiFillGithub />
                   </span>
@@ -34,7 +34,7 @@ const Footer = () => {
             </li>
             <li>
               <div class="social">
-                <a href="#">
+                <a href="https://www.linkedin.com/in/alina-majewska-pinda-ph-d-9714a5152/">
                   <span>
                     <AiFillLinkedin />
                   </span>
@@ -43,7 +43,7 @@ const Footer = () => {
             </li>
             <li>
               <div class="social">
-                <a href="#">
+                <a href="https://www.researchgate.net/profile/Alina-Majewska-Pinda">
                   <span>
                     <FaResearchgate />
                   </span>
