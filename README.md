@@ -61,7 +61,7 @@ Adding some more scripts into **package.json**
 "scripts": {
 //...
 "predeploy": "npm run build",
-"deploy": "gh-pages -d build"
+"deploy": "gh-pages -d build",
 }
 ```
 
@@ -110,7 +110,7 @@ Import icons into each component.
 ## Installing Bootstrap to handle cards
 
 ```
- $ npm install react-router-dom
+ $ npm install react-bootstrap bootstrap@5.0.1
 ```
 
 ## Scss style
