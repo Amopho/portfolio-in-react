@@ -1,5 +1,7 @@
 # portfolio-in-react :woman_office_worker:
 
+Update 2022
+
 Let's get to know each other! A portfolio website of aspiring web developer made with :sparkling_heart: in ReactJS.
 
 ![Preview](./public/img/portfolio-glimpse.png)
