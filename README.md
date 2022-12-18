@@ -143,6 +143,9 @@ npm install --save-dev saas gh-pages
 
 ### Defeault working directory structure
 
+src-> scss-> main.scss (after npm start sass will watch the change of working dir)
+src-> styles-> main.css + main.css.map
+
 ### Mixins
 
 Mixin lets you to make groups of css declarations to resuse them throughout the site.
