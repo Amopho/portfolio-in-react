@@ -1,4 +1,4 @@
-# portfolio-in-react :woman_office_worker
+# portfolio-in-react :woman_office_worker:
 
 Update 2022
 
@@ -154,4 +154,14 @@ Mixin lets you to make groups of css declarations to resuse them throughout the 
 
 ```bash
 npm install normalize-scss
+```
+
+## Known errors
+
+### failed sass build
+
+I can’t explain what happens when we switch node environment but I know that a simple command fix the error
+
+```bash
+npm rebuild node-sass
 ```
