@@ -1,8 +1,7 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const Contact = () => {
   return (
-    <Router>
+    <div>
       <h1>Contact</h1>
       <div class="sections-container">
         <div class="section-container">
@@ -26,7 +25,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </Router>
+    </div>
   );
 };
 

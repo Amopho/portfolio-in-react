@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Data from "../data.json";
 import Story from "./Story";
+import { Link } from "react-router-dom";
+
 import { FiArrowDownCircle } from "react-icons/fi";
 
 const Home = () => {
   const [data, setData] = useState(Data);
   console.log(process.env);
   return (
-    <Router>
+    <div>
       <img
         src={`${process.env.PUBLIC_URL}/${data[0].img}`}
         alt="Pink glasses"
@@ -32,20 +33,20 @@ const Home = () => {
           easier with us humans living on her surface.
         </p>
       </div>
-      <div class="section-button">
+      <div className="section-button">
         <button>
-          <a href="./contact.html"> Let's get to know us</a>
+          <Link to="contact"> Let's get to know us</Link>
         </button>
       </div>
-      <div class="go-down">
-        <a href="#scroll" class="arrow-button">
+      <div className="go-down">
+        <a href="#scroll" className="arrow-button">
           <span>
             <FiArrowDownCircle />
           </span>
         </a>
       </div>
       <Story />
-    </Router>
+    </div>
   );
 };
 

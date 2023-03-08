@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 const Menu = () => {
   return (
     <header>
-      <Link class="logo" to="/">
+      <Link className="logo" to="/">
         <li>.my-portfolio</li>
       </Link>
       <nav>
-        <div class="menu">
-          <ul class="menu-list">
+        <div className="menu">
+          <ul className="menu-list">
             <Link to="/">
               <li>Home</li>
             </Link>
@@ -22,8 +22,8 @@ const Menu = () => {
           </ul>
         </div>
       </nav>
-      <div class="contact-btn">
-        <div class="black-link">
+      <div className="contact-btn">
+        <div className="black-link">
           <Link to="/contact">
             <li>Contact</li>
           </Link>

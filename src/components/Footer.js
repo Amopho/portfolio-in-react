@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   AiFillTwitterCircle,
   AiFillGithub,
@@ -10,7 +9,7 @@ import { FaResearchgate } from "react-icons/fa";
 const Footer = () => {
   let year = new Date().getFullYear();
   return (
-    <Router>
+    <div>
       <div href="#footer" class="footer">
         <div class="social-links">
           <ul>
@@ -56,7 +55,7 @@ const Footer = () => {
           <h4>Copyrights ®{year} </h4>
         </div>
       </div>
-    </Router>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Projects from "../data.json";
 import Stories from "../story.json";
 import Image from "react-bootstrap/Image";
@@ -10,7 +9,7 @@ const Story = () => {
   const [projects, setProjects] = useState(Projects);
   console.log(process.env);
   return (
-    <Router>
+    <div>
       {/* <!-- About me part --> */}
       <section class="story-container" id="scroll">
         <Card style={{ width: "30%" }}>
@@ -18,7 +17,7 @@ const Story = () => {
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[0].img}`}
             alt="Hand with soaking water"
-            fluid
+            fluid= {true}
           />
           <Card.Body>
             <Card.Title className="text">
@@ -39,7 +38,7 @@ const Story = () => {
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[1].img}`}
             alt="Hand with soaking water"
-            fluid
+            fluid= {true}
           />
           <Card.Body>
             <Card.Title className="text">
@@ -60,7 +59,7 @@ const Story = () => {
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[2].img}`}
             alt="Hand with soaking water"
-            fluid
+            fluid= {true}
           />
           <Card.Body>
             <Card.Title className="text">
@@ -77,7 +76,7 @@ const Story = () => {
           </Card.Body>
         </Card>
       </section>
-    </Router>
+    </div>
   );
 };
 

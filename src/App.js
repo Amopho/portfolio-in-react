@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+
 import Portfolio from "../src/projects.json";
 import Data from "./data.json";
 import Menu from "./components/Menu";
@@ -13,25 +14,11 @@ import Soon from "./components/Soon";
 
 function App() {
   return (
-    // <Router>
-    //
-    //   <Menu class="header" />
-    //   <Home />
-    //   <Projects />
-    //   <Footer />
-    // </Router>
-    <Router>
-      <Menu />
-      <Switch>
-        {
-          // <Route path={process.env.PUBLIC_URL + "/"} exact component={Home} />
-        }
-        <Route path="/" exact component={Home} />
-        <Route
-          path="/projects"
-          exact
-          component={() => <Projects data={Portfolio} />}
-        />
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<Menu />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={() => <Projects data={Portfolio} />} />
         <Route
           path="/projects/:id"
           component={({ match }) => {
@@ -39,14 +26,14 @@ function App() {
             return <ProjectsInfo data={Portfolio} id={match.params.id} />;
           }}
         />
-        <Route path="/blog" exact component={Blog} />
-        <Route path="/contact" exact component={Contact} />
+        <Route path="/blog" exact component={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path={() => "/main" || "/admin" || "/any-other-word"}>
-          <Soon />
+          <Route path="/" element={<Soon />} />
         </Route>
-      </Switch>
-      <Footer />
-    </Router>
+        <Route path="/" element={<Footer />} />
+      </Routes>
+    </div>
   );
 }
 

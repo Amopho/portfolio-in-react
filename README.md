@@ -105,8 +105,15 @@ what makes React so special
 
 - Components
 - State
+- SPA
 
 ## files in React
+
+### App.js
+
+All the code you write in your App component which acts as the root component gets rendered to this HTML file. This means that there is only one HTML file where your code will be rendered to -Single Page App.
+
+React Router – like the name implies – helps you route to/navigate to and render your new component in the index.html file. So as a single page application, when you navigate to a new component using React Router, the index.html will be rewritten with the component's logic.
 
 ### manifest.json
 
@@ -312,6 +319,25 @@ Import icons into each component.
  npm install react-router-dom
 ```
 
+To make React Router available anywhere in your app change index.js.
+
+All we do is to replace React.StrictMode with BrowserRouter which is imported from react-router-dom.  Now the router features are accessible from any part of your app.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import { BrowserRouter } from "react-router-dom";
+
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
+);
+```
+
 ## Installing Bootstrap to handle cards
 
 ```bash
@@ -326,6 +352,12 @@ I can’t explain what happens when we switch node environment but I know that a
 
 ```bash
 npm rebuild node-sass
+```
+
+### react-router-dom update
+
+```bash
+npm install --save react-router-dom
 ```
 
 ## More reading
