@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 
 import Portfolio from "../src/projects.json";
 import Data from "./data.json";
@@ -12,27 +12,24 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Soon from "./components/Soon";
 
+function ProjectDetails() {
+  const { id } = useParams();
+  return <ProjectsInfo data={Portfolio} id={id} />;
+}
+
 function App() {
   return (
     <div className="App">
+      <Menu />
       <Routes>
-        <Route path="/" element={<Menu />} />
         <Route path="/" element={<Home />} />
-        <Route path="/projects" element={() => <Projects data={Portfolio} />} />
-        <Route
-          path="/projects/:id"
-          component={({ match }) => {
-            console.log(match);
-            return <ProjectsInfo data={Portfolio} id={match.params.id} />;
-          }}
-        />
-        <Route path="/blog" exact component={<Blog />} />
+        <Route path="/projects" element={<Projects data={Portfolio} />} />
+        <Route path="/projects/:id" element={<ProjectDetails />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path={() => "/main" || "/admin" || "/any-other-word"}>
-          <Route path="/" element={<Soon />} />
-        </Route>
-        <Route path="/" element={<Footer />} />
+        <Route path="/soon" element={<Soon />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
