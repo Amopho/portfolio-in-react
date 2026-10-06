@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ProjectsInfo = (props) => {
-  const selectedItem = props.data.filter((item) => item.id == props.id);
-  console.log(selectedItem);
+  const selectedItem = props.data.filter(
+    (item) => String(item.id) === String(props.id)
+  );
 
   const moreInfo = selectedItem.length
     ? selectedItem.map((item) => {
-        const { id, productName, icon, image, inventory, price } = item;
+        const { id, productName, image } = item;
         return (
           <li key={id}>
             <h2>{productName} </h2>
@@ -21,7 +22,7 @@ const ProjectsInfo = (props) => {
     <React.Fragment>
       <h3>Product farther infos</h3>
       <ul>{moreInfo}</ul>
-      <Link to="/product" style={{ textDecoration: "none" }}>
+      <Link to="/projects" style={{ textDecoration: "none" }}>
         Back
       </Link>
     </React.Fragment>
