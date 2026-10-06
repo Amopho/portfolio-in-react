@@ -3,7 +3,7 @@
     "id": 0,
     "productName": "apple",
     "icon": "🍏",
-    "image": "./app-gallery.png",
+    "image": "./img//app-gallery.png",
     "price": 3,
     "inventory": 10
   },
@@ -11,7 +11,7 @@
     "id": 1,
     "productName": "watermelon",
     "icon": "🍉",
-    "image": "./app-menu.png",
+    "image": "./img//app-menu.png",
     "price": 90,
     "inventory": 3
   },
@@ -19,7 +19,7 @@
     "id": 2,
     "productName": "pizza",
     "icon": "🍕",
-    "image": "./app-web.png",
+    "image": "./img//app-web.png",
     "price": 10,
     "inventory": 100
   },

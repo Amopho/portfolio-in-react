@@ -11,24 +11,24 @@ const Story = () => {
   return (
     <div>
       {/* <!-- About me part --> */}
-      <section class="story-container" id="scroll">
+      <section className="story-container" id="scroll">
         <Card style={{ width: "30%" }}>
           <Card.Img
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[0].img}`}
             alt="Hand with soaking water"
-            fluid= {true}
+            className="img-fluid"
           />
           <Card.Body>
             <Card.Title className="text">
               <h3>{`${process.env.PUBLIC_URL}${Stories[0].heading}`}</h3>
             </Card.Title>
-            <Card.Text>
+            <Card.Text as="div">
               <p className="lead">{`${process.env.PUBLIC_URL}${Stories[0].description}`}</p>
             </Card.Text>
-            {/* <div class="story-button"> */}
-            <Button variant="primary">
-              <a href="./contact.html">Let's get to know us</a>
+            {/* <div className="story-button"> */}
+            <Button as="a" variant="primary" href="./contact.html">
+              Let's get to know us
             </Button>
             {/* </div> */}
           </Card.Body>
@@ -38,18 +38,18 @@ const Story = () => {
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[1].img}`}
             alt="Hand with soaking water"
-            fluid= {true}
+            className="img-fluid"
           />
           <Card.Body>
             <Card.Title className="text">
               <h3>{`${process.env.PUBLIC_URL}${Stories[1].heading}`}</h3>
             </Card.Title>
-            <Card.Text>
+            <Card.Text as="div">
               <p className="lead">{`${process.env.PUBLIC_URL}${Stories[1].description}`}</p>
             </Card.Text>
-            <div class="story-button">
-              <Button variant="primary">
-                <a href="./contact.html">Let's get to know us</a>
+            <div className="story-button">
+              <Button as="a" variant="primary" href="./contact.html">
+                Let's get to know us
               </Button>
             </div>
           </Card.Body>
@@ -59,18 +59,18 @@ const Story = () => {
             variant="top"
             src={`${process.env.PUBLIC_URL}/${Stories[2].img}`}
             alt="Hand with soaking water"
-            fluid= {true}
+            className="img-fluid"
           />
           <Card.Body>
             <Card.Title className="text">
               <h3>{`${process.env.PUBLIC_URL}${Stories[2].heading}`}</h3>
             </Card.Title>
-            <Card.Text>
+            <Card.Text as="div">
               <p className="lead">{`${process.env.PUBLIC_URL}${Stories[2].description}`}</p>
             </Card.Text>
-            <div class="story-button">
-              <Button variant="primary">
-                <a href="./contact.html">Read More</a>
+            <div className="story-button">
+              <Button as="a" variant="primary" href="./contact.html">
+                Read More
               </Button>
             </div>
           </Card.Body>

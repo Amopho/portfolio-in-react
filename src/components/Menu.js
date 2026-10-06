@@ -5,28 +5,26 @@ const Menu = () => {
   return (
     <header>
       <Link className="logo" to="/">
-        <li>.my-portfolio</li>
+        .my-portfolio
       </Link>
       <nav>
         <div className="menu">
           <ul className="menu-list">
-            <Link to="/">
-              <li>Home</li>
-            </Link>
-            <Link to="/projects">
-              <li>Projects</li>
-            </Link>
-            <Link to="/blog">
-              <li>Blog</li>
-            </Link>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/projects">Projects</Link>
+            </li>
+            <li>
+              <Link to="/blog">Blog</Link>
+            </li>
           </ul>
         </div>
       </nav>
       <div className="contact-btn">
         <div className="black-link">
-          <Link to="/contact">
-            <li>Contact</li>
-          </Link>
+          <Link to="/contact">Contact</Link>
         </div>
       </div>
     </header>

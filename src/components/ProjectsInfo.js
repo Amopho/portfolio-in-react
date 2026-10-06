@@ -11,7 +11,7 @@ const ProjectsInfo = (props) => {
         return (
           <li key={id}>
             <h2>{productName} </h2>
-            <img>{image}</img>
+            {image && <img src={image} alt={productName} />}
           </li>
         );
       })
