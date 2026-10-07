@@ -12,7 +12,12 @@ const ProjectsInfo = (props) => {
         return (
           <li key={id}>
             <h2>{productName} </h2>
-            {image && <img src={image} alt={productName} />}
+            {image && (
+              <img
+                src={`${process.env.PUBLIC_URL || ""}/${image}`}
+                alt={productName}
+              />
+            )}
           </li>
         );
       })
