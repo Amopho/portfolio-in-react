@@ -5,11 +5,10 @@ import { Link } from "react-router-dom";
 import { FiArrowDownCircle } from "react-icons/fi";
 
 const Home = () => {
-  console.log(process.env);
   return (
     <div>
       <img
-        src={`${process.env.PUBLIC_URL}/${Data[0].img}`}
+        src={`${process.env.PUBLIC_URL || ""}/${Data[0].img}`}
         alt="Pink glasses"
       />
       <div className="text">

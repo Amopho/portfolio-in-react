@@ -6,7 +6,10 @@ const Contact = () => {
       <div className="sections-container">
         <div className="section-container">
           <div className="hi-img">
-            <img src="./img/pink-glasses.jpg" alt="black glasses" />
+            <img
+              src={`${process.env.PUBLIC_URL || ""}/img/pink-glasses.jpg`}
+              alt="Pink glasses"
+            />
           </div>
           <div className="section-text">
             <div className="text">
