@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Data from "../data.json";
 import Story from "./Story";
 import { Link } from "react-router-dom";
@@ -6,12 +5,11 @@ import { Link } from "react-router-dom";
 import { FiArrowDownCircle } from "react-icons/fi";
 
 const Home = () => {
-  const [data, setData] = useState(Data);
   console.log(process.env);
   return (
     <div>
       <img
-        src={`${process.env.PUBLIC_URL}/${data[0].img}`}
+        src={`${process.env.PUBLIC_URL}/${Data[0].img}`}
         alt="Pink glasses"
       />
       <div className="text">

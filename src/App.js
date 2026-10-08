@@ -1,8 +1,6 @@
-import React from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 
 import Portfolio from "../src/projects.json";
-import Data from "./data.json";
 import Menu from "./components/Menu";
 import Home from "./components/Home";
 import Projects from "./components/Projects";
