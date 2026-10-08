@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 const Contact = () => {
   return (
     <div>
@@ -18,7 +18,7 @@ const Contact = () => {
               <h1>I would like to hear from you.</h1>
             </div>
             <div className="section-button">
-              <a href="./contact"> Let's get to know us</a>
+              <Link to="/contact"> Let's get to know us</Link>
             </div>
           </div>
         </div>

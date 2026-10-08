@@ -21,7 +21,7 @@ const ProjectsInfo = (props) => {
           </li>
         );
       })
-    : "Sorry, something went wrong";
+    : <li>Sorry, something went wrong</li>;
 
   return (
     <React.Fragment>

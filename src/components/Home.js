@@ -34,7 +34,7 @@ const Home = () => {
         </p>
       </div>
       <div className="section-button">
-        <Link to="contact"> Let's get to know us</Link>
+        <Link to="/contact"> Let's get to know us</Link>
       </div>
       <div className="go-down">
         <a href="#scroll" className="arrow-button">

@@ -4,6 +4,7 @@ import Stories from "../story.json";
 import Image from "react-bootstrap/Image";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 const Story = () => {
   const [projects, setProjects] = useState(Projects);
@@ -27,7 +28,7 @@ const Story = () => {
               <p className="lead">{`${process.env.PUBLIC_URL}${Stories[0].description}`}</p>
             </Card.Text>
             {/* <div className="story-button"> */}
-            <Button as="a" variant="primary" href="./contact.html">
+            <Button as={Link} variant="primary" to="/contact">
               Let's get to know us
             </Button>
             {/* </div> */}
@@ -48,7 +49,7 @@ const Story = () => {
               <p className="lead">{`${process.env.PUBLIC_URL}${Stories[1].description}`}</p>
             </Card.Text>
             <div className="story-button">
-              <Button as="a" variant="primary" href="./contact.html">
+              <Button as={Link} variant="primary" to="/contact">
                 Let's get to know us
               </Button>
             </div>
@@ -69,7 +70,7 @@ const Story = () => {
               <p className="lead">{`${process.env.PUBLIC_URL}${Stories[2].description}`}</p>
             </Card.Text>
             <div className="story-button">
-              <Button as="a" variant="primary" href="./contact.html">
+              <Button as={Link} variant="primary" to="/blog">
                 Read More
               </Button>
             </div>
