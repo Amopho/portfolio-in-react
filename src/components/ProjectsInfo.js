@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const ProjectsInfo = (props) => {
   const selectedItem = props.data.filter(
@@ -27,9 +26,9 @@ const ProjectsInfo = (props) => {
     <React.Fragment>
       <h3>Product farther infos</h3>
       <ul>{moreInfo}</ul>
-      <Link to="/projects" style={{ textDecoration: "none" }}>
+      <a href={`${process.env.PUBLIC_URL || ""}/#projects`} style={{ textDecoration: "none" }}>
         Back
-      </Link>
+      </a>
     </React.Fragment>
   );
 };

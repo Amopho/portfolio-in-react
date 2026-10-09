@@ -1,29 +1,27 @@
-import { Link } from "react-router-dom";
-
 const Menu = () => {
   return (
     <header>
-      <Link className="logo" to="/">
+      <a className="logo" href="#home">
         .my-portfolio
-      </Link>
+      </a>
       <nav>
         <div className="menu">
           <ul className="menu-list">
             <li>
-              <Link to="/">Home</Link>
+              <a href="#home">Home</a>
             </li>
             <li>
-              <Link to="/projects">Projects</Link>
+              <a href="#projects">Projects</a>
             </li>
             <li>
-              <Link to="/blog">Blog</Link>
+              <a href="#blog">Blog</a>
             </li>
           </ul>
         </div>
       </nav>
       <div className="contact-btn">
         <div className="black-link">
-          <Link to="/contact">Contact</Link>
+          <a href="#contact">Contact</a>
         </div>
       </div>
     </header>

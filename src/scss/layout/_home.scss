@@ -86,6 +86,14 @@ main {
   justify-content: space-evenly;
 }
 
+main.portfolio-content {
+  display: block;
+}
+
+.portfolio-content section[id] {
+  scroll-margin-top: 8rem;
+}
+
 header div {
   display: flex;
   flex-wrap: wrap;

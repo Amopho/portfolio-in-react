@@ -1,7 +1,6 @@
 import Stories from "../story.json";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 
 const Story = () => {
   return (
@@ -23,7 +22,7 @@ const Story = () => {
               <p className="lead">{Stories[0].description}</p>
             </Card.Text>
             {/* <div className="story-button"> */}
-            <Button as={Link} variant="primary" to="/contact">
+            <Button as="a" variant="primary" href="#contact">
               Let's get to know us
             </Button>
             {/* </div> */}
@@ -44,7 +43,7 @@ const Story = () => {
               <p className="lead">{Stories[1].description}</p>
             </Card.Text>
             <div className="story-button">
-              <Button as={Link} variant="primary" to="/contact">
+              <Button as="a" variant="primary" href="#contact">
                 Let's get to know us
               </Button>
             </div>
@@ -65,7 +64,7 @@ const Story = () => {
               <p className="lead">{Stories[2].description}</p>
             </Card.Text>
             <div className="story-button">
-              <Button as={Link} variant="primary" to="/blog">
+              <Button as="a" variant="primary" href="#blog">
                 Read More
               </Button>
             </div>

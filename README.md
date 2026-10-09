@@ -1,12 +1,36 @@
-# portfolio-in-react :woman_office_worker: developer portfolio
+# portfolio-in-react 👩‍💼 developer portfolio
 
-:arrows_counterclockwise: Update 2022
+🔄 Update 2022
 
-Let's get to know each other! A portfolio website of junior web developer made with :sparkling_heart: in ReactJS. With a blog feature. See you there!
+Let's get to know each other! A portfolio website of junior web developer made with 💖 in ReactJS. With a blog feature. See you there!
 
-This project was deployed with :heart: on GitHub.
+This project was deployed with ❤️ on GitHub.
 
 ![Preview](./public/img/portfolio-glimpse.png)
+
+## PFE-10 architecture decision
+
+The primary portfolio is one root page with persistent navigation and footer.
+Home (including Story), Projects, Blog, and Contact retain their existing copy
+and images and appear as sections. Internal navigation uses native fragments:
+`#home`, `#projects`, `#blog`, and `#contact`. There is no client-side router or
+additional state/service layer in the primary experience.
+
+On GitHub Pages, `/portfolio-in-react/#blog` loads the physical root page;
+the fragment is handled in the browser and is not sent to the server. Direct loads and refreshes therefore work without an SPA fallback. An unknown fragment
+still displays the complete root portfolio, without a separate error screen.
+
+The legacy `/projects/:id` route is retired, along with the other standalone
+section URLs. Existing nested URLs return the static host's 404; compatibility
+redirects and a custom 404 workaround are intentionally not introduced.
+`ProjectsInfo`, the project data, and `Soon` remain available for future reuse,
+but are not exposed as routes. Projects and Blog retain their placeholder content.
+
+Substantial case studies (for example, Elowen and Constellation) can be added
+when needed. Semantic `/projects/:slug` URLs would require generated physical
+pages or hosting with supported route fallbacks before they can be introduced.
+
+Run `npm test -- --watchAll=false` for the architecture checks and `npm run build` for the production artifact. Preview `build/` mounted under `/portfolio-in-react/` on a static server without fallback support. Verify the root page and fragment URLs, asset responses, and expected 404s for retired nested URLs before publishing.
 
 ## Console work
 
