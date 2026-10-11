@@ -30,25 +30,57 @@ Substantial case studies (for example, Elowen and Constellation) can be added
 when needed. Semantic `/projects/:slug` URLs would require generated physical
 pages or hosting with supported route fallbacks before they can be introduced.
 
-Run `npm test -- --watchAll=false` for the architecture checks and `npm run build` for the production artifact. Preview `build/` mounted under `/portfolio-in-react/` on a static server without fallback support. Verify the root page and fragment URLs, asset responses, and expected 404s for retired nested URLs before publishing.
+Run `npm test` for the architecture checks and `npm run build` for the production artifact. Preview `dist/` mounted under `/portfolio-in-react/` on a static server without fallback support. Verify the root page and fragment URLs, asset responses, and expected 404s for retired nested URLs before publishing.
 
-## Console work
+## Development and verification
 
-### clone repository
+The build platform is Vite with the React plugin. React 17 and the existing
+components, Sass, Bootstrap, and public images are retained. Node 20.19+ or
+22.12+ is required; the package engine range lists the supported versions.
 
-git clone <https://github.com/Amopho/portfolio-in-react>
+```bash
+npm ci
+npm run dev
+```
 
-### npm install
+Open `http://localhost:5173/portfolio-in-react/`. `npm start` is an alias for
+the same development server. The repository-root `index.html` loads
+`src/index.jsx`. `vite.config.mjs` sets the repository base path for development
+and production. Asset references use `import.meta.env.BASE_URL`; files in
+`public/img` are copied unchanged to `dist/img`.
 
-npm install
+```bash
+npm test          # Run the saved tests once with Vitest and jsdom
+npm run test:watch
+npm run build     # Generate dist/
+npm run preview   # Preview the production artifact, normally on port 4173
+```
 
-### npm start
+Tests stay beside their code in `src/App.test.jsx`. They cover the persistent
+layout, section navigation, preserved story content, fragment entry points,
+and the retained project detail component. These DOM tests do not verify visual
+layout or scrolling. CRA/Jest flags such as `--watchAll` and `--watchman` are no
+longer needed.
 
-Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Production and GitHub Pages
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The deployment base remains `/portfolio-in-react/`. Use section URLs such as
+`/portfolio-in-react/#projects` for direct loading and refreshes.
+
+Vite preview provides a convenient production check but includes SPA fallback
+behavior. For a GitHub Pages parity check, mount `dist/` as `portfolio-in-react/`
+on a plain static server. The root and fragment URLs must load; retired nested
+URLs such as `/portfolio-in-react/projects/0` should return 404.
+
+The existing explicit publishing command is `npm run deploy`. Its predeploy
+step builds the site, and `gh-pages` publishes `dist/`. Running a build or preview
+does not publish anything.
+
+## Historical learning notes
+
+The notes below document the original CRA application and learning exercises.
+They are retained for reference, not as current setup instructions. In particular,
+CRA, BrowserRouter, node-sass, and the old build directory instructions are obsolete.
 
 ## GitHub Workflow
 

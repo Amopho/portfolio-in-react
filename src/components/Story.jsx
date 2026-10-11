@@ -10,7 +10,7 @@ const Story = () => {
         <Card style={{ width: "30%" }}>
           <Card.Img
             variant="top"
-            src={`${process.env.PUBLIC_URL || ""}/${Stories[0].img}`}
+            src={`${import.meta.env.BASE_URL}${Stories[0].img}`}
             alt="Hand with soaking water"
             className="img-fluid"
           />
@@ -31,7 +31,7 @@ const Story = () => {
         <Card style={{ width: "30%" }}>
           <Card.Img
             variant="top"
-            src={`${process.env.PUBLIC_URL || ""}/${Stories[1].img}`}
+            src={`${import.meta.env.BASE_URL}${Stories[1].img}`}
             alt="Hand with soaking water"
             className="img-fluid"
           />
@@ -52,7 +52,7 @@ const Story = () => {
         <Card style={{ width: "30%" }}>
           <Card.Img
             variant="top"
-            src={`${process.env.PUBLIC_URL || ""}/${Stories[2].img}`}
+            src={`${import.meta.env.BASE_URL}${Stories[2].img}`}
             alt="Hand with soaking water"
             className="img-fluid"
           />

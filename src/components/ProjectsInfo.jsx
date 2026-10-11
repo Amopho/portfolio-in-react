@@ -13,7 +13,7 @@ const ProjectsInfo = (props) => {
             <h2>{productName} </h2>
             {image && (
               <img
-                src={`${process.env.PUBLIC_URL || ""}/${image}`}
+                src={`${import.meta.env.BASE_URL}${image}`}
                 alt={productName}
               />
             )}
@@ -26,7 +26,7 @@ const ProjectsInfo = (props) => {
     <React.Fragment>
       <h3>Product farther infos</h3>
       <ul>{moreInfo}</ul>
-      <a href={`${process.env.PUBLIC_URL || ""}/#projects`} style={{ textDecoration: "none" }}>
+      <a href={`${import.meta.env.BASE_URL}#projects`} style={{ textDecoration: "none" }}>
         Back
       </a>
     </React.Fragment>

@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div>
       <img
-        src={`${process.env.PUBLIC_URL || ""}/${Data[0].img}`}
+        src={`${import.meta.env.BASE_URL}${Data[0].img}`}
         alt="Pink glasses"
       />
       <div className="text">

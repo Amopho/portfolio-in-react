@@ -6,7 +6,7 @@ const Contact = () => {
         <div className="section-container">
           <div className="hi-img">
             <img
-              src={`${process.env.PUBLIC_URL || ""}/img/pink-glasses.jpg`}
+              src={`${import.meta.env.BASE_URL}img/pink-glasses.jpg`}
               alt="Pink glasses"
             />
           </div>

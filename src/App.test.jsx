@@ -1,8 +1,14 @@
-import { render, screen, within } from "@testing-library/react";
+import { afterEach, expect, test } from "vitest";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import App from "./App";
 import ProjectsInfo from "./components/ProjectsInfo";
 import projects from "./projects.json";
 import stories from "./story.json";
+
+afterEach(() => {
+  cleanup();
+  window.history.replaceState({}, "", "/");
+});
 
 test("renders the primary sections together in a persistent layout", () => {
   const { container } = render(<App />);
@@ -40,7 +46,7 @@ test("preserves story copy and image choices", () => {
     expect(Array.from(container.querySelectorAll("#scroll p"), (paragraph) => paragraph.textContent))
       .toContain(story.description);
     expect(Array.from(container.querySelectorAll("img"), (image) => image.getAttribute("src")))
-      .toContain(`${process.env.PUBLIC_URL || ""}/${story.img}`);
+      .toContain(`${import.meta.env.BASE_URL}${story.img}`);
   });
 });
 
@@ -61,8 +67,8 @@ test("retains project detail rendering without requiring a router", () => {
   const { container } = render(<ProjectsInfo data={projects} id="0" />);
   expect(screen.getByRole("heading", { name: projects[0].productName })).toBeTruthy();
   expect(screen.getByRole("img").getAttribute("src"))
-    .toBe(`${process.env.PUBLIC_URL || ""}/${projects[0].image}`);
+    .toBe(`${import.meta.env.BASE_URL}${projects[0].image}`);
   expect(screen.getByRole("link", { name: "Back" }).getAttribute("href"))
-    .toBe(`${process.env.PUBLIC_URL || ""}/#projects`);
+    .toBe(`${import.meta.env.BASE_URL}#projects`);
   expect(container.querySelector("img").children).toHaveLength(0);
 });
