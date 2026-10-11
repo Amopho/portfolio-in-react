@@ -6,10 +6,18 @@ import { FiArrowDownCircle } from "react-icons/fi";
 const Home = () => {
   return (
     <div>
-      <img
-        src={`${import.meta.env.BASE_URL}${Data[0].img}`}
-        alt="Pink glasses"
-      />
+      <div className="home-images">
+        <img
+          className="home-image"
+          src={`${import.meta.env.BASE_URL}img/Nice Tense.png`}
+          alt="HOWOOO — Know-how nutrition, green paw print"
+        />
+        <img
+          className="home-image"
+          src={`${import.meta.env.BASE_URL}${Data[0].img}`}
+          alt="Pink glasses"
+        />
+      </div>
       <div className="text">
         <h1>Hi, I am Alina!</h1>
         <p>

@@ -7,7 +7,7 @@ const Story = () => {
     <div>
       {/* <!-- About me part --> */}
       <section className="story-container" id="scroll">
-        <Card style={{ width: "30%" }}>
+        <Card>
           <Card.Img
             variant="top"
             src={`${import.meta.env.BASE_URL}${Stories[0].img}`}
@@ -28,7 +28,7 @@ const Story = () => {
             {/* </div> */}
           </Card.Body>
         </Card>
-        <Card style={{ width: "30%" }}>
+        <Card>
           <Card.Img
             variant="top"
             src={`${import.meta.env.BASE_URL}${Stories[1].img}`}
@@ -49,7 +49,7 @@ const Story = () => {
             </div>
           </Card.Body>
         </Card>
-        <Card style={{ width: "30%" }}>
+        <Card>
           <Card.Img
             variant="top"
             src={`${import.meta.env.BASE_URL}${Stories[2].img}`}

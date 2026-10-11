@@ -1,6 +1,6 @@
 const Menu = () => {
   return (
-    <header>
+    <header className="portfolio-header">
       <a className="logo" href="#home">
         .my-portfolio
       </a>

@@ -1,77 +1,55 @@
-header {
-  position: -webkit-sticky;
+.portfolio-header {
   position: sticky;
   top: 0;
-  background-color: #fff;
-}
-
-.header {
-  width: 100vw;
-  height: 10vh;
+  z-index: 1020;
+  width: 100%;
+  min-height: 5rem;
+  padding: 0.75rem 1.5rem;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background-color: #fff;
+  font-family: "Catamaran";
 }
 
-.mobile-menu {
-  display: none;
-}
-
-header div {
+.portfolio-header .menu-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  flex-direction: row;
-  align-items: center;
-  font-family: "Catamaran";
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-header nav ul li {
-  display: inline-block;
-  padding-right: 2rem;
-}
-
-header ul li {
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
   list-style: none;
   letter-spacing: 0.07rem;
-  margin-bottom: 0.5rem;
 }
 
-header a {
+.portfolio-header a {
+  display: inline-block;
   text-decoration: none;
 }
 
-.contact-btn {
-  margin-left: 3rem;
-  padding: 0 2rem;
+.portfolio-header .contact-btn {
+  margin: 0;
+  padding: 0;
 }
 
-.black-link a {
-  margin: 10px;
-}
-
-.contact-btn a {
-  background-color: rgb(0, 0, 0) !important;
-  border-radius: 8px !important;
+.portfolio-header .contact-btn a {
+  color: #fff;
+  background-color: #000;
+  border-radius: 8px;
   padding: 0.5rem 1rem;
   font-size: 18px;
-  user-select: none;
-  cursor: pointer;
-  max-width: 100%;
-  text-decoration: none;
-  background: none;
 }
 
-Link,
-Link:visited,
-Link:hover,
-Link:active {
-  color: inherit;
-}
+@media (max-width: 600px) {
+  .portfolio-header nav {
+    order: 3;
+    width: 100%;
+  }
 
-.contact-btn a {
-  color: #fff;
+  .portfolio-header .menu-list {
+    justify-content: center;
+    gap: 1rem;
+  }
 }
