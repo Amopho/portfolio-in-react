@@ -57,9 +57,11 @@ npm run preview   # Preview the production artifact, normally on port 4173
 ```
 
 Tests stay beside their code in `src/App.test.jsx`. They cover the persistent
-layout, section navigation, preserved story content, fragment entry points,
-and the retained project detail component. These DOM tests do not verify visual
-layout or scrolling. CRA/Jest flags such as `--watchAll` and `--watchman` are no
+layout, section navigation, story-card structure and image URLs, fragment entry points,
+and the retained project detail component. PTST-4 technical assertions use stable
+section IDs, roles, and URL targets rather than legacy headlines or CTA labels.
+PFE-12 content/style snapshots remain separate in `src/landingStyles.test.jsx`.
+These DOM tests do not verify visual layout or scrolling. CRA/Jest flags such as `--watchAll` and `--watchman` are no
 longer needed.
 
 ### Sass ownership and regression checks (PFE-12)

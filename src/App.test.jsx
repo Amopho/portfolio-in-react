@@ -2,8 +2,11 @@ import { afterEach, expect, test } from "vitest";
 import { cleanup, render, screen, within } from "@testing-library/react";
 import App from "./App";
 import ProjectsInfo from "./components/ProjectsInfo";
-import projects from "./projects.json";
 import stories from "./story.json";
+
+// PTST-4 technical checks use structure and URLs, independent of displayed copy.
+// PFE-12 content/style preservation belongs to LandingStyles.test.jsx snapshots.
+const primarySectionIds = ["home", "projects", "blog", "contact"];
 
 afterEach(() => {
   cleanup();
@@ -16,12 +19,13 @@ test("renders the primary sections together in a persistent layout", () => {
   expect(container.querySelectorAll("header")).toHaveLength(1);
   expect(container.querySelectorAll(".footer")).toHaveLength(1);
   const main = screen.getByRole("main");
-  expect(Array.from(main.children, (section) => section.id)).toEqual([
-    "home", "projects", "blog", "contact",
-  ]);
-  expect(within(main).getByRole("heading", { name: "Hi, I am Alina!" })).toBeTruthy();
-  expect(within(main).getByRole("heading", { name: "Blog" })).toBeTruthy();
-  expect(within(main).getByRole("heading", { name: "Contact" })).toBeTruthy();
+  expect(Array.from(main.children, (section) => section.id)).toEqual(primarySectionIds);
+  primarySectionIds.forEach((id) => {
+    const section = main.querySelector(`section#${id}`);
+    expect(section).not.toBeNull();
+    expect(section.children.length).toBeGreaterThan(0);
+  });
+  expect(within(container.querySelector("header")).getByRole("navigation")).toBeTruthy();
 });
 
 test("internal navigation uses existing sections rather than nested URLs", () => {
@@ -35,18 +39,25 @@ test("internal navigation uses existing sections rather than nested URLs", () =>
     expect(href.startsWith("#")).toBe(true);
     expect(container.querySelector(href)).not.toBeNull();
   });
-  expect(screen.getByRole("link", { name: "Read More" }).getAttribute("href")).toBe("#blog");
+  const headerTargets = Array.from(container.querySelectorAll("header a"),
+    (link) => link.getAttribute("href"));
+  expect(new Set(headerTargets)).toEqual(new Set(primarySectionIds.map((id) => `#${id}`)));
+  const storyTargets = within(container.querySelector("#scroll")).getAllByRole("link")
+    .map((link) => link.getAttribute("href"));
+  expect(storyTargets).toEqual(["#contact", "#contact", "#blog"]);
   expect(container.querySelector("a a, a button, button a, button button")).toBeNull();
 });
 
-test("preserves story copy and image choices", () => {
+test("renders story card structure and base-prefixed images", () => {
   const { container } = render(<App />);
-  stories.forEach((story) => {
-    expect(screen.getByRole("heading", { name: story.heading })).toBeTruthy();
-    expect(Array.from(container.querySelectorAll("#scroll p"), (paragraph) => paragraph.textContent))
-      .toContain(story.description);
-    expect(Array.from(container.querySelectorAll("img"), (image) => image.getAttribute("src")))
-      .toContain(`${import.meta.env.BASE_URL}${story.img}`);
+  const cards = container.querySelectorAll("#scroll .card");
+  expect(cards).toHaveLength(stories.length);
+  cards.forEach((card, index) => {
+    expect(within(card).getByRole("heading")).toBeTruthy();
+    expect(card.querySelector(".card-body")).not.toBeNull();
+    expect(within(card).getByRole("link")).toBeTruthy();
+    expect(within(card).getByRole("img").getAttribute("src"))
+      .toBe(`${import.meta.env.BASE_URL}${stories[index].img}`);
   });
 });
 
@@ -55,20 +66,21 @@ test.each(["#projects", "#blog", "#contact", "#unknown"])(
     window.history.replaceState({}, "", `/portfolio-in-react/${fragment}`);
     render(<App />);
     expect(screen.getByRole("main")).toBeTruthy();
-    expect(screen.getByRole("region", { name: "Home" })).toBeTruthy();
-    expect(screen.getByRole("region", { name: "Projects" })).toBeTruthy();
-    expect(screen.getByRole("region", { name: "Blog" })).toBeTruthy();
-    expect(screen.getByRole("region", { name: "Contact" })).toBeTruthy();
-    window.history.replaceState({}, "", "/");
+    const main = screen.getByRole("main");
+    expect(Array.from(main.children, (section) => section.id)).toEqual(primarySectionIds);
+    primarySectionIds.forEach((id) => {
+      expect(main.querySelector(`section#${id}`)?.children.length).toBeGreaterThan(0);
+    });
   }
 );
 
 test("retains project detail rendering without requiring a router", () => {
+  const projects = [{ id: 0, productName: "Sample project", image: "img/sample.png" }];
   const { container } = render(<ProjectsInfo data={projects} id="0" />);
-  expect(screen.getByRole("heading", { name: projects[0].productName })).toBeTruthy();
+  expect(within(screen.getByRole("listitem")).getByRole("heading")).toBeTruthy();
   expect(screen.getByRole("img").getAttribute("src"))
     .toBe(`${import.meta.env.BASE_URL}${projects[0].image}`);
-  expect(screen.getByRole("link", { name: "Back" }).getAttribute("href"))
+  expect(screen.getByRole("link").getAttribute("href"))
     .toBe(`${import.meta.env.BASE_URL}#projects`);
   expect(container.querySelector("img").children).toHaveLength(0);
 });
