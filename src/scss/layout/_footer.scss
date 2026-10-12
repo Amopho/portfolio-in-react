@@ -1,0 +1,33 @@
+// Persistent footer and social links.
+.footer {
+  width: 100%;
+  min-height: 20vh;
+  padding: clamp(1rem, 3vw, 3rem);
+  flex-wrap: wrap;
+  gap: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: rgb(204, 185, 169);
+}
+
+.footer span {
+  font-size: 3rem;
+  color: #78b678;
+}
+
+.footer ul li {
+  list-style: none;
+  display: inline-block;
+  padding-right: 0;
+}
+
+.footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+}

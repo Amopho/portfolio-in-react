@@ -62,25 +62,39 @@ and the retained project detail component. These DOM tests do not verify visual
 layout or scrolling. CRA/Jest flags such as `--watchAll` and `--watchman` are no
 longer needed.
 
+### Sass ownership and regression checks (PFE-12)
+
+`src/scss/main.scss` only assembles the stylesheet. `base/_reset.scss` owns
+the application reset, and `base/_globals.scss` owns fonts and shared element
+defaults. Bootstrap supplies its own vendor Reboot and component styles.
+
+The layout partials have explicit owners: `_portfolio.scss` handles the root
+layout, anchor offsets, and shared section actions; `_header.scss` handles
+navigation; `_home.scss` handles the home images and arrow; `_story.scss`
+handles cards; `_contact.scss` handles the contact columns; and `_footer.scss`
+handles the footer. Responsive rules live beside the styles they affect.
+The active breakpoints remain 600px for header navigation and 900px for
+stacking section columns. Obsolete commented responsive rules, including the unitless 900 query, and unused legacy partials have been removed.
+
+Import order intentionally preserves the recovered cascade: the application reset retains its last legacy position after the header, global defaults follow it, and Bootstrap remains last. Changing that order is a separate visual change.
+
+`src/LandingStyles.test.jsx` captures landing markup and selected stylesheet values at widths of 1440, 768, and 375 pixels. Its snapshots in `src/__snapshots__/` were recorded before the Sass refactor and pass unchanged afterward. Run `npm test` to compare against them; do not update snapshots merely to silence a refactoring regression. jsdom does not calculate browser geometry,load web fonts, or implement scrolling; width media queries are applied explicitly
+by the test. These checks supplement a visual browser review rather than replace it.
+
 ## Production and GitHub Pages
 
-The deployment base remains `/portfolio-in-react/`. Use section URLs such as
-`/portfolio-in-react/#projects` for direct loading and refreshes.
+The deployment base remains `/portfolio-in-react/`. Use section URLs such as `/portfolio-in-react/#projects` for direct loading and refreshes.
 
-Vite preview provides a convenient production check but includes SPA fallback
-behavior. For a GitHub Pages parity check, mount `dist/` as `portfolio-in-react/`
-on a plain static server. The root and fragment URLs must load; retired nested
-URLs such as `/portfolio-in-react/projects/0` should return 404.
+Vite preview provides a convenient production check but includes SPA fallback behavior. For a GitHub Pages parity check, mount `dist/` as `portfolio-in-react/`
+on a plain static server. The root and fragment URLs must load; retired nested URLs such as `/portfolio-in-react/projects/0` should return 404.
 
-The existing explicit publishing command is `npm run deploy`. Its predeploy
-step builds the site, and `gh-pages` publishes `dist/`. Running a build or preview
+The existing explicit publishing command is `npm run deploy`. Its predeploy step builds the site, and `gh-pages` publishes `dist/`. Running a build or preview
 does not publish anything.
 
 ## Historical learning notes
 
 The notes below document the original CRA application and learning exercises.
-They are retained for reference, not as current setup instructions. In particular,
-CRA, BrowserRouter, node-sass, and the old build directory instructions are obsolete.
+They are retained for reference, not as current setup instructions. In particular, CRA, BrowserRouter, node-sass, and the old build directory instructions are obsolete.
 
 ## GitHub Workflow
 

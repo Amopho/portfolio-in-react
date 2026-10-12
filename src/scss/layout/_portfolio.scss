@@ -1,0 +1,38 @@
+// Root layout, anchor offsets, and shared section actions.
+main {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+main.portfolio-content {
+  display: block;
+}
+
+.portfolio-content section[id] {
+  scroll-margin-top: 8rem;
+}
+
+.portfolio-content > section + section {
+  padding-top: 1.5rem;
+}
+
+.section-button {
+  margin: 10px;
+}
+
+.section-button a {
+  color: #fff;
+  background-color: rgb(0, 0, 0) !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  user-select: none;
+  cursor: pointer;
+  max-width: 100%;
+  text-decoration: none;
+  background: none;
+}
