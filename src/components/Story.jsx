@@ -5,71 +5,34 @@ import Button from "react-bootstrap/Button";
 const Story = () => {
   return (
     <div>
-      {/* <!-- About me part --> */}
       <section className="story-container" id="scroll">
-        <Card>
-          <Card.Img
-            variant="top"
-            src={`${import.meta.env.BASE_URL}${Stories[0].img}`}
-            alt="Hand with soaking water"
-            className="img-fluid"
-          />
-          <Card.Body>
-            <Card.Title className="text">
-              <h3>{Stories[0].heading}</h3>
-            </Card.Title>
-            <Card.Text as="div">
-              <p className="lead">{Stories[0].description}</p>
-            </Card.Text>
-            {/* <div className="story-button"> */}
-            <Button as="a" variant="primary" href="#contact">
-              Let's get to know us
+        {Stories.map((story) => {
+          const button = (
+            <Button as="a" variant="primary" href={story.link.href}>
+              {story.link.label}
             </Button>
-            {/* </div> */}
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img
-            variant="top"
-            src={`${import.meta.env.BASE_URL}${Stories[1].img}`}
-            alt="Hand with soaking water"
-            className="img-fluid"
-          />
-          <Card.Body>
-            <Card.Title className="text">
-              <h3>{Stories[1].heading}</h3>
-            </Card.Title>
-            <Card.Text as="div">
-              <p className="lead">{Stories[1].description}</p>
-            </Card.Text>
-            <div className="story-button">
-              <Button as="a" variant="primary" href="#contact">
-                Let's get to know us
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Img
-            variant="top"
-            src={`${import.meta.env.BASE_URL}${Stories[2].img}`}
-            alt="Hand with soaking water"
-            className="img-fluid"
-          />
-          <Card.Body>
-            <Card.Title className="text">
-              <h3>{Stories[2].heading}</h3>
-            </Card.Title>
-            <Card.Text as="div">
-              <p className="lead">{Stories[2].description}</p>
-            </Card.Text>
-            <div className="story-button">
-              <Button as="a" variant="primary" href="#blog">
-                Read More
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
+          );
+
+          return (
+            <Card key={story.id}>
+              <Card.Img
+                variant="top"
+                src={`${import.meta.env.BASE_URL}${story.img}`}
+                alt={story.title}
+                className="img-fluid"
+              />
+              <Card.Body>
+                <Card.Title className="text">
+                  <h3>{story.heading}</h3>
+                </Card.Title>
+                <Card.Text as="div">
+                  <p className="lead">{story.description}</p>
+                </Card.Text>
+                <div className="story-button">{button}</div>
+              </Card.Body>
+            </Card>
+          );
+        })}
       </section>
     </div>
   );
