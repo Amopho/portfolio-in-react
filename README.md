@@ -65,6 +65,54 @@ PFE-12 content/style snapshots remain separate in `src/LandingStyles.test.jsx`.
 These DOM tests do not verify visual layout or scrolling. CRA/Jest flags such as `--watchAll` and `--watchman` are no
 longer needed.
 
+### Browser-test tooling (PTST-5)
+
+Playwright Test is installed as a development dependency. Install its Chromium
+browser after installing the npm dependencies:
+
+```bash
+npx playwright install chromium
+npx playwright --version
+```
+
+`playwright.config.js` uses one headless Chromium browser, a default 1440×900
+viewport, and browser specs in `tests/e2e/**/*.spec.js`. `npm run test:e2e` runs
+Playwright; `npm test` runs Vitest's `src/**/*.test.jsx` checks.
+
+Playwright always builds and starts a fresh production preview on port 4173,
+using `/portfolio-in-react/` as its base URL, to avoid stale output. Port 4173
+must be free. Use relative URLs such as `./` and `#contact` in browser specs so
+they retain the repository base path.
+
+`tests/e2e/portfolio.spec.js` captures desktop (1440×900), tablet (768×1024)
+and mobile (375×812) at device scale factor 1. It checks actual viewport dimensions,
+visible sections, loaded images/fonts, expected grid columns and runtime errors.
+Screenshots (`portfolio-desktop.png`, etc.) and JSON metadata are saved via
+Playwright's `testInfo.outputPath()` in runner-managed folders under `test-results/`.
+The console prints the paths. Metadata records browser/viewport details, source
+revision and working-tree status, build/screenshot hashes, actual PNG dimensions
+and horizontal overflow. These outputs are disposable and replaced on the next run.
+Full-page PNG dimensions can exceed the CSS viewport if content overflows; use
+metadata to distinguish them. These are render/capture checks, not automated
+visual-diff or keyboard-navigation assertions.
+
+| Location | Purpose | Git policy | Lifecycle |
+| --- | --- | --- | --- |
+| `src/**/*.test.jsx`, `src/__snapshots__/` | Vitest structural/style tests and references | Tracked | Maintained |
+| `tests/e2e/` | Playwright browser test source | Tracked | Maintained |
+| `tests/e2e/*-snapshots/` | Approved visual regression references, if introduced | Tracked | Maintained |
+| `visual-checks/` | Developer-selected Jira investigation evidence | Ignored | Retained as needed |
+| `test-results/` | Automated screenshots, metadata and diagnostics | Ignored | Disposable |
+| `playwright-report/` | HTML reports when generated | Ignored | Disposable |
+| `playwright.config.js` | Browser test configuration | Tracked | Maintained |
+
+Tests do not write to `visual-checks/`. To retain evidence for an investigation,
+explicitly copy selected artifacts into its ticket folder and record context in
+`notes.md`. The PFE-12 and PFE-14 evidence stays there. No approved Playwright
+snapshot directory is created until visual regression assertions are introduced
+and their references reviewed. No additional browser testing framework or
+cross-browser matrix is configured.
+
 ### Native CSS ownership and regression checks (PFE-14)
 
 PFE-12 established style ownership; PFE-14 retains it in `src/styles/`.
