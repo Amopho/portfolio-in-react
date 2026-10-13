@@ -1,6 +1,4 @@
 import Stories from "../story.json";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
 
 const Story = () => {
   return (
@@ -8,29 +6,28 @@ const Story = () => {
       <section className="story-container" id="scroll">
         {Stories.map((story) => {
           const button = (
-            <Button as="a" variant="primary" href={story.link.href}>
+            <a href={story.link.href} className="btn btn-primary">
               {story.link.label}
-            </Button>
+            </a>
           );
 
           return (
-            <Card key={story.id}>
-              <Card.Img
-                variant="top"
+            <div className="card" key={story.id}>
+              <img
+                className="card-img-top img-fluid"
                 src={`${import.meta.env.BASE_URL}${story.img}`}
                 alt={story.title}
-                className="img-fluid"
               />
-              <Card.Body>
-                <Card.Title className="text">
+              <div className="card-body">
+                <div className="text card-title h5">
                   <h3>{story.heading}</h3>
-                </Card.Title>
-                <Card.Text as="div">
+                </div>
+                <div className="card-text">
                   <p className="lead">{story.description}</p>
-                </Card.Text>
+                </div>
                 <div className="story-button">{button}</div>
-              </Card.Body>
-            </Card>
+              </div>
+            </div>
           );
         })}
       </section>

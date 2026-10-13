@@ -35,7 +35,8 @@ Run `npm test` for the architecture checks and `npm run build` for the productio
 ## Development and verification
 
 The build platform is Vite with the React plugin. React 17 and the existing
-components, Sass, Bootstrap, and public images are retained. Node 20.19+ or
+components and public images are retained. Application styling uses native CSS;
+Bootstrap, React-Bootstrap, and Sass are no longer dependencies. Node 20.19+ or
 22.12+ is required; the package engine range lists the supported versions.
 
 ```bash
@@ -60,28 +61,50 @@ Tests stay beside their code in `src/App.test.jsx`. They cover the persistent
 layout, section navigation, story-card structure and image URLs, fragment entry points,
 and the retained project detail component. PTST-4 technical assertions use stable
 section IDs, roles, and URL targets rather than legacy headlines or CTA labels.
-PFE-12 content/style snapshots remain separate in `src/landingStyles.test.jsx`.
+PFE-12 content/style snapshots remain separate in `src/LandingStyles.test.jsx`.
 These DOM tests do not verify visual layout or scrolling. CRA/Jest flags such as `--watchAll` and `--watchman` are no
 longer needed.
 
-### Sass ownership and regression checks (PFE-12)
+### Native CSS ownership and regression checks (PFE-14)
 
-`src/scss/main.scss` only assembles the stylesheet. `base/_reset.scss` owns
-the application reset, and `base/_globals.scss` owns fonts and shared element
-defaults. Bootstrap supplies its own vendor Reboot and component styles.
+PFE-12 established style ownership; PFE-14 retains it in `src/styles/`.
+`main.css` composes native CSS imports and the existing web-font request.
+`base/_reset.css` owns the application reset and image/SVG defaults.
+`base/_globals.css` owns the effective typography and link defaults that were
+previously supplied by application Sass and Bootstrap.
 
-The layout partials have explicit owners: `_portfolio.scss` handles the root
-layout, anchor offsets, and shared section actions; `_header.scss` handles
-navigation; `_home.scss` handles the home images and arrow; `_story.scss`
-handles cards; `_contact.scss` handles the contact columns; and `_footer.scss`
-handles the footer. Responsive rules live beside the styles they affect.
-The active breakpoints remain 600px for header navigation and 900px for
-stacking section columns. Obsolete commented responsive rules, including the unitless 900 query, and unused legacy partials have been removed.
+The layout files have explicit owners: `_portfolio.css` handles the root layout,
+anchor offsets, shared anchor-button appearance/states, and the Projects placeholder
+columns; `_header.css` handles navigation; `_home.css` handles home images and the
+arrow; `_story.css` handles cards; `_contact.css` handles contact columns; and
+`_footer.css` handles the footer. Responsive rules live beside their owners.
+The existing 600px header, 900px section stacking and 576px Projects breakpoints
+are preserved. The header/reset order, typography, spacing, image crops, blue
+link/button-border colors, and focus-ring rules are intentionally retained.
 
-Import order intentionally preserves the recovered cascade: the application reset retains its last legacy position after the header, global defaults follow it, and Bootstrap remains last. Changing that order is a separate visual change.
+Story uses native divs, images and anchors. Existing class names such as `card`,
+`btn`, `lead`, `row` and `col-sm-4` are now application-owned CSS selectors;
+there is no Bootstrap stylesheet or React-Bootstrap component dependency.
+The rendered markup, copy, data, imagery and navigation semantics remain unchanged.
 
-`src/LandingStyles.test.jsx` captures landing markup and selected stylesheet values at widths of 1440, 768, and 375 pixels. Its snapshots in `src/__snapshots__/` were recorded before the Sass refactor and pass unchanged afterward. Run `npm test` to compare against them; do not update snapshots merely to silence a refactoring regression. jsdom does not calculate browser geometry,load web fonts, or implement scrolling; width media queries are applied explicitly
-by the test. These checks supplement a visual browser review rather than replace it.
+`src/LandingStyles.test.jsx` reads native CSS imports and captures landing markup
+and selected styles at widths of 1440, 768 and 375 pixels. During PFE-14, its
+style comparison was corrected for jsdom's source-order/specificity and important
+shorthand limitations. The three style snapshots were regenerated from the saved
+PRE-migration compiled stylesheet, not from the candidate. The native CSS passes
+those reviewed expectations; the markup snapshot is unchanged. The original PFE-12
+snapshots remain preserved with local before evidence. No visual differences are
+intended by these test-model changes.
+
+Run `npm test` to compare against the snapshots; do not update them merely to
+silence a regression. These checks cover the current simple selectors, not the
+entire browser cascade specification. jsdom does not calculate browser geometry,
+load web fonts, or establish keyboard focus/scrolling behavior. The tests supplement
+browser review; they cannot prove pixel or interaction parity.
+
+Local before/after evidence is kept under the ignored `visual-checks/PFE-14/`.
+Browser comparison and focused interaction verification remain pending; incomplete
+captures do not prevent implementation, but are not reported as completed acceptance.
 
 ## Production and GitHub Pages
 
@@ -212,10 +235,9 @@ more on that [web-vitals](https://www.npmjs.com/package/web-vitals)
 
 ```bash
  npm init
- npm i --save-dev gh-pages node-sass live-server npm-run-all
+ npm i --save-dev gh-pages
  npx create-react-app <app-name>
  cd <app-name>
- npm i node-sass
  npm start
 ```
 
@@ -256,84 +278,6 @@ Lastly run build script to generate build dir
 npm rum build
 npm run deploy
 ```
-
-#### Scss style
-
-##### To install Scss style sheet
-
-```bash
-nmp init
-npm install --save-dev live-server
-npm install --save-dev saas gh-pages
-```
-
-##### Edit the newly created package.json
-
-```json
-{
-    "description": "Sass project",
-    "author": "Alie"
-}
-```
-
-##### Defeault working directory structure
-
-src-> scss-> main.scss (after npm start sass will watch the change of working dir)
-src-> styles-> main.css + main.css.map
-
-##### Mixins
-
-Mixin lets you to make groups of css declarations to resuse them throughout the site.
-
-##### Normalized scss style
-
-```bash
-npm install normalize-scss
-```
-
-### step 2 scripts
-
-```json
-{
-    "start": "run-p watch watch:styles",
-"build": "run-s clean clean:styles build:styles copy",
-"deploy": "run-s build publish",
-"build:styles": "sass src/scss:src/styles",
-"watch": "live-server src",
-"watch:styles": "sass src/scss:src/styles --watch",
-"clean": "rm -rf dist",
-"clean:styles": "rm -rf src/styles",
-"copy": "mkdir dist && rsync -avr --exclude=\"/scss\" src/ dist",
-"publish": "gh-pages -d dist"
-}
-```
-
-### step 3 Create .gitignore
-
-In root/ main directory with added:
-
-- node_modules,
-- dist.
-
-### step 4 src
-
-Add to the root another directory with a name "src", which would include:
-
-- index.html,
-- scss-> main.scss
-
-### step 5 styles dir
-
-After running the app with a 'npm start', new styles directory will be automatically created. It includes:
-
-- main.css,
-- main.css.map
-
-Link main.scss from new folder into index.html.
-
-**DONT'T FORGET** to not to use this terminal window any more. Except after npm start, everytime one changes directory names, files or updating packages, restarting the live-server is required.
-
-After each change to main.scss the content will be transferred into main.css.
 
 ### step 6 Build
 
@@ -410,21 +354,7 @@ ReactDOM.render(
 );
 ```
 
-## Installing Bootstrap to handle cards
-
-```bash
- npm install react-bootstrap bootstrap@5.0.1
-```
-
 ## Known errors
-
-### failed sass build
-
-I can’t explain what happens when we switch node environment but I know that a simple command fix the error
-
-```bash
-npm rebuild node-sass
-```
 
 ### react-router-dom update
 
