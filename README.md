@@ -79,6 +79,10 @@ npx playwright --version
 viewport, and browser specs in `tests/e2e/**/*.spec.js`. `npm run test:e2e` runs
 Playwright; `npm test` runs Vitest's `src/**/*.test.jsx` checks.
 
+See [visual verification](docs/testing/visual-verification.md) for directory
+ownership and local commands. Each run generates an HTML report; inspect it with
+`npx playwright show-report playwright-report`.
+
 Playwright always builds and starts a fresh production preview on port 4173,
 using `/portfolio-in-react/` as its base URL, to avoid stale output. Port 4173
 must be free. Use relative URLs such as `./` and `#contact` in browser specs so
