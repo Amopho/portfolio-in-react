@@ -1,9 +1,9 @@
 const Projects = () => {
   return (
     <div>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="project-wrap">Projects</div>
+      <div className="row">
+        <div className="col-sm-4">
+          <div className="project-wrap">Projects</div>
         </div>
       </div>
     </div>

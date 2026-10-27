@@ -1,0 +1,70 @@
+/* Story cards and their actions. */
+.story-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.story-container .story-button {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.story-button {
+  margin: 10px;
+}
+
+@media (max-width: 900px) {
+  .story-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Native card presentation; class names retain the accepted DOM baseline. */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+}
+
+.card-title {
+  margin-bottom: 0.75rem;
+}
+
+.card-text:last-child {
+  margin-bottom: 0;
+}
+
+.card-img-top {
+  flex-shrink: 0;
+  width: 100%;
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}

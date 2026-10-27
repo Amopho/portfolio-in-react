@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   AiFillTwitterCircle,
   AiFillGithub,
@@ -10,11 +9,11 @@ const Footer = () => {
   let year = new Date().getFullYear();
   return (
     <div>
-      <div href="#footer" class="footer">
-        <div class="social-links">
+      <div id="footer" className="footer">
+        <div className="social-links">
           <ul>
             <li>
-              <div class="social">
+              <div className="social">
                 <a href="https://twitter.com/AdeMoPho">
                   <span>
                     <AiFillTwitterCircle />
@@ -23,7 +22,7 @@ const Footer = () => {
               </div>
             </li>
             <li>
-              <div class="social">
+              <div className="social">
                 <a href="https://github.com/Amopho">
                   <span>
                     <AiFillGithub />
@@ -32,7 +31,7 @@ const Footer = () => {
               </div>
             </li>
             <li>
-              <div class="social">
+              <div className="social">
                 <a href="https://www.linkedin.com/in/alina-majewska-pinda-ph-d-9714a5152/">
                   <span>
                     <AiFillLinkedin />
@@ -41,7 +40,7 @@ const Footer = () => {
               </div>
             </li>
             <li>
-              <div class="social">
+              <div className="social">
                 <a href="https://www.researchgate.net/profile/Alina-Majewska-Pinda">
                   <span>
                     <FaResearchgate />

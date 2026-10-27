@@ -1,0 +1,31 @@
+/* Home image pair and navigation arrow. */
+.home-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+}
+
+.home-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 4207 / 2805;
+  object-fit: cover;
+  object-position: center;
+}
+
+.go-down {
+  width: 100%;
+  font-size: 30px;
+  padding-top: 2rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .home-images {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

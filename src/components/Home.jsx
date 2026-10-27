@@ -1,19 +1,23 @@
-import React, { useState } from "react";
 import Data from "../data.json";
 import Story from "./Story";
-import { Link } from "react-router-dom";
 
 import { FiArrowDownCircle } from "react-icons/fi";
 
 const Home = () => {
-  const [data, setData] = useState(Data);
-  console.log(process.env);
   return (
     <div>
-      <img
-        src={`${process.env.PUBLIC_URL}/${data[0].img}`}
-        alt="Pink glasses"
-      />
+      <div className="home-images">
+        <img
+          className="home-image"
+          src={`${import.meta.env.BASE_URL}img/Nice Tense.png`}
+          alt="HOWOOO — Know-how nutrition, green paw print"
+        />
+        <img
+          className="home-image"
+          src={`${import.meta.env.BASE_URL}${Data[0].img}`}
+          alt="Pink glasses"
+        />
+      </div>
       <div className="text">
         <h1>Hi, I am Alina!</h1>
         <p>
@@ -34,9 +38,7 @@ const Home = () => {
         </p>
       </div>
       <div className="section-button">
-        <button>
-          <Link to="contact"> Let's get to know us</Link>
-        </button>
+        <a href="#contact"> Let's get to know us</a>
       </div>
       <div className="go-down">
         <a href="#scroll" className="arrow-button">

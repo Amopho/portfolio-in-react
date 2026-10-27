@@ -1,0 +1,55 @@
+.portfolio-header {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  width: 100%;
+  min-height: 5rem;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background-color: #fff;
+  font-family: "Catamaran";
+}
+
+.portfolio-header .menu-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  letter-spacing: 0.07rem;
+}
+
+.portfolio-header a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.portfolio-header .contact-btn {
+  margin: 0;
+  padding: 0;
+}
+
+.portfolio-header .contact-btn a {
+  color: #fff;
+  background-color: #000;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+}
+
+@media (max-width: 600px) {
+  .portfolio-header nav {
+    order: 3;
+    width: 100%;
+  }
+
+  .portfolio-header .menu-list {
+    justify-content: center;
+    gap: 1rem;
+  }
+}

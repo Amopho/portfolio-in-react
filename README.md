@@ -1,30 +1,177 @@
-# portfolio-in-react :woman_office_worker: developer portfolio
+# portfolio-in-react 👩‍💼 developer portfolio
 
-:arrows_counterclockwise: Update 2022
+🔄 Update 2022
 
-Let's get to know each other! A portfolio website of junior web developer made with :sparkling_heart: in ReactJS. With a blog feature. See you there!
+Let's get to know each other! A portfolio website of junior web developer made with 💖 in ReactJS. With a blog feature. See you there!
 
-This project was deployed with :heart: on GitHub.
+This project was deployed with ❤️ on GitHub.
 
 ![Preview](./public/img/portfolio-glimpse.png)
 
-## Console work
+## PFE-10 architecture decision
 
-### clone repository
+The primary portfolio is one root page with persistent navigation and footer.
+Home (including Story), Projects, Blog, and Contact retain their existing copy
+and images and appear as sections. Internal navigation uses native fragments:
+`#home`, `#projects`, `#blog`, and `#contact`. There is no client-side router or
+additional state/service layer in the primary experience.
 
-git clone <https://github.com/Amopho/portfolio-in-react>
+On GitHub Pages, `/portfolio-in-react/#blog` loads the physical root page;
+the fragment is handled in the browser and is not sent to the server. Direct loads and refreshes therefore work without an SPA fallback. An unknown fragment
+still displays the complete root portfolio, without a separate error screen.
 
-### npm install
+The legacy `/projects/:id` route is retired, along with the other standalone
+section URLs. Existing nested URLs return the static host's 404; compatibility
+redirects and a custom 404 workaround are intentionally not introduced.
+`ProjectsInfo`, the project data, and `Soon` remain available for future reuse,
+but are not exposed as routes. Projects and Blog retain their placeholder content.
 
-npm install
+Substantial case studies (for example, Elowen and Constellation) can be added
+when needed. Semantic `/projects/:slug` URLs would require generated physical
+pages or hosting with supported route fallbacks before they can be introduced.
 
-### npm start
+Run `npm test` for the architecture checks and `npm run build` for the production artifact. Preview `dist/` mounted under `/portfolio-in-react/` on a static server without fallback support. Verify the root page and fragment URLs, asset responses, and expected 404s for retired nested URLs before publishing.
 
-Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Development and verification
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The build platform is Vite with the React plugin. React 17 and the existing
+components and public images are retained. Application styling uses native CSS;
+Bootstrap, React-Bootstrap, and Sass are no longer dependencies. Node 20.19+ or
+22.12+ is required; the package engine range lists the supported versions.
+
+```bash
+npm ci
+npm run dev
+```
+
+Open `http://localhost:5173/portfolio-in-react/`. `npm start` is an alias for
+the same development server. The repository-root `index.html` loads
+`src/index.jsx`. `vite.config.mjs` sets the repository base path for development
+and production. Asset references use `import.meta.env.BASE_URL`; files in
+`public/img` are copied unchanged to `dist/img`.
+
+```bash
+npm test          # Run the saved tests once with Vitest and jsdom
+npm run test:watch
+npm run build     # Generate dist/
+npm run preview   # Preview the production artifact, normally on port 4173
+```
+
+Tests stay beside their code in `src/App.test.jsx`. They cover the persistent
+layout, section navigation, story-card structure and image URLs, fragment entry points,
+and the retained project detail component. PTST-4 technical assertions use stable
+section IDs, roles, and URL targets rather than legacy headlines or CTA labels.
+PFE-12 content/style snapshots remain separate in `src/LandingStyles.test.jsx`.
+These DOM tests do not verify visual layout or scrolling. CRA/Jest flags such as `--watchAll` and `--watchman` are no
+longer needed.
+
+### Browser-test tooling (PTST-5)
+
+Playwright Test is installed as a development dependency. Install its Chromium
+browser after installing the npm dependencies:
+
+```bash
+npx playwright install chromium
+npx playwright --version
+```
+
+`playwright.config.js` uses one headless Chromium browser, a default 1440×900
+viewport, and browser specs in `tests/e2e/**/*.spec.js`. `npm run test:e2e` runs
+Playwright; `npm test` runs Vitest's `src/**/*.test.jsx` checks.
+
+See [visual verification](docs/testing/visual-verification.md) for directory
+ownership and local commands. Each run generates an HTML report; inspect it with
+`npx playwright show-report playwright-report`.
+
+Playwright always builds and starts a fresh production preview on port 4173,
+using `/portfolio-in-react/` as its base URL, to avoid stale output. Port 4173
+must be free. Use relative URLs such as `./` and `#contact` in browser specs so
+they retain the repository base path.
+
+`tests/e2e/portfolio.spec.js` captures desktop (1440×900), tablet (768×1024)
+and mobile (375×812) at device scale factor 1. It checks actual viewport dimensions,
+visible sections, loaded images/fonts, expected grid columns and runtime errors.
+Screenshots (`portfolio-desktop.png`, etc.) and JSON metadata are saved via
+Playwright's `testInfo.outputPath()` in runner-managed folders under `test-results/`.
+The console prints the paths. Metadata records browser/viewport details, source
+revision and working-tree status, build/screenshot hashes, actual PNG dimensions
+and horizontal overflow. These outputs are disposable and replaced on the next run.
+Full-page PNG dimensions can exceed the CSS viewport if content overflows; use
+metadata to distinguish them. These are render/capture checks, not automated
+visual-diff or keyboard-navigation assertions.
+
+| Location | Purpose | Git policy | Lifecycle |
+| --- | --- | --- | --- |
+| `src/**/*.test.jsx`, `src/__snapshots__/` | Vitest structural/style tests and references | Tracked | Maintained |
+| `tests/e2e/` | Playwright browser test source | Tracked | Maintained |
+| `tests/e2e/*-snapshots/` | Approved visual regression references, if introduced | Tracked | Maintained |
+| `visual-checks/` | Developer-selected Jira investigation evidence | Ignored | Retained as needed |
+| `test-results/` | Automated screenshots, metadata and diagnostics | Ignored | Disposable |
+| `playwright-report/` | HTML reports when generated | Ignored | Disposable |
+| `playwright.config.js` | Browser test configuration | Tracked | Maintained |
+
+Tests do not write to `visual-checks/`. To retain evidence for an investigation,
+explicitly copy selected artifacts into its ticket folder and record context in
+`notes.md`. The PFE-12 and PFE-14 evidence stays there. No approved Playwright
+snapshot directory is created until visual regression assertions are introduced
+and their references reviewed. No additional browser testing framework or
+cross-browser matrix is configured.
+
+### Native CSS ownership and regression checks (PFE-14)
+
+PFE-12 established style ownership; PFE-14 retains it in `src/styles/`.
+`main.css` composes native CSS imports and the existing web-font request.
+`base/_reset.css` owns the application reset and image/SVG defaults.
+`base/_globals.css` owns the effective typography and link defaults that were
+previously supplied by application Sass and Bootstrap.
+
+The layout files have explicit owners: `_portfolio.css` handles the root layout,
+anchor offsets, shared anchor-button appearance/states, and the Projects placeholder
+columns; `_header.css` handles navigation; `_home.css` handles home images and the
+arrow; `_story.css` handles cards; `_contact.css` handles contact columns; and
+`_footer.css` handles the footer. Responsive rules live beside their owners.
+The existing 600px header, 900px section stacking and 576px Projects breakpoints
+are preserved. The header/reset order, typography, spacing, image crops, blue
+link/button-border colors, and focus-ring rules are intentionally retained.
+
+Story uses native divs, images and anchors. Existing class names such as `card`,
+`btn`, `lead`, `row` and `col-sm-4` are now application-owned CSS selectors;
+there is no Bootstrap stylesheet or React-Bootstrap component dependency.
+The rendered markup, copy, data, imagery and navigation semantics remain unchanged.
+
+`src/LandingStyles.test.jsx` reads native CSS imports and captures landing markup
+and selected styles at widths of 1440, 768 and 375 pixels. During PFE-14, its
+style comparison was corrected for jsdom's source-order/specificity and important
+shorthand limitations. The three style snapshots were regenerated from the saved
+PRE-migration compiled stylesheet, not from the candidate. The native CSS passes
+those reviewed expectations; the markup snapshot is unchanged. The original PFE-12
+snapshots remain preserved with local before evidence. No visual differences are
+intended by these test-model changes.
+
+Run `npm test` to compare against the snapshots; do not update them merely to
+silence a regression. These checks cover the current simple selectors, not the
+entire browser cascade specification. jsdom does not calculate browser geometry,
+load web fonts, or establish keyboard focus/scrolling behavior. The tests supplement
+browser review; they cannot prove pixel or interaction parity.
+
+Local before/after evidence is kept under the ignored `visual-checks/PFE-14/`.
+Browser comparison and focused interaction verification remain pending; incomplete
+captures do not prevent implementation, but are not reported as completed acceptance.
+
+## Production and GitHub Pages
+
+The deployment base remains `/portfolio-in-react/`. Use section URLs such as `/portfolio-in-react/#projects` for direct loading and refreshes.
+
+Vite preview provides a convenient production check but includes SPA fallback behavior. For a GitHub Pages parity check, mount `dist/` as `portfolio-in-react/`
+on a plain static server. The root and fragment URLs must load; retired nested URLs such as `/portfolio-in-react/projects/0` should return 404.
+
+The existing explicit publishing command is `npm run deploy`. Its predeploy step builds the site, and `gh-pages` publishes `dist/`. Running a build or preview
+does not publish anything.
+
+## Historical learning notes
+
+The notes below document the original CRA application and learning exercises.
+They are retained for reference, not as current setup instructions. In particular, CRA, BrowserRouter, node-sass, and the old build directory instructions are obsolete.
 
 ## GitHub Workflow
 
@@ -140,10 +287,9 @@ more on that [web-vitals](https://www.npmjs.com/package/web-vitals)
 
 ```bash
  npm init
- npm i --save-dev gh-pages node-sass live-server npm-run-all
+ npm i --save-dev gh-pages
  npx create-react-app <app-name>
  cd <app-name>
- npm i node-sass
  npm start
 ```
 
@@ -184,84 +330,6 @@ Lastly run build script to generate build dir
 npm rum build
 npm run deploy
 ```
-
-#### Scss style
-
-##### To install Scss style sheet
-
-```bash
-nmp init
-npm install --save-dev live-server
-npm install --save-dev saas gh-pages
-```
-
-##### Edit the newly created package.json
-
-```json
-{
-    "description": "Sass project",
-    "author": "Alie"
-}
-```
-
-##### Defeault working directory structure
-
-src-> scss-> main.scss (after npm start sass will watch the change of working dir)
-src-> styles-> main.css + main.css.map
-
-##### Mixins
-
-Mixin lets you to make groups of css declarations to resuse them throughout the site.
-
-##### Normalized scss style
-
-```bash
-npm install normalize-scss
-```
-
-### step 2 scripts
-
-```json
-{
-    "start": "run-p watch watch:styles",
-"build": "run-s clean clean:styles build:styles copy",
-"deploy": "run-s build publish",
-"build:styles": "sass src/scss:src/styles",
-"watch": "live-server src",
-"watch:styles": "sass src/scss:src/styles --watch",
-"clean": "rm -rf dist",
-"clean:styles": "rm -rf src/styles",
-"copy": "mkdir dist && rsync -avr --exclude=\"/scss\" src/ dist",
-"publish": "gh-pages -d dist"
-}
-```
-
-### step 3 Create .gitignore
-
-In root/ main directory with added:
-
-- node_modules,
-- dist.
-
-### step 4 src
-
-Add to the root another directory with a name "src", which would include:
-
-- index.html,
-- scss-> main.scss
-
-### step 5 styles dir
-
-After running the app with a 'npm start', new styles directory will be automatically created. It includes:
-
-- main.css,
-- main.css.map
-
-Link main.scss from new folder into index.html.
-
-**DONT'T FORGET** to not to use this terminal window any more. Except after npm start, everytime one changes directory names, files or updating packages, restarting the live-server is required.
-
-After each change to main.scss the content will be transferred into main.css.
 
 ### step 6 Build
 
@@ -338,21 +406,7 @@ ReactDOM.render(
 );
 ```
 
-## Installing Bootstrap to handle cards
-
-```bash
- npm install react-bootstrap bootstrap@5.0.1
-```
-
 ## Known errors
-
-### failed sass build
-
-I can’t explain what happens when we switch node environment but I know that a simple command fix the error
-
-```bash
-npm rebuild node-sass
-```
 
 ### react-router-dom update
 
