@@ -2,7 +2,7 @@
 
 🔄 Update 2022
 
-Let's get to know each other! A portfolio website of junior web developer made with 💖 in ReactJS. With a blog feature. See you there!
+Let's get to know each other! A portfolio website of junior web developer made with 💖 in ReactJS. See you there!
 
 This project was deployed with ❤️ on GitHub.
 
@@ -11,12 +11,12 @@ This project was deployed with ❤️ on GitHub.
 ## PFE-10 architecture decision
 
 The primary portfolio is one root page with persistent navigation and footer.
-Home (including Story), Projects, My Values, Blog, and Contact appear as sections.
+Home (including Story), Projects, My Values, and Contact appear as sections.
 Internal navigation uses native fragments:
-`#home`, `#projects`, `#values`, `#blog`, and `#contact`. There is no client-side router or
+`#home`, `#projects`, `#values`, and `#contact`. There is no client-side router or
 additional state/service layer in the primary experience.
 
-On GitHub Pages, `/portfolio-in-react/#blog` loads the physical root page;
+On GitHub Pages, `/portfolio-in-react/#values` loads the physical root page;
 the fragment is handled in the browser and is not sent to the server. Direct loads and refreshes therefore work without an SPA fallback. An unknown fragment
 still displays the complete root portfolio, without a separate error screen.
 
@@ -24,7 +24,7 @@ The legacy `/projects/:id` route is retired, along with the other standalone
 section URLs. Existing nested URLs return the static host's 404; compatibility
 redirects and a custom 404 workaround are intentionally not introduced.
 `ProjectsInfo`, the project data, and `Soon` remain available for future reuse,
-but are not exposed as routes. Projects and Blog retain their placeholder content.
+but are not exposed as routes. Projects retains its placeholder content.
 
 Substantial case studies (for example, Elowen and Constellation) can be added
 when needed. Semantic `/projects/:slug` URLs would require generated physical
@@ -160,10 +160,11 @@ captures do not prevent implementation, but are not reported as completed accept
 
 ## Production and GitHub Pages
 
-My Values (`src/components/Values.jsx`) uses the existing `public/img/soil.jpg`
-photograph with an arched crop and a decorative CSS accent. Its styles live in
-`src/styles/layout/_values.css`; text and photo stack below 900px. The Read More
-link targets the existing `#blog` placeholder until blog content is available.
+My Values (`src/components/Values.jsx`) uses `public/img/negative-space-dalmation-dog-woman-blonde-summer-happy-daria-shevtsova-thumb-1.jpg`,
+the original woman-and-Dalmatian photograph, with a circular crop and a decorative CSS accent. Its styles live in
+`src/styles/layout/_values.css`; text and photo stack below 900px. My Values is
+a teaser for a future linked page; its Read More button remains visible and
+disabled until that destination is available. The My Mission card's Read More link targets `#values`.
 Projects remains reserved for a future external animal nutrition tool.
 
 The deployment base remains `/portfolio-in-react/`. Use section URLs such as `/portfolio-in-react/#projects` for direct loading and refreshes.

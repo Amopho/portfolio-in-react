@@ -6,7 +6,7 @@ import stories from "./story.json";
 
 // PTST-4 technical checks use structure and URLs, independent of displayed copy.
 // PFE-12 content/style preservation belongs to LandingStyles.test.jsx snapshots.
-const primarySectionIds = ["home", "projects", "values", "blog", "contact"];
+const primarySectionIds = ["home", "projects", "values", "contact"];
 
 afterEach(() => {
   cleanup();
@@ -44,7 +44,7 @@ test("internal navigation uses existing sections rather than nested URLs", () =>
   expect(new Set(headerTargets)).toEqual(new Set(primarySectionIds.map((id) => `#${id}`)));
   const storyTargets = within(container.querySelector("#scroll")).getAllByRole("link")
     .map((link) => link.getAttribute("href"));
-  expect(storyTargets).toEqual(["#contact", "#contact", "#blog"]);
+  expect(storyTargets).toEqual(["#contact", "#contact", "#values"]);
   expect(container.querySelector("a a, a button, button a, button button")).toBeNull();
 });
 
@@ -61,7 +61,7 @@ test("renders story card structure and base-prefixed images", () => {
   });
 });
 
-test.each(["#projects", "#values", "#blog", "#contact", "#unknown"])(
+test.each(["#projects", "#values", "#contact", "#unknown"])(
   "renders the same root experience when loaded with %s", (fragment) => {
     window.history.replaceState({}, "", `/portfolio-in-react/${fragment}`);
     render(<App />);

@@ -1,4 +1,4 @@
-/* The original Values composition: copy beside an arched photograph. */
+/* Values composition: copy beside a circular photograph. */
 .values-layout {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -23,20 +23,20 @@
   margin-bottom: 1.75rem;
 }
 
-.values-link,
-.values-link:visited {
+.values-link {
   display: inline-block;
   padding: 0.65rem 1.25rem;
+  border: 0;
   border-radius: 8px;
   background-color: #000;
   color: #fff;
+  font: inherit;
   text-decoration: none;
 }
 
-.values-link:hover {
-  background-color: #254a38;
-  color: #fff;
-  text-decoration: underline;
+.values-link:disabled {
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 .values-link:focus-visible {
@@ -54,9 +54,9 @@
 .values-image::before {
   content: "";
   position: absolute;
-  inset: 12% 1rem 0 0;
+  inset: 1rem 1rem 0 0;
   z-index: -1;
-  border-radius: 50% 50% 0 0;
+  border-radius: 50%;
   background-color: #f5dfce;
 }
 
@@ -64,10 +64,10 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1;
   object-fit: cover;
-  object-position: center 65%;
-  border-radius: 50% 50% 0 0;
+  object-position: center;
+  border-radius: 50%;
 }
 
 @media (max-width: 900px) {
