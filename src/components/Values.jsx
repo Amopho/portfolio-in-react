@@ -1,20 +1,23 @@
 const Values = () => (
   <div className="values-layout">
     <div className="values-copy">
-      <h1>My Values</h1>
-      <p>
+      <h1 className="section-heading">My Values</h1>
+      <p className="section-intro">
         Animal wellbeing, scientific curiosity, and care for our planet guide my
         work. I believe better nutrition starts with evidence—and grows through
         sharing knowledge and connecting with people who care.
       </p>
-      <a className="values-link" href="#blog">Read More <span aria-hidden="true">→</span></a>
+      <button className="section-action" type="button" disabled title="More about my values is coming soon">
+        Read More <span aria-hidden="true">→</span>
+      </button>
     </div>
     <div className="values-image">
       <img
-        src={`${import.meta.env.BASE_URL}img/soil.jpg`}
-        alt="Hands gently holding a handful of soil"
-        width="3456"
-        height="5184"
+        src={`${import.meta.env.BASE_URL}img/negative-space-dalmation-dog-woman-blonde-summer-happy-daria-shevtsova-thumb-1.jpg`}
+        alt="Woman embracing a Dalmatian against a terracotta wall"
+        loading="lazy"
+        width="1062"
+        height="708"
       />
     </div>
   </div>

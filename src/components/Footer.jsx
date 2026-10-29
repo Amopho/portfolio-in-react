@@ -32,7 +32,7 @@ const Footer = () => {
             </li>
             <li>
               <div className="social">
-                <a href="https://www.linkedin.com/in/alina-majewska-pinda-ph-d-9714a5152/">
+                <a href="https://www.linkedin.com/in/dr-alina-majewska-pinda-9714a5152/">
                   <span>
                     <AiFillLinkedin />
                   </span>
