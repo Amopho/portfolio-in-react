@@ -9,9 +9,9 @@ test("header anchors bring each section into view", async ({ page }, testInfo) =
 
   const header = page.getByRole("banner");
   // Check Home last so returning to the top is exercised too.
-  for (const name of ["Projects", "Blog", "Contact", "Home"]) {
+  for (const name of ["Projects", "My Values", "Blog", "Contact", "Home"]) {
     await test.step(`Navigate to ${name}`, async () => {
-      const id = name.toLowerCase();
+      const id = name === "My Values" ? "values" : name.toLowerCase();
       const section = page.getByRole("region", { name, exact: true });
       await header.getByRole("link", { name, exact: true }).click();
 
@@ -29,6 +29,12 @@ test("header anchors bring each section into view", async ({ page }, testInfo) =
         body: await page.screenshot(),
         contentType: "image/png",
       });
+      if (id === "values") {
+        await section.getByRole("link", { name: "Read More" }).click();
+        await expect(page).toHaveURL(new URL("#blog", page.url()).href);
+        await expect(page.getByRole("region", { name: "Blog", exact: true })
+          .getByRole("heading", { name: "Blog", exact: true })).toBeInViewport();
+      }
     });
   }
 });

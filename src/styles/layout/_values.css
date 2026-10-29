@@ -1,0 +1,84 @@
+/* The original Values composition: copy beside an arched photograph. */
+.values-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.values-copy {
+  max-width: 28rem;
+}
+
+.values-copy h1 {
+  margin-bottom: 1rem;
+}
+
+.values-copy p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+
+.values-link,
+.values-link:visited {
+  display: inline-block;
+  padding: 0.65rem 1.25rem;
+  border-radius: 8px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
+.values-link:hover {
+  background-color: #254a38;
+  color: #fff;
+  text-decoration: underline;
+}
+
+.values-link:focus-visible {
+  outline: 3px solid #254a38;
+  outline-offset: 4px;
+}
+
+.values-image {
+  position: relative;
+  isolation: isolate;
+  padding: 0 0 1rem 1rem;
+}
+
+/* A quiet peach accent replaces the reference's botanical illustration. */
+.values-image::before {
+  content: "";
+  position: absolute;
+  inset: 12% 1rem 0 0;
+  z-index: -1;
+  border-radius: 50% 50% 0 0;
+  background-color: #f5dfce;
+}
+
+.values-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 65%;
+  border-radius: 50% 50% 0 0;
+}
+
+@media (max-width: 900px) {
+  .values-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .values-copy,
+  .values-image {
+    width: 100%;
+    max-width: 28rem;
+    justify-self: center;
+  }
+}
