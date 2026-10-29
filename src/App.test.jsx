@@ -6,7 +6,7 @@ import stories from "./story.json";
 
 // PTST-4 technical checks use structure and URLs, independent of displayed copy.
 // PFE-12 content/style preservation belongs to LandingStyles.test.jsx snapshots.
-const primarySectionIds = ["home", "projects", "values", "contact"];
+const primarySectionIds = ["home", "projects", "values", "consultation", "contact"];
 
 afterEach(() => {
   cleanup();
@@ -31,7 +31,7 @@ test("renders the primary sections together in a persistent layout", () => {
 test("internal navigation uses existing sections rather than nested URLs", () => {
   const { container } = render(<App />);
   const links = Array.from(container.querySelectorAll("a"));
-  const internalLinks = links.filter((link) => !link.href.startsWith("https://"));
+  const internalLinks = links.filter((link) => link.getAttribute("href").startsWith("#"));
 
   expect(internalLinks.length).toBeGreaterThan(0);
   internalLinks.forEach((link) => {
@@ -46,6 +46,12 @@ test("internal navigation uses existing sections rather than nested URLs", () =>
     .map((link) => link.getAttribute("href"));
   expect(storyTargets).toEqual(["#contact", "#contact", "#values"]);
   expect(container.querySelector("a a, a button, button a, button button")).toBeNull();
+  expect(within(screen.getByRole("region", { name: "Consultation" }))
+    .getByRole("link", { name: "Request a Consultation" }).getAttribute("href"))
+    .toBe("#contact");
+  expect(within(screen.getByRole("region", { name: "Contact" }))
+    .getByRole("link", { name: "Send an inquiry" }).getAttribute("href"))
+    .toBe("mailto:alina.majewska.pinda@gmail.com?subject=Dog%20nutrition%20consultation");
 });
 
 test("renders story card structure and base-prefixed images", () => {
@@ -61,7 +67,7 @@ test("renders story card structure and base-prefixed images", () => {
   });
 });
 
-test.each(["#projects", "#values", "#contact", "#unknown"])(
+test.each(["#projects", "#values", "#consultation", "#contact", "#unknown"])(
   "renders the same root experience when loaded with %s", (fragment) => {
     window.history.replaceState({}, "", `/portfolio-in-react/${fragment}`);
     render(<App />);

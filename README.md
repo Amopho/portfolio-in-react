@@ -11,9 +11,9 @@ This project was deployed with ❤️ on GitHub.
 ## PFE-10 architecture decision
 
 The primary portfolio is one root page with persistent navigation and footer.
-Home (including Story), Projects, My Values, and Contact appear as sections.
+Home (including Story), Projects, My Values, Consultation, and Contact appear as sections.
 Internal navigation uses native fragments:
-`#home`, `#projects`, `#values`, and `#contact`. There is no client-side router or
+`#home`, `#projects`, `#values`, `#consultation`, and `#contact`. There is no client-side router or
 additional state/service layer in the primary experience.
 
 On GitHub Pages, `/portfolio-in-react/#values` loads the physical root page;
@@ -166,6 +166,16 @@ the original woman-and-Dalmatian photograph, with a circular crop and a decorati
 a teaser for a future linked page; its Read More button remains visible and
 disabled until that destination is available. The My Mission card's Read More link targets `#values`.
 Projects remains reserved for a future external animal nutrition tool.
+
+Consultation (`src/components/Consultation.jsx`) adapts the original Store banner
+with the existing dog-nose photo, a dark overlay and centered copy. Its photo is
+lazy-loaded, and layout styles live in `src/styles/layout/_consultation.css`.
+My Values and Consultation reuse typography and action styles from
+`src/styles/components/_section-content.css`: `.section-heading`, `.section-intro`
+and `.section-action`, with a light action variant for dark backgrounds. Font
+families and heading sizes inherit the existing global typography.
+Request a Consultation links to `#contact`; Contact provides email inquiry links.
+No store, checkout or booking integration is included.
 
 The deployment base remains `/portfolio-in-react/`. Use section URLs such as `/portfolio-in-react/#projects` for direct loading and refreshes.
 

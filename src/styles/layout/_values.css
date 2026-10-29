@@ -13,37 +13,6 @@
   max-width: 28rem;
 }
 
-.values-copy h1 {
-  margin-bottom: 1rem;
-}
-
-.values-copy p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin-bottom: 1.75rem;
-}
-
-.values-link {
-  display: inline-block;
-  padding: 0.65rem 1.25rem;
-  border: 0;
-  border-radius: 8px;
-  background-color: #000;
-  color: #fff;
-  font: inherit;
-  text-decoration: none;
-}
-
-.values-link:disabled {
-  cursor: not-allowed;
-  opacity: 1;
-}
-
-.values-link:focus-visible {
-  outline: 3px solid #254a38;
-  outline-offset: 4px;
-}
-
 .values-image {
   position: relative;
   isolation: isolate;

@@ -13,7 +13,7 @@ test("header anchors bring each section into view", async ({ page }, testInfo) =
 
   const header = page.getByRole("banner");
   // Check Home last so returning to the top is exercised too.
-  for (const name of ["Projects", "My Values", "Contact", "Home"]) {
+  for (const name of ["Projects", "My Values", "Consultation", "Contact", "Home"]) {
     await test.step(`Navigate to ${name}`, async () => {
       const id = name === "My Values" ? "values" : name.toLowerCase();
       const section = page.getByRole("region", { name, exact: true });
@@ -33,6 +33,14 @@ test("header anchors bring each section into view", async ({ page }, testInfo) =
         body: await page.screenshot(),
         contentType: "image/png",
       });
+      if (id === "consultation") {
+        await section.getByRole("link", { name: "Request a Consultation" }).click();
+        await expect(page).toHaveURL(new URL("#contact", page.url()).href);
+        const contact = page.getByRole("region", { name: "Contact", exact: true });
+        await expect(contact.getByRole("heading", { name: "Contact", exact: true })).toBeInViewport();
+        await expect(contact.getByRole("link", { name: "Send an inquiry" }))
+          .toHaveAttribute("href", "mailto:alina.majewska.pinda@gmail.com?subject=Dog%20nutrition%20consultation");
+      }
     });
   }
 });

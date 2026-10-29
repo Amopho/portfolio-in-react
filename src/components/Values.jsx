@@ -1,13 +1,13 @@
 const Values = () => (
   <div className="values-layout">
     <div className="values-copy">
-      <h1>My Values</h1>
-      <p>
+      <h1 className="section-heading">My Values</h1>
+      <p className="section-intro">
         Animal wellbeing, scientific curiosity, and care for our planet guide my
         work. I believe better nutrition starts with evidence—and grows through
         sharing knowledge and connecting with people who care.
       </p>
-      <button className="values-link" type="button" disabled title="More about my values is coming soon">
+      <button className="section-action" type="button" disabled title="More about my values is coming soon">
         Read More <span aria-hidden="true">→</span>
       </button>
     </div>

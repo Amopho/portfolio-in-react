@@ -21,9 +21,11 @@ for (const viewport of viewports) {
     expect(await response.text(), "Preview must serve the current production build")
       .toBe(readFileSync("dist/index.html", "utf8"));
 
-    for (const id of ["home", "projects", "values", "contact"]) {
+    for (const id of ["home", "projects", "values", "consultation", "contact"]) {
       await expect(page.locator(`main section#${id}`)).toBeVisible();
     }
+
+    await expect(page.getByRole("link", { name: "Request a Consultation" })).toHaveAttribute("href", "#contact");
 
     // Bring deferred images near the viewport before waiting for every image to decode.
     for (const image of await page.locator('img[loading="lazy"]').all()) {

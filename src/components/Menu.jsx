@@ -16,6 +16,9 @@ const Menu = () => {
             <li>
               <a href="#values">My Values</a>
             </li>
+            <li>
+              <a href="#consultation">Consultation</a>
+            </li>
           </ul>
         </div>
       </nav>
