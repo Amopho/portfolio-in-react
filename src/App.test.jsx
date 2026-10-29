@@ -6,7 +6,7 @@ import stories from "./story.json";
 
 // PTST-4 technical checks use structure and URLs, independent of displayed copy.
 // PFE-12 content/style preservation belongs to LandingStyles.test.jsx snapshots.
-const primarySectionIds = ["home", "projects", "blog", "contact"];
+const primarySectionIds = ["home", "projects", "values", "blog", "contact"];
 
 afterEach(() => {
   cleanup();
@@ -61,7 +61,7 @@ test("renders story card structure and base-prefixed images", () => {
   });
 });
 
-test.each(["#projects", "#blog", "#contact", "#unknown"])(
+test.each(["#projects", "#values", "#blog", "#contact", "#unknown"])(
   "renders the same root experience when loaded with %s", (fragment) => {
     window.history.replaceState({}, "", `/portfolio-in-react/${fragment}`);
     render(<App />);

@@ -2,6 +2,7 @@ import Menu from "./components/Menu";
 import Home from "./components/Home";
 import Projects from "./components/Projects";
 import Blog from "./components/Blog";
+import Values from "./components/Values";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -15,6 +16,9 @@ function App() {
         </section>
         <section id="projects" aria-label="Projects">
           <Projects />
+        </section>
+        <section id="values" aria-label="My Values">
+          <Values />
         </section>
         <section id="blog" aria-label="Blog">
           <Blog />

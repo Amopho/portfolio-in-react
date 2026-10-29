@@ -21,7 +21,7 @@ for (const viewport of viewports) {
     expect(await response.text(), "Preview must serve the current production build")
       .toBe(readFileSync("dist/index.html", "utf8"));
 
-    for (const id of ["home", "projects", "blog", "contact"]) {
+    for (const id of ["home", "projects", "values", "blog", "contact"]) {
       await expect(page.locator(`main section#${id}`)).toBeVisible();
     }
 
@@ -49,7 +49,7 @@ for (const viewport of viewports) {
         src: image.currentSrc, complete: image.complete,
         naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight,
       })),
-      columns: Object.fromEntries([".home-images", ".story-container", ".section-container"]
+      columns: Object.fromEntries([".home-images", ".story-container", ".section-container", ".values-layout"]
         .map((selector) => [selector,
           getComputedStyle(document.querySelector(selector)).gridTemplateColumns.split(/\s+/).length])),
     }));
@@ -72,6 +72,7 @@ for (const viewport of viewports) {
       ".home-images": viewport.width > 900 ? 2 : 1,
       ".story-container": viewport.width > 900 ? 3 : 1,
       ".section-container": viewport.width > 900 ? 2 : 1,
+      ".values-layout": viewport.width > 900 ? 2 : 1,
     });
     expect(runtimeErrors).toEqual([]);
 

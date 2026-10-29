@@ -11,9 +11,9 @@ This project was deployed with ❤️ on GitHub.
 ## PFE-10 architecture decision
 
 The primary portfolio is one root page with persistent navigation and footer.
-Home (including Story), Projects, Blog, and Contact retain their existing copy
-and images and appear as sections. Internal navigation uses native fragments:
-`#home`, `#projects`, `#blog`, and `#contact`. There is no client-side router or
+Home (including Story), Projects, My Values, Blog, and Contact appear as sections.
+Internal navigation uses native fragments:
+`#home`, `#projects`, `#values`, `#blog`, and `#contact`. There is no client-side router or
 additional state/service layer in the primary experience.
 
 On GitHub Pages, `/portfolio-in-react/#blog` loads the physical root page;
@@ -159,6 +159,12 @@ Browser comparison and focused interaction verification remain pending; incomple
 captures do not prevent implementation, but are not reported as completed acceptance.
 
 ## Production and GitHub Pages
+
+My Values (`src/components/Values.jsx`) uses the existing `public/img/soil.jpg`
+photograph with an arched crop and a decorative CSS accent. Its styles live in
+`src/styles/layout/_values.css`; text and photo stack below 900px. The Read More
+link targets the existing `#blog` placeholder until blog content is available.
+Projects remains reserved for a future external animal nutrition tool.
 
 The deployment base remains `/portfolio-in-react/`. Use section URLs such as `/portfolio-in-react/#projects` for direct loading and refreshes.
 
