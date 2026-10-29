@@ -19,12 +19,15 @@ const Menu = () => {
             <li>
               <a href="#consultation">Consultation</a>
             </li>
+            <li>
+              <a href="#about">About Me</a>
+            </li>
           </ul>
         </div>
       </nav>
       <div className="contact-btn">
         <div className="black-link">
-          <a href="#contact">Contact</a>
+          <a href="#about">Contact</a>
         </div>
       </div>
     </header>

@@ -66,8 +66,7 @@ const selectors = [
   ".portfolio-header", ".menu-list", ".portfolio-header .contact-btn a",
   ".portfolio-content", "#home", "#home h1", "#home p", ".home-images", ".home-image",
   ".story-container", ".story-container .card", ".story-container .card-body",
-  "#scroll h3", ".story-button", ".story-button a", ".section-container", ".hi-img", ".section-text",
-  ".section-container .text", ".section-container .text h1", ".footer", ".footer ul",
+  "#scroll h3", ".story-button", ".story-button a", ".footer", ".footer ul",
 ];
 const properties = [
   "display", "position", "top", "z-index", "width", "height", "min-height",

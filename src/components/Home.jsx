@@ -1,5 +1,4 @@
 import Data from "../data.json";
-import Story from "./Story";
 
 import { FiArrowDownCircle } from "react-icons/fi";
 
@@ -38,7 +37,7 @@ const Home = () => {
         </p>
       </div>
       <div className="section-button">
-        <a href="#contact"> Let's get to know us</a>
+        <a href="#about"> Let's get to know us</a>
       </div>
       <div className="go-down">
         <a href="#scroll" className="arrow-button">
@@ -47,7 +46,6 @@ const Home = () => {
           </span>
         </a>
       </div>
-      <Story />
     </div>
   );
 };

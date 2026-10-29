@@ -15,7 +15,7 @@ const Consultation = () => (
         choices. Let’s explore your dog’s feeding routine, food options, and
         your nutrition questions together. Get in touch to discuss how I can help.
       </p>
-      <a className="section-action section-action--light" href="#contact">
+      <a className="section-action section-action--light" href="#about">
         Request a Consultation <span aria-hidden="true">→</span>
       </a>
     </div>

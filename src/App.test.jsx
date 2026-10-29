@@ -6,7 +6,7 @@ import stories from "./story.json";
 
 // PTST-4 technical checks use structure and URLs, independent of displayed copy.
 // PFE-12 content/style preservation belongs to LandingStyles.test.jsx snapshots.
-const primarySectionIds = ["home", "projects", "values", "consultation", "contact"];
+const primarySectionIds = ["home", "projects", "values", "consultation", "scroll", "about"];
 
 afterEach(() => {
   cleanup();
@@ -20,6 +20,7 @@ test("renders the primary sections together in a persistent layout", () => {
   expect(container.querySelectorAll(".footer")).toHaveLength(1);
   const main = screen.getByRole("main");
   expect(Array.from(main.children, (section) => section.id)).toEqual(primarySectionIds);
+  expect(container.querySelector("#contact")).toBeNull();
   primarySectionIds.forEach((id) => {
     const section = main.querySelector(`section#${id}`);
     expect(section).not.toBeNull();
@@ -41,16 +42,18 @@ test("internal navigation uses existing sections rather than nested URLs", () =>
   });
   const headerTargets = Array.from(container.querySelectorAll("header a"),
     (link) => link.getAttribute("href"));
-  expect(new Set(headerTargets)).toEqual(new Set(primarySectionIds.map((id) => `#${id}`)));
+  expect(new Set(headerTargets)).toEqual(new Set(primarySectionIds
+    .filter((id) => id !== "scroll").map((id) => `#${id}`)));
+  expect(container.querySelector('a[href="#contact"]')).toBeNull();
   const storyTargets = within(container.querySelector("#scroll")).getAllByRole("link")
     .map((link) => link.getAttribute("href"));
-  expect(storyTargets).toEqual(["#contact", "#contact", "#values"]);
+  expect(storyTargets).toEqual(["#about", "#about", "#values"]);
   expect(container.querySelector("a a, a button, button a, button button")).toBeNull();
   expect(within(screen.getByRole("region", { name: "Consultation" }))
     .getByRole("link", { name: "Request a Consultation" }).getAttribute("href"))
-    .toBe("#contact");
-  expect(within(screen.getByRole("region", { name: "Contact" }))
-    .getByRole("link", { name: "Send an inquiry" }).getAttribute("href"))
+    .toBe("#about");
+  expect(within(screen.getByRole("region", { name: "About Me" }))
+    .getByRole("link", { name: "Get in Touch" }).getAttribute("href"))
     .toBe("mailto:alina.majewska.pinda@gmail.com?subject=Dog%20nutrition%20consultation");
 });
 
@@ -67,7 +70,7 @@ test("renders story card structure and base-prefixed images", () => {
   });
 });
 
-test.each(["#projects", "#values", "#consultation", "#contact", "#unknown"])(
+test.each(["#projects", "#values", "#consultation", "#about", "#unknown"])(
   "renders the same root experience when loaded with %s", (fragment) => {
     window.history.replaceState({}, "", `/portfolio-in-react/${fragment}`);
     render(<App />);
