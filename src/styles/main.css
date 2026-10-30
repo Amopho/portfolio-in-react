@@ -1,5 +1,5 @@
 /* Native CSS composition. Preserve the recovered header/reset order. */
-@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@200&family=Montserrat:wght@200&family=News+Cycle&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@200&family=Montserrat:wght@200&display=swap");
 @import "./layout/_header.css";
 @import "./base/_reset.css";
 @import "./base/_globals.css";
@@ -9,5 +9,5 @@
 @import "./layout/_story.css";
 @import "./layout/_values.css";
 @import "./layout/_consultation.css";
-@import "./layout/_contact.css";
+@import "./layout/_about.css";
 @import "./layout/_footer.css";

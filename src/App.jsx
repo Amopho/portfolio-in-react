@@ -3,7 +3,8 @@ import Home from "./components/Home";
 import Projects from "./components/Projects";
 import Values from "./components/Values";
 import Consultation from "./components/Consultation";
-import Contact from "./components/Contact";
+import Story from "./components/Story";
+import About from "./components/About";
 import Footer from "./components/Footer";
 
 function App() {
@@ -23,8 +24,9 @@ function App() {
         <section id="consultation" aria-label="Consultation">
           <Consultation />
         </section>
-        <section id="contact" aria-label="Contact">
-          <Contact />
+        <Story />
+        <section id="about" aria-label="About Me">
+          <About />
         </section>
       </main>
       <Footer />

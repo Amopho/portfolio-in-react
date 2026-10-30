@@ -21,11 +21,11 @@ for (const viewport of viewports) {
     expect(await response.text(), "Preview must serve the current production build")
       .toBe(readFileSync("dist/index.html", "utf8"));
 
-    for (const id of ["home", "projects", "values", "consultation", "contact"]) {
+    for (const id of ["home", "projects", "values", "consultation", "about"]) {
       await expect(page.locator(`main section#${id}`)).toBeVisible();
     }
 
-    await expect(page.getByRole("link", { name: "Request a Consultation" })).toHaveAttribute("href", "#contact");
+    await expect(page.getByRole("link", { name: "Request a Consultation" })).toHaveAttribute("href", "#about");
 
     // Bring deferred images near the viewport before waiting for every image to decode.
     for (const image of await page.locator('img[loading="lazy"]').all()) {
@@ -55,7 +55,7 @@ for (const viewport of viewports) {
         src: image.currentSrc, complete: image.complete,
         naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight,
       })),
-      columns: Object.fromEntries([".home-images", ".story-container", ".section-container", ".values-layout"]
+      columns: Object.fromEntries([".home-images", ".story-container", ".values-layout", ".about-layout"]
         .map((selector) => [selector,
           getComputedStyle(document.querySelector(selector)).gridTemplateColumns.split(/\s+/).length])),
     }));
@@ -71,14 +71,14 @@ for (const viewport of viewports) {
     }
     const loadedFonts = rendered.fonts.filter((font) => font.status === "loaded")
       .map((font) => font.family.replace(/["']/g, ""));
-    for (const family of ["Catamaran", "News Cycle"]) {
+    for (const family of ["Catamaran"]) {
       expect(loadedFonts, `Load ${family} before recording a reference`).toContain(family);
     }
     expect(rendered.columns).toEqual({
       ".home-images": viewport.width > 900 ? 2 : 1,
       ".story-container": viewport.width > 900 ? 3 : 1,
-      ".section-container": viewport.width > 900 ? 2 : 1,
       ".values-layout": viewport.width > 900 ? 2 : 1,
+      ".about-layout": viewport.width > 900 ? 2 : 1,
     });
     expect(runtimeErrors).toEqual([]);
 

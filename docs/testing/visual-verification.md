@@ -33,13 +33,14 @@ needed. Full-page image dimensions can exceed the viewport when content overflow
 the metadata records this. These checks do not yet compare approved image baselines
 or establish keyboard interaction coverage.
 
-The navigation smoke test clicks Projects, My Values, Consultation, Contact, and then Home in the
+The navigation smoke test clicks Projects, My Values, Consultation, About Me, Contact, and then Home in the
 header. It checks each fragment URL, section viewport intersection, and that the
 section starts in view below the sticky header. Each step attaches a viewport
 screenshot to the HTML report for manual visual review; these are not automated
 visual comparisons or approved baselines.
-The Consultation step also follows Request a Consultation to `#contact` and
-checks the email inquiry destination without launching an external email app.
+The black Contact button targets About Me (`#about`). The Consultation step
+follows Request a Consultation to `#about` and checks Get in Touch's email inquiry
+destination without launching an external email app.
 
 Run it with `npx playwright test tests/e2e/navigation.spec.js`, adding `--headed`
 to watch the browser. The test uses the application's current CSS and the default

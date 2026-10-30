@@ -13,10 +13,13 @@ test("header anchors bring each section into view", async ({ page }, testInfo) =
 
   const header = page.getByRole("banner");
   // Check Home last so returning to the top is exercised too.
-  for (const name of ["Projects", "My Values", "Consultation", "Contact", "Home"]) {
+  for (const [name, id] of [
+    ["Projects", "projects"], ["My Values", "values"],
+    ["Consultation", "consultation"], ["About Me", "about"],
+    ["Contact", "about"], ["Home", "home"],
+  ]) {
     await test.step(`Navigate to ${name}`, async () => {
-      const id = name === "My Values" ? "values" : name.toLowerCase();
-      const section = page.getByRole("region", { name, exact: true });
+      const section = page.locator(`main section#${id}`);
       await header.getByRole("link", { name, exact: true }).click();
 
       await expect(page).toHaveURL(new URL(`#${id}`, page.url()).href);
@@ -35,10 +38,10 @@ test("header anchors bring each section into view", async ({ page }, testInfo) =
       });
       if (id === "consultation") {
         await section.getByRole("link", { name: "Request a Consultation" }).click();
-        await expect(page).toHaveURL(new URL("#contact", page.url()).href);
-        const contact = page.getByRole("region", { name: "Contact", exact: true });
-        await expect(contact.getByRole("heading", { name: "Contact", exact: true })).toBeInViewport();
-        await expect(contact.getByRole("link", { name: "Send an inquiry" }))
+        await expect(page).toHaveURL(new URL("#about", page.url()).href);
+        const about = page.getByRole("region", { name: "About Me", exact: true });
+        await expect(about.getByRole("heading", { name: "About Me", exact: true })).toBeInViewport();
+        await expect(about.getByRole("link", { name: "Get in Touch" }))
           .toHaveAttribute("href", "mailto:alina.majewska.pinda@gmail.com?subject=Dog%20nutrition%20consultation");
       }
     });

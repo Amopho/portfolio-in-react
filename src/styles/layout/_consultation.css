@@ -4,7 +4,8 @@
   isolation: isolate;
   display: grid;
   place-items: center;
-  min-height: 32rem;
+  /* Give the nose enough vertical room as the full-width image scales up. */
+  min-height: max(32rem, 32vw);
   padding: clamp(3rem, 7vw, 6rem) 1.5rem;
   background-color: #302b28;
   color: #fff;
@@ -18,7 +19,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 45%;
+  /* Keep the whole nose in frame rather than centering the dog's lower muzzle. */
+  object-position: center 20%;
 }
 
 .consultation-banner::before {

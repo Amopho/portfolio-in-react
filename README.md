@@ -1,6 +1,6 @@
 # portfolio-in-react 👩‍💼 developer portfolio
 
-🔄 Update 2022
+🔄 Update 2026
 
 Let's get to know each other! A portfolio website of junior web developer made with 💖 in ReactJS. See you there!
 
@@ -11,9 +11,9 @@ This project was deployed with ❤️ on GitHub.
 ## PFE-10 architecture decision
 
 The primary portfolio is one root page with persistent navigation and footer.
-Home (including Story), Projects, My Values, Consultation, and Contact appear as sections.
+Home, Projects, My Values, Consultation, the Story/Project/Mission cards, and About Me appear as sections, in that order.
 Internal navigation uses native fragments:
-`#home`, `#projects`, `#values`, `#consultation`, and `#contact`. There is no client-side router or
+`#home`, `#projects`, `#values`, `#consultation`, `#scroll` (cards), and `#about`. There is no client-side router or
 additional state/service layer in the primary experience.
 
 On GitHub Pages, `/portfolio-in-react/#values` loads the physical root page;
@@ -85,7 +85,7 @@ ownership and local commands. Each run generates an HTML report; inspect it with
 
 Playwright always builds and starts a fresh production preview on port 4173,
 using `/portfolio-in-react/` as its base URL, to avoid stale output. Port 4173
-must be free. Use relative URLs such as `./` and `#contact` in browser specs so
+must be free. Use relative URLs such as `./` and `#about` in browser specs so
 they retain the repository base path.
 
 `tests/e2e/portfolio.spec.js` captures desktop (1440×900), tablet (768×1024)
@@ -128,7 +128,7 @@ previously supplied by application Sass and Bootstrap.
 The layout files have explicit owners: `_portfolio.css` handles the root layout,
 anchor offsets, shared anchor-button appearance/states, and the Projects placeholder
 columns; `_header.css` handles navigation; `_home.css` handles home images and the
-arrow; `_story.css` handles cards; `_contact.css` handles contact columns; and
+arrow; `_story.css` handles cards; `_about.css` handles the final About Me section; and
 `_footer.css` handles the footer. Responsive rules live beside their owners.
 The existing 600px header, 900px section stacking and 576px Projects breakpoints
 are preserved. The header/reset order, typography, spacing, image crops, blue
@@ -160,6 +160,12 @@ captures do not prevent implementation, but are not reported as completed accept
 
 ## Production and GitHub Pages
 
+The Home banner remains above a full-width warm beige-gray introduction.
+`.hero-intro__content` in `src/styles/layout/_home.css` centers a container capped
+at 720px with responsive padding, while its heading, paragraphs and shared action
+remain left-aligned. The heading reads “Hi, I am Allie!”; the existing introduction
+copy and section-anchor destinations are retained.
+
 My Values (`src/components/Values.jsx`) uses `public/img/negative-space-dalmation-dog-woman-blonde-summer-happy-daria-shevtsova-thumb-1.jpg`,
 the original woman-and-Dalmatian photograph, with a circular crop and a decorative CSS accent. Its styles live in
 `src/styles/layout/_values.css`; text and photo stack below 900px. My Values is
@@ -170,12 +176,21 @@ Projects remains reserved for a future external animal nutrition tool.
 Consultation (`src/components/Consultation.jsx`) adapts the original Store banner
 with the existing dog-nose photo, a dark overlay and centered copy. Its photo is
 lazy-loaded, and layout styles live in `src/styles/layout/_consultation.css`.
-My Values and Consultation reuse typography and action styles from
+My Values, Consultation and About Me reuse typography and action styles from
 `src/styles/components/_section-content.css`: `.section-heading`, `.section-intro`
 and `.section-action`, with a light action variant for dark backgrounds. Font
 families and heading sizes inherit the existing global typography.
-Request a Consultation links to `#contact`; Contact provides email inquiry links.
+Request a Consultation links to `#about`; Get in Touch there opens an email inquiry.
 No store, checkout or booking integration is included.
+
+About Me (`src/components/About.jsx`) is the final landing-page section before
+the footer. It uses the glasses-and-laptop photo, a short introduction connecting
+animal nutrition and software development, and the shared Get in Touch action.
+Layout styles live in `src/styles/layout/_about.css`. The old Contact component,
+section and section-specific CSS have been removed. All former Contact navigation anchors,
+including the black Contact button and Request a Consultation, target `#about`.
+Get in Touch uses the existing email address via `mailto:`. A standalone `/contact` page and PFE-16 inquiry
+form are future work; no routing or links to an unimplemented page are added.
 
 The deployment base remains `/portfolio-in-react/`. Use section URLs such as `/portfolio-in-react/#projects` for direct loading and refreshes.
 
