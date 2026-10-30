@@ -1,6 +1,6 @@
 # portfolio-in-react 👩‍💼 developer portfolio
 
-🔄 Update 2022
+🔄 Update 2026
 
 Let's get to know each other! A portfolio website of junior web developer made with 💖 in ReactJS. See you there!
 
@@ -159,6 +159,12 @@ Browser comparison and focused interaction verification remain pending; incomple
 captures do not prevent implementation, but are not reported as completed acceptance.
 
 ## Production and GitHub Pages
+
+The Home banner remains above a full-width warm beige-gray introduction.
+`.hero-intro__content` in `src/styles/layout/_home.css` centers a container capped
+at 720px with responsive padding, while its heading, paragraphs and shared action
+remain left-aligned. The heading reads “Hi, I am Allie!”; the existing introduction
+copy and section-anchor destinations are retained.
 
 My Values (`src/components/Values.jsx`) uses `public/img/negative-space-dalmation-dog-woman-blonde-summer-happy-daria-shevtsova-thumb-1.jpg`,
 the original woman-and-Dalmatian photograph, with a circular crop and a decorative CSS accent. Its styles live in
