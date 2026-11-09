@@ -1,107 +1,70 @@
 import { test, expect } from "@playwright/test";
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
-import { execFileSync } from "node:child_process";
-import { createHash } from "node:crypto";
-
-const viewports = [
-  { name: "desktop", width: 1440, height: 900 },
-  { name: "tablet", width: 768, height: 1024 },
-  { name: "mobile", width: 375, height: 812 },
-];
-const hash = (bytes) => createHash("sha256").update(bytes).digest("hex");
-
-for (const viewport of viewports) {
-  test(`portfolio renders at ${viewport.name} size`, async ({ page, browser }, testInfo) => {
-    const runtimeErrors = [];
-    page.on("pageerror", (error) => runtimeErrors.push(error.message));
-    await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    const response = await page.goto("./");
-    expect(response?.ok(), "Production root must load successfully").toBe(true);
-    expect(await response.text(), "Preview must serve the current production build")
-      .toBe(readFileSync("dist/index.html", "utf8"));
-
-    for (const id of ["home", "projects", "values", "consultation", "about"]) {
-      await expect(page.locator(`main section#${id}`)).toBeVisible();
-    }
-
-    await expect(page.getByRole("link", { name: "Request a Consultation" })).toHaveAttribute("href", "#about");
-
-    // Bring deferred images near the viewport before waiting for every image to decode.
-    for (const image of await page.locator('img[loading="lazy"]').all()) {
+for (const [name, width, height] of [
+  ["desktop", 1440, 1000],
+  ["tablet", 768, 1024],
+  ["mobile", 375, 812],
+]) {
+  test(`mockup renders without overflow at ${name} size`, async ({
+    page,
+  }, testInfo) => {
+    const errors = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    await page.setViewportSize({ width, height });
+    expect((await page.goto("./")).ok()).toBe(true);
+    for (const image of await page.locator('img[loading="lazy"]').all())
       await image.scrollIntoViewIfNeeded();
-    }
     await page.evaluate(async () => {
       await document.fonts.ready;
-      await Promise.all(Array.from(document.images, (image) => image.decode()));
-      document.activeElement?.blur();
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      await Promise.all(Array.from(document.images, (img) => img.decode()));
     });
-    await page.mouse.move(0, 0);
-
-    const rendered = await page.evaluate(() => ({
-      url: location.href,
-      userAgent: navigator.userAgent,
-      viewport: { width: innerWidth, height: innerHeight,
-        clientWidth: document.documentElement.clientWidth,
-        clientHeight: document.documentElement.clientHeight,
-        devicePixelRatio, scale: visualViewport?.scale },
-      scrollWidth: document.documentElement.scrollWidth,
-      scrollHeight: document.documentElement.scrollHeight,
-      fonts: Array.from(document.fonts, (font) => ({
-        family: font.family, weight: font.weight, status: font.status,
+    expect(errors).toEqual([]);
+    expect(
+      await page.evaluate(() => document.fonts.check("800 48px Inter")),
+    ).toBe(true);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(width);
+    expect(await page.locator("h1").count()).toBe(1);
+    for (const id of [
+      "home",
+      "projects",
+      "values",
+      "benefits",
+      "about",
+      "expertise",
+      "process",
+      "consultation",
+      "contact",
+    ])
+      await expect(page.locator(`section#${id}`)).toBeVisible();
+    expect(await page.locator(".plan-card").count()).toBe(3);
+    const images = await page.locator("img").evaluateAll((imgs) =>
+      imgs.map((img) => ({
+        loaded: img.complete && img.naturalWidth > 0,
+        alt: img.alt,
       })),
-      images: Array.from(document.images, (image) => ({
-        src: image.currentSrc, complete: image.complete,
-        naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight,
-      })),
-      columns: Object.fromEntries([".home-images", ".story-container", ".values-layout", ".about-layout"]
-        .map((selector) => [selector,
-          getComputedStyle(document.querySelector(selector)).gridTemplateColumns.split(/\s+/).length])),
-    }));
-
-    expect(rendered.viewport.width).toBe(viewport.width);
-    expect(rendered.viewport.height).toBe(viewport.height);
-    expect(rendered.viewport.devicePixelRatio).toBe(1);
-    expect(rendered.viewport.scale).toBe(1);
-    expect(rendered.images.length).toBeGreaterThan(0);
-    for (const image of rendered.images) {
-      expect(image.complete && image.naturalWidth > 0, image.src).toBe(true);
-      expect(new URL(image.src).pathname).toMatch(/^\/portfolio-in-react\/img\//);
+    );
+    for (const image of images) {
+      expect(image.loaded).toBe(true);
+      expect(image.alt).toBeTruthy();
     }
-    const loadedFonts = rendered.fonts.filter((font) => font.status === "loaded")
-      .map((font) => font.family.replace(/["']/g, ""));
-    for (const family of ["Catamaran"]) {
-      expect(loadedFonts, `Load ${family} before recording a reference`).toContain(family);
-    }
-    expect(rendered.columns).toEqual({
-      ".home-images": viewport.width > 900 ? 2 : 1,
-      ".story-container": viewport.width > 900 ? 3 : 1,
-      ".values-layout": viewport.width > 900 ? 2 : 1,
-      ".about-layout": viewport.width > 900 ? 2 : 1,
+    const hero = await page.locator("#home .container").boundingBox();
+    expect(hero.x).toBeGreaterThanOrEqual(width > 1000 ? 75 : 24);
+    const columns = await page
+      .locator(".plans-grid")
+      .evaluate(
+        (el) => getComputedStyle(el).gridTemplateColumns.split(" ").length,
+      );
+    expect(columns).toBe(width > 1000 ? 3 : 1);
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    await page.screenshot({
+      path: testInfo.outputPath(`landing-${name}.png`),
+      fullPage: true,
+      animations: "disabled",
     });
-    expect(runtimeErrors).toEqual([]);
-
-    mkdirSync(testInfo.outputDir, { recursive: true });
-    const screenshotPath = testInfo.outputPath(`portfolio-${viewport.name}.png`);
-    const screenshot = await page.screenshot({
-      path: screenshotPath, fullPage: true, animations: "disabled",
+    await testInfo.attach(`${name} screenshot`, {
+      path: testInfo.outputPath(`landing-${name}.png`),
+      contentType: "image/png",
     });
-    const buildHashes = Object.fromEntries(readdirSync("dist/assets")
-      .filter((file) => /\.(css|js)$/.test(file))
-      .map((file) => [file, hash(readFileSync(resolve("dist/assets", file)))]));
-    const metadata = {
-      capturedAt: new Date().toISOString(), requestedViewport: viewport,
-      browser: browser.version(), ...rendered,
-      revision: execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim(),
-      workingTree: execFileSync("git", ["status", "--short"], { encoding: "utf8" }),
-      buildHashes, screenshotSha256: hash(screenshot),
-      screenshotPixels: { width: screenshot.readUInt32BE(16), height: screenshot.readUInt32BE(20) },
-      horizontalOverflow: rendered.scrollWidth > rendered.viewport.clientWidth,
-      scope: "Render/capture checks; not a visual-diff or keyboard-navigation assertion",
-    };
-    const metadataPath = testInfo.outputPath(`portfolio-${viewport.name}.json`);
-    writeFileSync(metadataPath, JSON.stringify(metadata, null, 2) + "\n");
-    console.log(`Saved ${viewport.name} capture: ${screenshotPath}`);
   });
 }

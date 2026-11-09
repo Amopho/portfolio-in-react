@@ -1,49 +1,44 @@
 import { test, expect } from "@playwright/test";
-
-test("header anchors bring each section into view", async ({ page }, testInfo) => {
+test("desktop navigation lands below the sticky header and all CTA targets work", async ({
+  page,
+}) => {
   await page.goto("./");
-  for (const image of await page.locator('img[loading="lazy"]').all()) {
-    await image.scrollIntoViewIfNeeded();
-  }
-  await page.evaluate(async () => {
-    await document.fonts.ready;
-    await Promise.all(Array.from(document.images, (image) => image.decode()));
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  });
-
   const header = page.getByRole("banner");
-  // Check Home last so returning to the top is exercised too.
   for (const [name, id] of [
-    ["Projects", "projects"], ["My Values", "values"],
-    ["Consultation", "consultation"], ["About Me", "about"],
-    ["Contact", "about"], ["Home", "home"],
+    ["Projekte", "projects"],
+    ["Meine Werte", "values"],
+    ["Beratung", "consultation"],
+    ["Über mich", "about"],
+    ["Kontakt", "contact"],
+    ["Start", "home"],
   ]) {
-    await test.step(`Navigate to ${name}`, async () => {
-      const section = page.locator(`main section#${id}`);
-      await header.getByRole("link", { name, exact: true }).click();
-
-      await expect(page).toHaveURL(new URL(`#${id}`, page.url()).href);
-      await expect(section).toBeInViewport();
-      await expect.poll(async () => {
-        const target = await section.boundingBox();
+    await header.getByRole("link", { name, exact: true }).click();
+    await expect(page).toHaveURL(new RegExp(`#${id}$`));
+    await expect(page.locator(`#${id}`)).toBeInViewport();
+    await expect
+      .poll(async () => {
+        const target = await page.locator(`#${id}`).boundingBox();
         const banner = await header.boundingBox();
-        return target !== null && banner !== null
-          && target.y >= banner.y + banner.height - 1
-          && target.y < page.viewportSize().height;
-      }, { message: `${name} must start in view below the sticky header` }).toBe(true);
-
-      await testInfo.attach(`${id}-navigation`, {
-        body: await page.screenshot(),
-        contentType: "image/png",
-      });
-      if (id === "consultation") {
-        await section.getByRole("link", { name: "Request a Consultation" }).click();
-        await expect(page).toHaveURL(new URL("#about", page.url()).href);
-        const about = page.getByRole("region", { name: "About Me", exact: true });
-        await expect(about.getByRole("heading", { name: "About Me", exact: true })).toBeInViewport();
-        await expect(about.getByRole("link", { name: "Get in Touch" }))
-          .toHaveAttribute("href", "mailto:alina.majewska.pinda@gmail.com?subject=Dog%20nutrition%20consultation");
-      }
-    });
+        return target.y >= banner.height - 2 && target.y < 900;
+      })
+      .toBe(true);
   }
+  await page.getByRole("link", { name: "So arbeite ich", exact: true }).click();
+  await expect(page).toHaveURL(/#process$/);
+  await expect(page.locator("#process")).toBeInViewport();
+  await expect(page.locator("#contact .button")).toHaveAttribute(
+    "href",
+    /^mailto:/,
+  );
+});
+test("mobile menu opens and closes after navigation", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("./");
+  const nav = page.getByRole("navigation", { name: "Hauptnavigation" });
+  await expect(nav).toBeHidden();
+  await page.getByRole("button", { name: "Menü öffnen" }).click();
+  await expect(nav).toBeVisible();
+  await nav.getByRole("link", { name: "Beratung", exact: true }).click();
+  await expect(nav).toBeHidden();
+  await expect(page).toHaveURL(/#consultation$/);
 });

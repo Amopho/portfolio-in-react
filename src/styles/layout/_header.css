@@ -1,55 +1,149 @@
 .portfolio-header {
   position: sticky;
   top: 0;
-  z-index: 1020;
-  width: 100%;
-  min-height: 5rem;
-  padding: 0.75rem 1.5rem;
+  z-index: 20;
+  background: #fdfaf6f5;
+  backdrop-filter: blur(12px);
+}
+.header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  background-color: #fff;
-  font-family: "Catamaran";
+  gap: 30px;
+  min-height: 100px;
 }
-
-.portfolio-header .menu-list {
+.logo {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  letter-spacing: 0.07rem;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
 }
-
-.portfolio-header a {
-  display: inline-block;
-  text-decoration: none;
+.logo > svg {
+  color: var(--orange);
+  width: 43px;
+  height: 43px;
+  transform: rotate(-8deg);
 }
-
-.portfolio-header .contact-btn {
-  margin: 0;
-  padding: 0;
+.logo > span {
+  font-size: 27px;
+  letter-spacing: 0.025em;
+  font-weight: 750;
+  line-height: 1.2;
 }
-
-.portfolio-header .contact-btn a {
+.logo small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  margin-top: 7px;
+}
+.portfolio-header nav {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+.menu-list {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+.menu-list a {
+  display: block;
+  position: relative;
+  padding-block: 14px;
+}
+.menu-list a.active:after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  background: var(--orange);
+  height: 2px;
+}
+.menu-list a:hover {
+  color: var(--orange);
+}
+.header-contact {
+  display: flex;
+  align-items: center;
+  gap: 15px;
   color: #fff;
-  background-color: #000;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-size: 18px;
+  background: linear-gradient(110deg, #244608, #315d13);
+  padding: 12px 23px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
 }
-
-@media (max-width: 600px) {
+.header-contact svg {
+  width: 20px;
+  height: 20px;
+}
+.menu-toggle {
+  display: none;
+}
+@media (max-width: 1100px) {
   .portfolio-header nav {
-    order: 3;
-    width: 100%;
+    gap: 22px;
   }
-
-  .portfolio-header .menu-list {
+  .menu-list {
+    gap: 19px;
+    font-size: 13px;
+  }
+  .logo > span {
+    font-size: 23px;
+  }
+  .logo small {
+    font-size: 6px;
+  }
+  .logo > svg {
+    width: 35px;
+    height: 35px;
+  }
+  .header-inner {
+    gap: 20px;
+  }
+}
+@media (max-width: 900px) {
+  .header-inner {
+    min-height: 84px;
+  }
+  .menu-toggle {
+    display: flex;
+    border: 0;
+    background: var(--sage);
+    color: var(--green);
+    padding: 11px;
+    border-radius: 8px;
+    font-size: 24px;
+  }
+  .portfolio-header nav {
+    display: none;
+    position: absolute;
+    top: 84px;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 10px 20px #30240810;
+  }
+  .portfolio-header nav.is-open {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .menu-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    font-size: 16px;
+  }
+  .menu-list a.active:after {
+    width: 35px;
+  }
+  .header-contact {
     justify-content: center;
-    gap: 1rem;
   }
 }

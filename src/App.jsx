@@ -4,34 +4,57 @@ import Projects from "./components/Projects";
 import Values from "./components/Values";
 import Consultation from "./components/Consultation";
 import Story from "./components/Story";
-import About from "./components/About";
+import About, { Benefits } from "./components/About";
+import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-
-function App() {
+export default function App() {
   return (
     <div className="App">
+      <a className="skip-link" href="#main">
+        Zum Inhalt
+      </a>
       <Menu />
-      <main className="portfolio-content">
-        <section id="home" aria-label="Home">
+      <main id="main" className="portfolio-content">
+        <section id="home" aria-label="Start">
           <Home />
         </section>
-        <section id="projects" aria-label="Projects">
+        <section
+          id="projects"
+          aria-label="Kennst du das?"
+          className="section-space wave-section"
+        >
           <Projects />
         </section>
-        <section id="values" aria-label="My Values">
+        <section id="values" aria-label="Meine Werte" className="section-space">
           <Values />
         </section>
-        <section id="consultation" aria-label="Consultation">
-          <Consultation />
+        <section
+          id="benefits"
+          aria-label="Dein Mehrwert"
+          className="section-space wave-section"
+        >
+          <Benefits />
+        </section>
+        <section id="about" aria-label="Über mich" className="section-space">
+          <About />
         </section>
         <Story />
-        <section id="about" aria-label="About Me">
-          <About />
+        <section
+          id="consultation"
+          aria-label="Beratungsoptionen"
+          className="section-space"
+        >
+          <Consultation />
+        </section>
+        <section
+          id="contact"
+          aria-label="Beratung anfragen"
+          className="contact-section"
+        >
+          <Contact />
         </section>
       </main>
       <Footer />
     </div>
   );
 }
-
-export default App;
