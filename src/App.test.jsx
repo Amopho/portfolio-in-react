@@ -8,6 +8,7 @@ import {
 } from "@testing-library/react";
 import App from "./App";
 import Home from "./components/Home";
+import { SituationsCarousel } from "./components/Projects";
 import ProjectsInfo from "./components/ProjectsInfo";
 import { contactHref } from "./components/LandingUI";
 afterEach(cleanup);
@@ -47,6 +48,89 @@ test("renders the complete mockup as semantic React sections with one main headi
   for (const link of container.querySelectorAll('a[href^="#"]'))
     expect(container.querySelector(link.getAttribute("href"))).not.toBeNull();
   expect(container.querySelector("a a, a button, button a")).toBeNull();
+});
+test("all seven screenshot situations can be selected and the carousel wraps", () => {
+  const { container } = render(<App />);
+  const expected = [
+    ["Du fühlst dich überfordert", "von den vielen Ernährungstipps."],
+    [
+      "Du möchtest sicher sein,",
+      "dass dein Hund alles bekommt, was er braucht.",
+    ],
+    ["Du willst die Gesundheit deines Hundes", "aktiv unterstützen."],
+    ["Du planst eine Futterumstellung", "(z. B. auf selbstgekocht)."],
+    [
+      "Dein Hund hat Übergewicht",
+      "und du suchst einen gesunden Weg zum Wohlfühlgewicht.",
+    ],
+    [
+      "Dein Hund frisst schlecht oder ist sehr wählerisch",
+      "und du suchst passende Lösungen.",
+    ],
+    [
+      "Ein neuer Hund zieht ein",
+      "– und du möchtest von Anfang an die Ernährung richtig gestalten.",
+    ],
+  ];
+  expect(container.querySelectorAll(".carousel-dots button")).toHaveLength(7);
+  expected.forEach(([title, description], index) => {
+    const dot = screen.getByRole("button", {
+      name: `Situation ${index + 1}`,
+      exact: true,
+    });
+    fireEvent.click(dot);
+    const active = container.querySelector(".situation-card.selected");
+    expect(active.querySelector("h3").textContent).toBe(title);
+    expect(active.querySelector("p").textContent).toBe(description);
+    expect(dot.getAttribute("aria-pressed")).toBe("true");
+    expect(container.querySelectorAll(".situation-card")).toHaveLength(3);
+    expect(container.querySelectorAll(".situation-card")[1]).toBe(active);
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Nächste Situation" }));
+  expect(
+    container.querySelector(".situation-card.selected h3").textContent,
+  ).toBe(expected[0][0]);
+  fireEvent.click(screen.getByRole("button", { name: "Vorherige Situation" }));
+  expect(
+    container.querySelector(".situation-card.selected h3").textContent,
+  ).toBe(expected[6][0]);
+});
+test("carousel reveals additional items instead of rendering the entire dataset at once", () => {
+  const items = Array.from({ length: 6 }, (_, index) => ({
+    icon: () => <svg />,
+    title: `Test situation ${index + 1}`,
+    text: `Test description ${index + 1}`,
+  }));
+  const { container } = render(<SituationsCarousel items={items} />);
+  const titles = () =>
+    Array.from(container.querySelectorAll("h3"), (el) => el.textContent);
+  expect(titles()).toEqual([
+    "Test situation 1",
+    "Test situation 2",
+    "Test situation 3",
+  ]);
+  fireEvent.click(screen.getByRole("button", { name: "Nächste Situation" }));
+  expect(titles()).toEqual([
+    "Test situation 2",
+    "Test situation 3",
+    "Test situation 4",
+  ]);
+  fireEvent.click(screen.getByRole("button", { name: "Situation 6" }));
+  expect(titles()).toEqual([
+    "Test situation 5",
+    "Test situation 6",
+    "Test situation 1",
+  ]);
+  fireEvent.keyDown(
+    screen.getByRole("group", { name: "Typische Situationen" }),
+    { key: "ArrowRight" },
+  );
+  expect(titles()).toEqual([
+    "Test situation 6",
+    "Test situation 1",
+    "Test situation 2",
+  ]);
+  expect(screen.getByRole("status").textContent).toContain("Situation 1 von 6");
 });
 test("mobile menu toggles and closes after choosing a destination", () => {
   render(<App />);
