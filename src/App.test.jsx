@@ -1,95 +1,190 @@
-import { afterEach, expect, test } from "vitest";
-import { cleanup, render, screen, within } from "@testing-library/react";
+import { afterEach, expect, test, vi } from "vitest";
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from "@testing-library/react";
 import App from "./App";
+import Home from "./components/Home";
+import { SituationsCarousel } from "./components/Projects";
 import ProjectsInfo from "./components/ProjectsInfo";
-import stories from "./story.json";
-
-// PTST-4 technical checks use structure and URLs, independent of displayed copy.
-// PFE-12 content/style preservation belongs to LandingStyles.test.jsx snapshots.
-const primarySectionIds = ["home", "projects", "values", "consultation", "scroll", "about"];
-
-afterEach(() => {
-  cleanup();
-  window.history.replaceState({}, "", "/");
-});
-
-test("renders the primary sections together in a persistent layout", () => {
-  const { container } = render(<App />);
-
-  expect(container.querySelectorAll("header")).toHaveLength(1);
-  expect(container.querySelectorAll(".footer")).toHaveLength(1);
-  const main = screen.getByRole("main");
-  expect(Array.from(main.children, (section) => section.id)).toEqual(primarySectionIds);
-  expect(container.querySelector("#contact")).toBeNull();
-  primarySectionIds.forEach((id) => {
-    const section = main.querySelector(`section#${id}`);
-    expect(section).not.toBeNull();
-    expect(section.children.length).toBeGreaterThan(0);
-  });
-  expect(within(container.querySelector("header")).getByRole("navigation")).toBeTruthy();
-});
-
-test("internal navigation uses existing sections rather than nested URLs", () => {
-  const { container } = render(<App />);
-  const links = Array.from(container.querySelectorAll("a"));
-  const internalLinks = links.filter((link) => link.getAttribute("href").startsWith("#"));
-
-  expect(internalLinks.length).toBeGreaterThan(0);
-  internalLinks.forEach((link) => {
-    const href = link.getAttribute("href");
-    expect(href.startsWith("#")).toBe(true);
-    expect(container.querySelector(href)).not.toBeNull();
-  });
-  const headerTargets = Array.from(container.querySelectorAll("header a"),
-    (link) => link.getAttribute("href"));
-  expect(new Set(headerTargets)).toEqual(new Set(primarySectionIds
-    .filter((id) => id !== "scroll").map((id) => `#${id}`)));
-  expect(container.querySelector('a[href="#contact"]')).toBeNull();
-  const storyTargets = within(container.querySelector("#scroll")).getAllByRole("link")
-    .map((link) => link.getAttribute("href"));
-  expect(storyTargets).toEqual(["#about", "#about", "#values"]);
-  expect(container.querySelector("a a, a button, button a, button button")).toBeNull();
-  expect(within(screen.getByRole("region", { name: "Consultation" }))
-    .getByRole("link", { name: "Request a Consultation" }).getAttribute("href"))
-    .toBe("#about");
-  expect(within(screen.getByRole("region", { name: "About Me" }))
-    .getByRole("link", { name: "Get in Touch" }).getAttribute("href"))
-    .toBe("mailto:alina.majewska.pinda@gmail.com?subject=Dog%20nutrition%20consultation");
-});
-
-test("renders story card structure and base-prefixed images", () => {
-  const { container } = render(<App />);
-  const cards = container.querySelectorAll("#scroll .card");
-  expect(cards).toHaveLength(stories.length);
-  cards.forEach((card, index) => {
-    expect(within(card).getByRole("heading")).toBeTruthy();
-    expect(card.querySelector(".card-body")).not.toBeNull();
-    expect(within(card).getByRole("link")).toBeTruthy();
-    expect(within(card).getByRole("img").getAttribute("src"))
-      .toBe(`${import.meta.env.BASE_URL}${stories[index].img}`);
-  });
-});
-
-test.each(["#projects", "#values", "#consultation", "#about", "#unknown"])(
-  "renders the same root experience when loaded with %s", (fragment) => {
-    window.history.replaceState({}, "", `/portfolio-in-react/${fragment}`);
-    render(<App />);
-    expect(screen.getByRole("main")).toBeTruthy();
-    const main = screen.getByRole("main");
-    expect(Array.from(main.children, (section) => section.id)).toEqual(primarySectionIds);
-    primarySectionIds.forEach((id) => {
-      expect(main.querySelector(`section#${id}`)?.children.length).toBeGreaterThan(0);
-    });
+import { contactHref } from "./components/LandingUI";
+afterEach(cleanup);
+const sections = [
+  "home",
+  "projects",
+  "values",
+  "benefits",
+  "about",
+  "expertise",
+  "process",
+  "consultation",
+  "contact",
+];
+test("hero image retains high loading priority without React DOM prop warnings", () => {
+  const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+  try {
+    render(<Home />);
+    expect(screen.getByRole("img").getAttribute("fetchpriority")).toBe("high");
+    expect(consoleError).not.toHaveBeenCalled();
+  } finally {
+    consoleError.mockRestore();
   }
-);
+});
 
-test("retains project detail rendering without requiring a router", () => {
-  const projects = [{ id: 0, productName: "Sample project", image: "img/sample.png" }];
-  const { container } = render(<ProjectsInfo data={projects} id="0" />);
-  expect(within(screen.getByRole("listitem")).getByRole("heading")).toBeTruthy();
-  expect(screen.getByRole("img").getAttribute("src"))
-    .toBe(`${import.meta.env.BASE_URL}${projects[0].image}`);
-  expect(screen.getByRole("link").getAttribute("href"))
-    .toBe(`${import.meta.env.BASE_URL}#projects`);
-  expect(container.querySelector("img").children).toHaveLength(0);
+test("renders the complete mockup as semantic React sections with one main heading", () => {
+  const { container } = render(<App />);
+  expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+  expect(screen.getByRole("heading", { level: 1 }).textContent).toContain(
+    "Hundeleben.",
+  );
+  expect(Array.from(screen.getByRole("main").children, (el) => el.id)).toEqual(
+    sections,
+  );
+  expect(screen.getAllByRole("banner")).toHaveLength(1);
+  expect(screen.getAllByRole("contentinfo")).toHaveLength(1);
+  for (const link of container.querySelectorAll('a[href^="#"]'))
+    expect(container.querySelector(link.getAttribute("href"))).not.toBeNull();
+  expect(container.querySelector("a a, a button, button a")).toBeNull();
+});
+test("all seven screenshot situations can be selected and the carousel wraps", () => {
+  const { container } = render(<App />);
+  const expected = [
+    ["Du fühlst dich überfordert", "von den vielen Ernährungstipps."],
+    [
+      "Du möchtest sicher sein,",
+      "dass dein Hund alles bekommt, was er braucht.",
+    ],
+    ["Du willst die Gesundheit deines Hundes", "aktiv unterstützen."],
+    ["Du planst eine Futterumstellung", "(z. B. auf selbstgekocht)."],
+    [
+      "Dein Hund hat Übergewicht",
+      "und du suchst einen gesunden Weg zum Wohlfühlgewicht.",
+    ],
+    [
+      "Dein Hund frisst schlecht oder ist sehr wählerisch",
+      "und du suchst passende Lösungen.",
+    ],
+    [
+      "Ein neuer Hund zieht ein",
+      "– und du möchtest von Anfang an die Ernährung richtig gestalten.",
+    ],
+  ];
+  expect(container.querySelectorAll(".carousel-dots button")).toHaveLength(7);
+  expected.forEach(([title, description], index) => {
+    const dot = screen.getByRole("button", {
+      name: `Situation ${index + 1}`,
+      exact: true,
+    });
+    fireEvent.click(dot);
+    const active = container.querySelector(".situation-card.selected");
+    expect(active.querySelector("h3").textContent).toBe(title);
+    expect(active.querySelector("p").textContent).toBe(description);
+    expect(dot.getAttribute("aria-pressed")).toBe("true");
+    expect(container.querySelectorAll(".situation-card")).toHaveLength(3);
+    expect(container.querySelectorAll(".situation-card")[1]).toBe(active);
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Nächste Situation" }));
+  expect(
+    container.querySelector(".situation-card.selected h3").textContent,
+  ).toBe(expected[0][0]);
+  fireEvent.click(screen.getByRole("button", { name: "Vorherige Situation" }));
+  expect(
+    container.querySelector(".situation-card.selected h3").textContent,
+  ).toBe(expected[6][0]);
+});
+test("carousel reveals additional items instead of rendering the entire dataset at once", () => {
+  const items = Array.from({ length: 6 }, (_, index) => ({
+    icon: () => <svg />,
+    title: `Test situation ${index + 1}`,
+    text: `Test description ${index + 1}`,
+  }));
+  const { container } = render(<SituationsCarousel items={items} />);
+  const titles = () =>
+    Array.from(container.querySelectorAll("h3"), (el) => el.textContent);
+  expect(titles()).toEqual([
+    "Test situation 1",
+    "Test situation 2",
+    "Test situation 3",
+  ]);
+  fireEvent.click(screen.getByRole("button", { name: "Nächste Situation" }));
+  expect(titles()).toEqual([
+    "Test situation 2",
+    "Test situation 3",
+    "Test situation 4",
+  ]);
+  fireEvent.click(screen.getByRole("button", { name: "Situation 6" }));
+  expect(titles()).toEqual([
+    "Test situation 5",
+    "Test situation 6",
+    "Test situation 1",
+  ]);
+  fireEvent.keyDown(
+    screen.getByRole("group", { name: "Typische Situationen" }),
+    { key: "ArrowRight" },
+  );
+  expect(titles()).toEqual([
+    "Test situation 6",
+    "Test situation 1",
+    "Test situation 2",
+  ]);
+  expect(screen.getByRole("status").textContent).toContain("Situation 1 von 6");
+});
+test("mobile menu toggles and closes after choosing a destination", () => {
+  render(<App />);
+  fireEvent.click(screen.getByRole("button", { name: "Menü öffnen" }));
+  expect(
+    screen
+      .getByRole("button", { name: "Menü schließen" })
+      .getAttribute("aria-expanded"),
+  ).toBe("true");
+  fireEvent.click(
+    within(
+      screen.getByRole("navigation", { name: "Hauptnavigation" }),
+    ).getByRole("link", { name: "Beratung", exact: true }),
+  );
+  expect(
+    screen
+      .getByRole("button", { name: "Menü öffnen" })
+      .getAttribute("aria-expanded"),
+  ).toBe("false");
+});
+test("consultation options carry the selected plan into the contact email", () => {
+  render(<App />);
+  const region = screen.getByRole("region", { name: "Beratungsoptionen" });
+  const links = within(region).getAllByRole("link");
+  expect(links).toHaveLength(3);
+  for (const link of links) {
+    expect(link.getAttribute("href").startsWith(contactHref)).toBe(true);
+    expect(decodeURIComponent(link.getAttribute("href"))).toContain(
+      "Ich interessiere mich für:",
+    );
+  }
+  const contact = screen.getByRole("region", { name: "Beratung anfragen" });
+  expect(
+    within(contact)
+      .getByRole("link", { name: "Beratung anfragen" })
+      .getAttribute("href"),
+  ).toBe(contactHref);
+});
+test("preserves base-prefixed image paths and project detail rendering", () => {
+  const { container } = render(<App />);
+  for (const img of container.querySelectorAll("img")) {
+    expect(
+      img.getAttribute("src").startsWith(`${import.meta.env.BASE_URL}img/`),
+    ).toBe(true);
+    expect(img.getAttribute("alt").length).toBeGreaterThan(0);
+  }
+  cleanup();
+  render(
+    <ProjectsInfo
+      data={[{ id: 0, productName: "Example", image: "img/sample.png" }]}
+      id="0"
+    />,
+  );
+  expect(screen.getByRole("img").getAttribute("src")).toBe(
+    `${import.meta.env.BASE_URL}img/sample.png`,
+  );
 });

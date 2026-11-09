@@ -1,61 +1,45 @@
-import {
-  AiFillTwitterCircle,
-  AiFillGithub,
-  AiFillLinkedin,
-} from "react-icons/ai";
-import { FaResearchgate } from "react-icons/fa";
-
-const Footer = () => {
-  let year = new Date().getFullYear();
+import { FiMail } from "react-icons/fi";
+import { FaLinkedinIn } from "react-icons/fa";
+import { Branch, contactHref } from "./LandingUI";
+export default function Footer() {
   return (
-    <div>
-      <div id="footer" className="footer">
-        <div className="social-links">
-          <ul>
-            <li>
-              <div className="social">
-                <a href="https://twitter.com/AdeMoPho">
-                  <span>
-                    <AiFillTwitterCircle />
-                  </span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div className="social">
-                <a href="https://github.com/Amopho">
-                  <span>
-                    <AiFillGithub />
-                  </span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div className="social">
-                <a href="https://www.linkedin.com/in/dr-alina-majewska-pinda-9714a5152/">
-                  <span>
-                    <AiFillLinkedin />
-                  </span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div className="social">
-                <a href="https://www.researchgate.net/profile/Alina-Majewska-Pinda">
-                  <span>
-                    <FaResearchgate />
-                  </span>
-                </a>
-              </div>
-            </li>
-          </ul>
+    <footer id="footer" className="footer">
+      <Branch className="footer-branch" />
+      <div className="container">
+        <div className="footer-top">
+          <a className="footer-logo" href="#home">
+            elowen<span>.</span>
+          </a>
+          <nav aria-label="Footernavigation">
+            <a href="#consultation">Angebot</a>
+            <a href="#expertise">Wissen</a>
+            <a href="#about">Über mich</a>
+            <a href="#contact">Kontakt</a>
+          </nav>
+          <div className="social-links">
+            <a
+              href="https://www.linkedin.com/in/dr-alina-majewska-pinda-9714a5152/"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedinIn />
+            </a>
+            <a href={contactHref} aria-label="E-Mail">
+              <FiMail />
+            </a>
+          </div>
         </div>
-        <div>
-          <h4>Copyrights ®{year} </h4>
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} Elowen. Alle Rechte vorbehalten.</p>
+          <div>
+            <a href="mailto:alina.majewska.pinda@gmail.com?subject=Datenschutz">
+              Datenschutz
+            </a>
+            <a href="mailto:alina.majewska.pinda@gmail.com?subject=Impressum">
+              Impressum
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
-};
-
-export default Footer;
+}

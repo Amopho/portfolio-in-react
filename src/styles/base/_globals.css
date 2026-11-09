@@ -1,90 +1,308 @@
-/* Fonts and element defaults shared by every portfolio section. */
-
-:root {
-  font-size: 18px;
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/inter-400.ttf") format("truetype");
 }
-
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/inter-600.ttf") format("truetype");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/inter-700.ttf") format("truetype");
+}
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/inter-800.ttf") format("truetype");
+}
+:root {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  color: #102630;
+  background: #fdfaf6;
+  font-synthesis: none;
+  --orange: #f65a08;
+  --green: #315b16;
+  --cream: #fdfaf6;
+  --sage: #e9edda;
+  --peach: #ffeadc;
+  --ink: #102630;
+  --line: #efd8c6;
+}
+* {
+  box-sizing: border-box;
+}
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 110px;
 }
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 16px;
   line-height: 1.5;
-  color: #212529;
-  text-align: left;
-  background-color: #fff;
+  background:
+    radial-gradient(ellipse at 10% 20%, #fff9f3 0, transparent 40%), #fdfaf6;
 }
-
-
-li {
-  list-style: none;
-}
-
-h1,
-h2,
-h3 {
-  font-family: "Josefin Sans", sans-serif;
-}
-
-h1,
-h3 {
-  padding-bottom: 20px;
-}
-
-p {
-  font-family: "Catamaran";
-  font-weight: normal;
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-
-/* Explicit typography and link defaults formerly supplied by Bootstrap. */
 h1,
 h2,
 h3,
-h4,
-h5,
-h6,
-.h5 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  line-height: 1.2;
+p,
+ul,
+ol,
+blockquote {
+  margin: 0;
 }
-
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.5rem; }
-h5, .h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; }
-
+h1,
+h2,
+h3 {
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  font-weight: 750;
+}
+h3 {
+  font-size: 22px;
+  letter-spacing: -0.035em;
+}
+p {
+  line-height: 1.5;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+a,
+button {
+  touch-action: manipulation;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 5px;
+}
 ul,
 ol {
-  margin-top: 0;
-  margin-bottom: 1rem;
+  list-style: none;
+  padding: 0;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+em {
+  font-style: normal;
+  color: var(--orange);
+}
+.container {
+  width: min(1240px, calc(100% - 160px));
+  margin-inline: auto;
+}
+.section-space {
+  padding-block: 85px;
+}
+.section-heading {
+  font-size: clamp(30px, 3.1vw, 46px);
+  margin-bottom: 32px;
+  text-wrap: balance;
+}
+.underline {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 12px;
+}
+.underline:after {
+  content: "";
+  position: absolute;
+  left: 2%;
+  bottom: 0;
+  width: 83%;
+  height: 7px;
+  border-top: 4px solid var(--orange);
+  border-radius: 50%;
+  transform: rotate(-2deg);
+}
+.eyebrow {
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  color: var(--green);
+  margin-bottom: 18px;
+}
+.icon {
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #edf0de;
+  color: var(--green);
+}
+.icon svg {
+  width: 36px;
+  height: 36px;
+  stroke-width: 1.6;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 50px;
+  padding: 12px 23px;
+  border-radius: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  max-width: 100%;
+  text-align: center;
+}
+.button:hover {
+  transform: translateY(-2px);
+}
+.button svg {
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+}
+.button-primary {
+  background: linear-gradient(110deg, #ff6b05, #f45100);
+  color: white;
+  border: 1px solid #f45100;
+}
+.button-primary:hover {
+  background: #dd4900;
+}
+.button-outline {
+  border: 1px solid var(--green);
+  color: var(--green);
+  background: transparent;
+}
+.button-outline:hover {
+  background: var(--sage);
+}
+.button-row {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.check {
+  color: var(--green);
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  stroke-width: 3;
+}
+.check-list {
+  display: grid;
+  gap: 14px;
+}
+.check-list li {
+  display: flex;
+  gap: 13px;
+  line-height: 1.4;
+}
+.reference-art {
+  width: 100%;
+  mix-blend-mode: multiply;
+}
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 10px;
+  transform: translateY(-120%);
+  z-index: 100;
+  background: white;
+  padding: 14px;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+@media (max-width: 1100px) {
+  .container {
+    width: calc(100% - 100px);
+  }
+}
+@media (max-width: 760px) {
+  .container {
+    width: calc(100% - 48px);
+  }
+  .section-space {
+    padding-block: 52px;
+  }
+  .section-heading {
+    font-size: 34px;
+    margin-bottom: 25px;
+  }
+  .button {
+    padding: 13px 18px;
+  }
+  .eyebrow {
+    font-size: 12px;
+  }
+  .icon {
+    width: 52px;
+    height: 52px;
+  }
+  .icon svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *:before,
+  *:after {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
-a {
-  text-decoration: none;
-  color: #007bff;
-  background-color: transparent;
+.portfolio-content {
+  isolation: isolate;
 }
-
-a:visited,
-a:active {
-  color: inherit;
+.wave-section {
+  isolation: isolate;
 }
-
-a:visited {
-  text-decoration: none;
+.outcomes > *,
+.hero-layout > *,
+.approach > *,
+.about-layout > *,
+.consultation-intro > *,
+.trust-intro > * {
+  min-width: 0;
 }
-
-a:hover {
-  color: #0056b3;
-  text-decoration: underline;
+.notice > span {
+  min-width: 0;
+}
+.notice {
+  flex-wrap: wrap;
+}
+.notice > span {
+  flex: 1;
+  min-width: 200px;
 }
