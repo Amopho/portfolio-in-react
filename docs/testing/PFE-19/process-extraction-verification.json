@@ -1,0 +1,87 @@
+{
+  "task": "PFE-19",
+  "change": "Extract Process and its private steps data from Story",
+  "baselineRevision": "c3f965b240b94fd1dade765f6dc995442194877b",
+  "sourceFiles": {
+    "src/components/Story.jsx": "ceaf0b50b3f3935b6b4c435d8a05f43864516a1599437969a50ea511e2dc95b0",
+    "src/components/Process.jsx": "1801276349d8371f34a67fdde0a4a4212d9b08864c4d27ea2fa242c46f88be08"
+  },
+  "scopeReview": {
+    "processSubtreePreservedExceptIndentation": true,
+    "stepsDataPreservedExactly": true,
+    "storyChangesLimitedToExtractionAndImports": true,
+    "sectionOrderIdsClassesAndAccessibilityAttributesPreserved": true,
+    "appStylesAssetsAndTestsUnchanged": true,
+    "gitDiffCheck": "passed"
+  },
+  "validation": {
+    "npm test": {
+      "result": "passed",
+      "testsPassed": 9
+    },
+    "npm run build": {
+      "result": "passed"
+    },
+    "npm run test:e2e": {
+      "result": "passed",
+      "testsPassed": 7
+    },
+    "baselineBrowserCaptureTests": {
+      "result": "passed",
+      "testsPassed": 3
+    }
+  },
+  "renderedMarkup": {
+    "method": "ReactDOMServer.renderToStaticMarkup using Vite SSR modules for the baseline and extracted versions",
+    "byteIdentical": true,
+    "beforeSha256": "dad5f1993b95b32e1e8ff03314918d5bb2f1f23433106d6be9865a1c503f5aa2",
+    "afterSha256": "dad5f1993b95b32e1e8ff03314918d5bb2f1f23433106d6be9865a1c503f5aa2"
+  },
+  "screenshots": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPageImage": {
+        "width": 1440,
+        "height": 7439
+      },
+      "byteIdentical": true,
+      "beforeSha256": "06b5581c6e24617a4089196e001f9018c49408795fef4e2a4a9c2e82cfe5b19f",
+      "afterSha256": "06b5581c6e24617a4089196e001f9018c49408795fef4e2a4a9c2e82cfe5b19f"
+    },
+    {
+      "name": "tablet",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "fullPageImage": {
+        "width": 768,
+        "height": 10456
+      },
+      "byteIdentical": true,
+      "beforeSha256": "7ae1e7d5fed2deb0ef0c3a2fd41b12eabf36d84d46b81be5811292bf4db11946",
+      "afterSha256": "7ae1e7d5fed2deb0ef0c3a2fd41b12eabf36d84d46b81be5811292bf4db11946"
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "fullPageImage": {
+        "width": 375,
+        "height": 12684
+      },
+      "byteIdentical": true,
+      "beforeSha256": "72c86e802059f44665483bbeabd072ab52c77d86e25f1d79dc2b3fc4062946b7",
+      "afterSha256": "72c86e802059f44665483bbeabd072ab52c77d86e25f1d79dc2b3fc4062946b7"
+    }
+  ],
+  "comparisonMethod": "Build both versions and run the existing Playwright render tests in Chromium with deviceScaleFactor 1. Wait for fonts and images, disable screenshot animations, and compare full-page PNG bytes at each viewport.",
+  "captureRetention": "Raw HTML and PNG captures were temporary. This tracked report retains the verified comparison results and SHA-256 digests; its results do not depend on temporary file paths.",
+  "scopeLimit": "Verification covers this extraction against the baseline revision, not an ongoing visual regression baseline."
+}
