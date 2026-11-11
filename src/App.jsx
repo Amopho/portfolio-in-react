@@ -4,7 +4,8 @@ import Projects from "./components/Projects";
 import Values from "./components/Values";
 import Consultation from "./components/Consultation";
 import Story from "./components/Story";
-import About, { Benefits } from "./components/About";
+import About from "./components/About";
+import { Benefits } from "./components/Benefits";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 export default function App() {
