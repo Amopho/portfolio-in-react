@@ -20,6 +20,7 @@ const sections = [
   "about",
   "expertise",
   "process",
+  "testimonials",
   "consultation",
   "contact",
 ];
