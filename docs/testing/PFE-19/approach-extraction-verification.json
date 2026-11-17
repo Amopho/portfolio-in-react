@@ -1,0 +1,88 @@
+{
+  "task": "PFE-19",
+  "change": "Extract the complete Approach subtree into a stateless component without props",
+  "baselineRevision": "c1deb7ae8c776b886a873f6321763bfd7ccd31d1",
+  "sourceFiles": {
+    "src/components/Values.jsx": "efaca3d227259364e188946a1eb187c484217f7a55140020708ce006246d9406",
+    "src/components/Approach.jsx": "25cdf72ab076bdf9798ba10562a608d85323fa25f49df6d11d9a762787c02dcf"
+  },
+  "scopeReview": {
+    "approachSubtreePreservedExceptIndentation": true,
+    "valuesChangesLimitedToExtractionAndRequiredImports": true,
+    "outcomesAndSupportPreserved": true,
+    "noStatePropsOrNewDependencies": true,
+    "sectionOrderIdsClassesAndAccessibilityAttributesPreserved": true,
+    "appStylesAssetsAndExistingTestsUnchanged": true,
+    "gitDiffCheck": "passed"
+  },
+  "validation": {
+    "npm test": {
+      "result": "passed",
+      "testsPassed": 32
+    },
+    "npm run build": {
+      "result": "passed"
+    },
+    "npm run test:e2e": {
+      "result": "passed",
+      "testsPassed": 12
+    },
+    "baselineBrowserCaptureTests": {
+      "result": "passed",
+      "testsPassed": 3
+    }
+  },
+  "renderedMarkup": {
+    "method": "ReactDOMServer.renderToStaticMarkup using Vite SSR modules for both revisions, with local env-file loading disabled and unapproved-testimonial preview explicitly false",
+    "byteIdentical": true,
+    "beforeSha256": "fd862b184b4d20ef0a2a6fc8533516a154c8fbce7dc7dffd49efd9a2a5483e7b",
+    "afterSha256": "fd862b184b4d20ef0a2a6fc8533516a154c8fbce7dc7dffd49efd9a2a5483e7b"
+  },
+  "screenshots": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPageImage": {
+        "width": 1440,
+        "height": 7350
+      },
+      "byteIdentical": true,
+      "beforeSha256": "049b08f622ed310c68e32b4fc95960018c91e53c33262615622ebb7005e58dd8",
+      "afterSha256": "049b08f622ed310c68e32b4fc95960018c91e53c33262615622ebb7005e58dd8"
+    },
+    {
+      "name": "tablet",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "fullPageImage": {
+        "width": 768,
+        "height": 10042
+      },
+      "byteIdentical": true,
+      "beforeSha256": "a25f12d744f58f11f68103ad965d5a57395d8221268cf1d79c9941940789d91b",
+      "afterSha256": "a25f12d744f58f11f68103ad965d5a57395d8221268cf1d79c9941940789d91b"
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "fullPageImage": {
+        "width": 375,
+        "height": 11932
+      },
+      "byteIdentical": true,
+      "beforeSha256": "a4f63eda85a0c2160bdbaa7e0c2faf7eec0ce1b1b8efddd980419e1a054a5edb",
+      "afterSha256": "a4f63eda85a0c2160bdbaa7e0c2faf7eec0ce1b1b8efddd980419e1a054a5edb"
+    }
+  ],
+  "comparisonMethod": "Build both revisions and run existing Chromium render tests with deviceScaleFactor 1. Wait for fonts and images, disable screenshot animations, and compare full-page PNG bytes. Production browser builds explicitly set the testimonial preview flag true to retain coverage of its production restriction; development-preview tests manage their own opt-in values.",
+  "captureRetention": "Raw HTML and PNG captures were temporary. This tracked report retains verified results and SHA-256 digests without depending on temporary file paths.",
+  "scopeLimit": "Verification covers this extraction against the baseline revision, not an ongoing approved visual regression baseline."
+}
