@@ -1,0 +1,36 @@
+/* Preserve the quote-card presentation when reused outside the original grid. */
+.testimonial-card {
+  padding: 26px;
+  border: 1px solid #f5e9df;
+  border-radius: 28px;
+  box-shadow: 0 7px 12px #6840190a;
+  background: linear-gradient(120deg, #fff0e3, #ffe9da);
+}
+
+/* Credentials remain with Expertise, without empty testimonial columns. */
+.trust-cards.expertise-credentials {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.trust-cards.testimonials-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.trust-cards.testimonials-grid > .testimonial-card {
+  grid-column: auto;
+}
+
+.trust-cards.testimonials-grid > :only-child {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+@media (max-width: 760px) {
+  .trust-cards.testimonials-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

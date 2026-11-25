@@ -1,0 +1,131 @@
+{
+  "task": "PFE-19",
+  "change": "Separate reusable testimonial presentation, feedback data and approval-based publication",
+  "baselineRevision": "54741a2fc9b0628f3cf4d0291de933495d5cc9f3",
+  "sourceFiles": {
+    ".env.example": "411a2f45698a070208a51161c9e8548fb5e33680c8a9e8844c0c1e963a6f055f",
+    "src/App.jsx": "a71996c62a1786e61bc330fba7fcbcec51301c1d528dd9f1315c0ed96030ef12",
+    "src/App.test.jsx": "7b873c9197284929cdf8473311d0a9c39a0599a6b71c0138ef3ba18646f1cce3",
+    "src/components/Expertise.jsx": "c62d11873d97656ccac223914c8fb115aedcfc5457eafb2db12ea015c1879a8e",
+    "src/components/Testimonial.jsx": "3b29b4eb498f9b030140a9843178aa35faa947072f056ccb3b84a15444489054",
+    "src/components/Testimonials.jsx": "b3b524a60e9e9fb942e5b836f974f6a8d744d1a258b74645214461a1781a3d3d",
+    "src/components/Testimonials.test.jsx": "6ab3bb1036b8a82540dbee9f46aea978e6402ec40344b44af9b4ccc1278bb1d7",
+    "src/data/testimonials.js": "71c2d20d7d2654dba456aeaf90874a9f53636b70a659583c19f4351dccfedf22",
+    "src/lib/testimonialPublication.js": "7118c3b410e5274ebb73448fcd8e73c6662da82e0953efcbae85ed2ff62fca19",
+    "src/styles/layout/_testimonials.css": "c68a7aa3befaf7b3dbf52e96c73c19b5ff0a5106b226697eb736875e481256ff",
+    "src/styles/main.css": "b15cc6718a5e91fade71538e2ea00a5c0aa3c8293ac216f44af03867afa8d8b2",
+    "tests/e2e/testimonials-preview.spec.js": "95bb1a2809460c9d348809e04860086a07cc2df1d7bf985d8950d9980cd5499d",
+    "tests/e2e/testimonials.spec.js": "f7c287d78977ec8cc8c4ee221ffbae6645cb0f5bbed0dc304ec471a4e09bd906"
+  },
+  "architecture": {
+    "changes": "Move testimonial and interview feedback into a separate section placed after Story by App; retain professional credentials in Expertise.",
+    "fullPageIntentionallyChanged": true,
+    "markupChecks": {
+      "testimonialMarkupIdentical": true,
+      "interviewMarkupIdentical": true,
+      "credentialsMarkupIdentical": true,
+      "unrelatedSectionsIdentical": true,
+      "testimonialsMovedToSeparateSection": true
+    },
+    "unitTestsPassed": 9,
+    "browserTestsPassed": 7,
+    "productionBuildPassed": true
+  },
+  "publication": {
+    "quoteApprovedInApplicationData": false,
+    "interviewFeedbackApprovedInApplicationData": false,
+    "developmentPreviewRequiresExplicitTrueFlag": true,
+    "productionTestPreviewFlagValue": "true",
+    "productionIgnoresPreviewBypass": true,
+    "unitTestsPassed": 32,
+    "browserTestsPassed": 12,
+    "productionBuildPassed": true,
+    "productionDomMatchesArchitectureExceptRemovedUnapprovedSection": true,
+    "productionSectionOrder": [
+      "home",
+      "projects",
+      "values",
+      "benefits",
+      "about",
+      "expertise",
+      "process",
+      "consultation",
+      "contact"
+    ],
+    "productionDomSha256": "1c7f1b1e8ae2dab8a5e777db1bb52f6e3ba7a216f0f0f3c255d12ab5ceeb335c",
+    "approvalFixtures": [
+      {
+        "fixture": "both-approved",
+        "quoteApproved": true,
+        "interviewsApproved": true,
+        "testsPassed": 4,
+        "buildPassed": true
+      },
+      {
+        "fixture": "quote-approved",
+        "quoteApproved": true,
+        "interviewsApproved": false,
+        "testsPassed": 4,
+        "buildPassed": true
+      },
+      {
+        "fixture": "interviews-approved",
+        "quoteApproved": false,
+        "interviewsApproved": true,
+        "testsPassed": 4,
+        "buildPassed": true
+      }
+    ],
+    "fixtureApprovalsWereOnlyAppliedInIsolatedTestCopies": true
+  },
+  "approvedDesignComparisons": [
+    {
+      "viewport": "desktop",
+      "byteIdentical": true,
+      "architectureSha256": "8acd09abb5ff491e461681ded91208af91cdacdaaa0232959b5b71f985f47fca",
+      "approvedSha256": "8acd09abb5ff491e461681ded91208af91cdacdaaa0232959b5b71f985f47fca"
+    },
+    {
+      "viewport": "tablet",
+      "byteIdentical": true,
+      "architectureSha256": "e237b7c6853cd9567b29d40bfa03ae324e565e710cd159f3a6b52a7ea05fd40f",
+      "approvedSha256": "e237b7c6853cd9567b29d40bfa03ae324e565e710cd159f3a6b52a7ea05fd40f"
+    },
+    {
+      "viewport": "mobile",
+      "byteIdentical": true,
+      "architectureSha256": "54073cb4dd6d6abf1d63a03d383683cab084d6b7a9212c3eb980d418800a9bf3",
+      "approvedSha256": "54073cb4dd6d6abf1d63a03d383683cab084d6b7a9212c3eb980d418800a9bf3"
+    }
+  ],
+  "productionResponsiveCaptures": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "productionHiddenScreenshotSha256": "049b08f622ed310c68e32b4fc95960018c91e53c33262615622ebb7005e58dd8"
+    },
+    {
+      "name": "tablet",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "productionHiddenScreenshotSha256": "a25f12d744f58f11f68103ad965d5a57395d8221268cf1d79c9941940789d91b"
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "productionHiddenScreenshotSha256": "a4f63eda85a0c2160bdbaa7e0c2faf7eec0ce1b1b8efddd980419e1a054a5edb"
+    }
+  ],
+  "comparisonMethod": "Compare original card markup during the architecture step. Build isolated approved-data fixtures and compare full-page PNG bytes with architecture-stage screenshots. For unapproved data, compare production DOM with the architecture DOM after removing only the testimonials section. Run production with the preview flag true, and development servers with the flag false and true.",
+  "captureRetention": "Raw captures and isolated fixtures were temporary. This tracked report retains verified results, source hashes and image digests without temporary-path dependencies.",
+  "scopeLimit": "Approved fixtures verify rendering and layout, not authentic content or permission. Imported data may remain in client-side bundles even when its UI is hidden. Only harmless mock content belongs in the current module.",
+  "publicationReview": "See testimonial-publication.md for the release checklist and deliberate local preview instructions."
+}

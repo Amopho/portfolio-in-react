@@ -50,13 +50,22 @@ const situations = [
 ];
 export function SituationsCarousel({ items = situations }) {
   const [selected, setSelected] = useState(1);
+  if (items.length === 0) return null;
+
+  const active = Math.min(selected, items.length - 1);
+  const canMove = items.length > 1;
   const move = (direction) =>
     setSelected(
-      (current) => (current + direction + items.length) % items.length,
+      (current) =>
+        (Math.min(current, items.length - 1) + direction + items.length) %
+        items.length,
     );
-  const visibleIndices = [-1, 0, 1].map(
-    (offset) => (selected + offset + items.length) % items.length,
-  );
+  const visibleIndices =
+    items.length < 3
+      ? items.map((_, index) => index)
+      : [-1, 0, 1].map(
+          (offset) => (active + offset + items.length) % items.length,
+        );
   return (
     <div
       className="situation-carousel"
@@ -64,6 +73,7 @@ export function SituationsCarousel({ items = situations }) {
       aria-roledescription="Karussell"
       aria-label="Typische Situationen"
       onKeyDown={(event) => {
+        if (!canMove) return;
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
           event.preventDefault();
           move(event.key === "ArrowLeft" ? -1 : 1);
@@ -71,23 +81,31 @@ export function SituationsCarousel({ items = situations }) {
       }}
     >
       <div className="situations">
-        <button
-          type="button"
-          className="carousel-arrow previous"
-          aria-label="Vorherige Situation"
-          onClick={() => move(-1)}
+        {canMove && (
+          <button
+            type="button"
+            className="carousel-arrow previous"
+            aria-label="Vorherige Situation"
+            onClick={() => move(-1)}
+          >
+            <FiChevronLeft aria-hidden="true" />
+          </button>
+        )}
+        <div
+          className={
+            items.length < 3
+              ? `situation-grid situation-grid--${items.length}`
+              : "situation-grid"
+          }
         >
-          <FiChevronLeft aria-hidden="true" />
-        </button>
-        <div className="situation-grid">
           {visibleIndices.map((index, slot) => {
             const { icon: Symbol, title, text } = items[index];
             return (
               <article
-                className={`situation-card ${selected === index ? "selected" : ""}`}
+                className={`situation-card ${active === index ? "selected" : ""}`}
                 key={title}
                 data-slot={slot}
-                aria-current={selected === index ? "true" : undefined}
+                aria-current={active === index ? "true" : undefined}
               >
                 <Symbol className="card-icon" aria-hidden="true" />
                 <h3>{title}</h3>
@@ -96,34 +114,38 @@ export function SituationsCarousel({ items = situations }) {
             );
           })}
         </div>
-        <button
-          type="button"
-          className="carousel-arrow next"
-          aria-label="Nächste Situation"
-          onClick={() => move(1)}
-        >
-          <FiChevronRight aria-hidden="true" />
-        </button>
-      </div>
-      <div className="carousel-dots" aria-label="Situation auswählen">
-        {items.map(({ title }, index) => (
+        {canMove && (
           <button
             type="button"
-            key={title}
-            aria-label={`Situation ${index + 1}`}
-            title={title}
-            aria-pressed={selected === index}
-            onClick={() => setSelected(index)}
-          />
-        ))}
+            className="carousel-arrow next"
+            aria-label="Nächste Situation"
+            onClick={() => move(1)}
+          >
+            <FiChevronRight aria-hidden="true" />
+          </button>
+        )}
       </div>
+      {canMove && (
+        <div className="carousel-dots" aria-label="Situation auswählen">
+          {items.map(({ title }, index) => (
+            <button
+              type="button"
+              key={title}
+              aria-label={`Situation ${index + 1}`}
+              title={title}
+              aria-pressed={active === index}
+              onClick={() => setSelected(index)}
+            />
+          ))}
+        </div>
+      )}
       <p
         className="carousel-announcement"
         role="status"
         aria-live="polite"
         aria-atomic="true"
       >
-        Situation {selected + 1} von {items.length}: {items[selected].title}
+        Situation {active + 1} von {items.length}: {items[active].title}
       </p>
     </div>
   );

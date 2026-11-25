@@ -1,4 +1,4 @@
-import { afterEach, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import {
   cleanup,
   fireEvent,
@@ -11,7 +11,11 @@ import Home from "./components/Home";
 import { SituationsCarousel } from "./components/Projects";
 import ProjectsInfo from "./components/ProjectsInfo";
 import { contactHref } from "./components/LandingUI";
-afterEach(cleanup);
+beforeEach(() => vi.stubEnv("VITE_PREVIEW_UNAPPROVED_TESTIMONIAL", "false"));
+afterEach(() => {
+  cleanup();
+  vi.unstubAllEnvs();
+});
 const sections = [
   "home",
   "projects",
