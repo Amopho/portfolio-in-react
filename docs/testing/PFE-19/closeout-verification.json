@@ -1,0 +1,55 @@
+{
+  "task": "PFE-19",
+  "baselineRevision": "17747e7934b32d605a813329421815d937c1e0ba",
+  "candidate": "Final review working tree before the closeout commit; source files identified below",
+  "sourceFiles": {
+    "src/components/Projects.jsx": "545f2d63bf112bc3325ad1c6f877b223e1c13d666bf47ebbf6a347e0773e4797",
+    "src/components/SituationsCarousel.test.jsx": "fbf39d5fe2b996efccd7be9b0b3279788db49ea7c75dca0c64fc2512759b37d8",
+    "src/styles/layout/_portfolio.css": "af681c5c4c0752a38e7bac42b12ea671cd95f025176837b5a2fa8b519753989f"
+  },
+  "validation": {
+    "unitTestsPassed": 36,
+    "browserTestsPassed": 12,
+    "productionBuildPassed": true,
+    "baselineCaptureTestsPassed": 3
+  },
+  "currentSevenCardContract": {
+    "renderedMarkupByteIdentical": true,
+    "beforeSha256": "fd862b184b4d20ef0a2a6fc8533516a154c8fbce7dc7dffd49efd9a2a5483e7b",
+    "afterSha256": "fd862b184b4d20ef0a2a6fc8533516a154c8fbce7dc7dffd49efd9a2a5483e7b"
+  },
+  "screenshots": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "byteIdentical": true,
+      "beforeSha256": "049b08f622ed310c68e32b4fc95960018c91e53c33262615622ebb7005e58dd8",
+      "afterSha256": "049b08f622ed310c68e32b4fc95960018c91e53c33262615622ebb7005e58dd8"
+    },
+    {
+      "name": "tablet",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "byteIdentical": true,
+      "beforeSha256": "a25f12d744f58f11f68103ad965d5a57395d8221268cf1d79c9941940789d91b",
+      "afterSha256": "a25f12d744f58f11f68103ad965d5a57395d8221268cf1d79c9941940789d91b"
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "byteIdentical": true,
+      "beforeSha256": "a4f63eda85a0c2160bdbaa7e0c2faf7eec0ce1b1b8efddd980419e1a054a5edb",
+      "afterSha256": "a4f63eda85a0c2160bdbaa7e0c2faf7eec0ce1b1b8efddd980419e1a054a5edb"
+    }
+  ],
+  "integration": "Integration merge and post-merge test results will be recorded in Jira/Confluence after the merge; this report does not claim integration before it happens.",
+  "limitations": "Point-in-time Chromium comparisons and scoped keyboard/navigation checks, not a complete accessibility, performance or hosted-site audit. Raw captures are temporary; comparison results and digests are retained."
+}
