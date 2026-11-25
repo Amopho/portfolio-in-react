@@ -1,60 +1,80 @@
-# Visual verification
-
-| Location | Purpose | Git and lifecycle |
-| --- | --- | --- |
-| `src/*.test.jsx` and existing snapshots | Vitest component, structure and style checks | Tracked and maintained |
-| `tests/e2e/portfolio.spec.js` | Playwright browser checks | Tracked and maintained |
-| `tests/e2e/navigation.spec.js` | Header anchor navigation smoke test with screenshots | Tracked and maintained |
-| `tests/e2e/*-snapshots/` | Future approved visual references beside their tests, using Playwright's default naming | Tracked once deliberately introduced; none created yet |
-| `test-results/` | Screenshots, capture metadata and execution diagnostics | Ignored; disposable and recreated by Playwright |
-| `playwright-report/` | Generated HTML execution report | Ignored; disposable |
-| `visual-checks/PFE-12/`, `visual-checks/PFE-14/` | Manual investigation evidence and acceptance notes | Ignored; retained locally as needed |
-| `playwright.config.js` | Browser, production preview and output configuration | Tracked and maintained |
+# Visual and behavior verification
 
 Run from the repository root:
 
 ```sh
-npx playwright install chromium
 npm test
+npm run build
 npm run test:e2e
 npx playwright show-report playwright-report
 ```
 
-Browser tests build the application and start a fresh Vite production preview at
-`http://127.0.0.1:4173/portfolio-in-react/`. Port 4173 must be free; stop your own
-preview before running the suite. Existing servers are deliberately not reused,
-so a stale production build cannot silently become the test target.
+If Chromium is missing, install it with `npx playwright install chromium`.
+`npm test` runs Vitest/jsdom. `npm run test:e2e` builds the candidate and starts a
+fresh production preview at `http://127.0.0.1:4173/portfolio-in-react/`.
+The testimonial preview tests also manage development servers on 4181 and 4182.
+All three ports must be free; the suite stops its owned servers when finished.
+It does not reuse an existing production preview or deploy anything.
 
-The three render/capture tests use 1440×900, 768×1024 and 375×812 viewports. They wait
-for fonts and images, check the actual viewport, sections and responsive grid,
-and save full-page screenshots and JSON metadata through `testInfo.outputPath()`.
-Playwright creates the output directories during execution; no placeholders are
-needed. Full-page image dimensions can exceed the viewport when content overflows;
-the metadata records this. These checks do not yet compare approved image baselines
-or establish keyboard interaction coverage.
+## Existing automated coverage
 
-The navigation smoke test clicks Projects, My Values, Consultation, About Me, Contact, and then Home in the
-header. It checks each fragment URL, section viewport intersection, and that the
-section starts in view below the sticky header. Each step attaches a viewport
-screenshot to the HTML report for manual visual review; these are not automated
-visual comparisons or approved baselines.
-The black Contact button targets About Me (`#about`). The Consultation step
-follows Request a Consultation to `#about` and checks Get in Touch's email inquiry
-destination without launching an external email app.
+| Source | Checks |
+| --- | --- |
+| `src/App.test.jsx` | Page composition/IDs, anchors, mobile-menu state, seven-card carousel, contact URL payloads, images and retained project detail |
+| `src/components/SituationsCarousel.test.jsx` | Empty/static/two-record/shrinking datasets and key/selection behavior |
+| `src/components/Testimonials.test.jsx` | Approval matrix, explicit development opt-in, independent groups and reusable presentation |
+| `src/LandingStyles.test.jsx` | Local CSS imports parse and mockup artwork exists; not a visual snapshot suite |
+| `tests/e2e/portfolio.spec.js` | Production render/capture at desktop 1440×1000, tablet 768×1024 and mobile 375×812; fonts/images, sections, grid, overflow and runtime errors |
+| `tests/e2e/navigation.spec.js` | Header fragments below the sticky header, process CTA, mobile menu, keyboard activation and carousel movement |
+| `tests/e2e/testimonials.spec.js` | Production approval decisions, absent section/no empty gap, approved design and single-card layout; captures publication DOM |
+| `tests/e2e/testimonials-preview.spec.js` | Development opt-in off/on at 1440px and 375px; captures visible preview cards |
 
-Run it with `npx playwright test tests/e2e/navigation.spec.js`, adding `--headed`
-to watch the browser. The test uses the application's current CSS and the default
-desktop Chromium viewport. It does not check refresh/history restoration, exact
-scroll positions, mobile navigation, or keyboard navigation. The temporary
-smooth/auto comparison and frame-by-frame diagnostics have been removed.
+The default Playwright viewport is 1440×900. Render tests explicitly override it
+with the dimensions above. Device scale factor is 1. Render tests wait for fonts
+and image decoding, return to the top, disable screenshot animations and save
+`landing-desktop.png`, `landing-tablet.png` and `landing-mobile.png` beneath the
+runner-managed test folders. Full-page PNG height exceeds viewport height.
 
-The HTML report shows execution results. The explicit screenshot and metadata
-files are available under each test's directory in `test-results/`.
+Current render tests do not generate the old per-capture JSON metadata described
+in earlier documentation. The navigation tests use current German link labels;
+`Kontakt` targets `#contact`, and consultation CTAs use email inquiries.
+There are no maintained `src/__snapshots__` or approved Playwright image baselines.
 
-`test-results/` describes the latest automated execution; `visual-checks/`
-explains a particular investigation and why changes were accepted. Automated tests
-must never write to `visual-checks/`: another run could overwrite evidence needed
-to compare revisions. To retain a run for an investigation, deliberately copy
-selected artifacts into its ticket directory and record their source in notes.
-Preserve the existing PFE-12 and PFE-14 evidence. Do not generate or update approved
-Playwright snapshot baselines as part of directory setup.
+## Scope limits
+
+Passing the suite is not a full accessibility audit, performance audit, or proof
+of production hosting behavior. Tab order/focus management, assistive technology,
+image layout shifts and actual-host direct-load/refresh/404 behavior still require
+appropriate release checks. The Vite preview may serve the application for paths
+that GitHub Pages would reject. These limitations are recorded in PFE-19/PFE-20.
+
+Render captures are not ongoing automatic visual-diff assertions. For a
+behavior-preserving refactor, compare the candidate with a specified baseline
+revision using the same dependency lockfile, browser, environment and dimensions.
+Compare full-page rendered markup and PNG bytes (or a documented pixel comparison).
+A test command that only saves screenshots has not established visual parity.
+
+For an intentional change, describe what changed: moving feedback to a separate
+section changes layout, while hiding unapproved feedback intentionally removes
+that section. Check unchanged component markup and appropriate approved/hidden
+states rather than claiming whole-page identity.
+
+## Evidence retention
+
+| Location | Ownership and lifecycle |
+| --- | --- |
+| `src/**/*.test.jsx`, `tests/e2e/` | Tracked executable checks |
+| `test-results/`, `playwright-report/` | Ignored, disposable run output |
+| `visual-checks/` | Ignored manual investigation captures; preserve existing PFE-12/PFE-14 evidence |
+| `docs/testing/PFE-19/` | Tracked verification results, baseline revisions, source/image hashes and review decisions |
+| Future `tests/e2e/*-snapshots/` | Introduce only with deliberately reviewed visual regression assertions |
+
+Temporary directories and generated output can disappear. Before committing a
+refactor, preserve the verification report in the repository or an approved
+project record. Record baseline/candidate identity, exact commands/results,
+viewport/browser assumptions, what was compared and remaining limitations.
+When raw images are not archived, state that and retain comparison results and
+digests. Do not present a new recreation as an original historical capture.
+
+Tests never write into `visual-checks/` or silently update approved references.
+Do not update screenshot expectations merely to silence a regression.

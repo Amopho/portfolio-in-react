@@ -1,0 +1,56 @@
+{
+  "task": "PFE-19",
+  "change": "Benefits extraction evidence recreation",
+  "evidenceType": "New reproducible comparison of historical Git revisions, not recovery of original temporary captures",
+  "recreatedOn": "2026-11-25",
+  "beforeRevision": "5968b6f4dc9550a3d100b2519e09e82972e35741",
+  "afterRevision": "c3f965b240b94fd1dade765f6dc995442194877b",
+  "historicalEvidenceLimit": "Original temporary HTML/PNG artifacts are unavailable. Earlier Jira comment 10211 records reported hashes; those claims are not presented as a test run from this recreation.",
+  "dependencyLockfileIdenticalToCurrent": true,
+  "validation": {
+    "beforeUnitTestsPassed": 9,
+    "afterUnitTestsPassed": 9,
+    "beforeBrowserCaptureTestsPassed": 3,
+    "afterBrowserCaptureTestsPassed": 3,
+    "productionBuildsPassed": true
+  },
+  "renderedMarkup": {
+    "byteIdentical": true,
+    "beforeSha256": "dad5f1993b95b32e1e8ff03314918d5bb2f1f23433106d6be9865a1c503f5aa2",
+    "afterSha256": "dad5f1993b95b32e1e8ff03314918d5bb2f1f23433106d6be9865a1c503f5aa2"
+  },
+  "screenshots": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "byteIdentical": true,
+      "beforeSha256": "06b5581c6e24617a4089196e001f9018c49408795fef4e2a4a9c2e82cfe5b19f",
+      "afterSha256": "06b5581c6e24617a4089196e001f9018c49408795fef4e2a4a9c2e82cfe5b19f"
+    },
+    {
+      "name": "tablet",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "byteIdentical": true,
+      "beforeSha256": "7ae1e7d5fed2deb0ef0c3a2fd41b12eabf36d84d46b81be5811292bf4db11946",
+      "afterSha256": "7ae1e7d5fed2deb0ef0c3a2fd41b12eabf36d84d46b81be5811292bf4db11946"
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      },
+      "byteIdentical": true,
+      "beforeSha256": "72c86e802059f44665483bbeabd072ab52c77d86e25f1d79dc2b3fc4062946b7",
+      "afterSha256": "72c86e802059f44665483bbeabd072ab52c77d86e25f1d79dc2b3fc4062946b7"
+    }
+  ],
+  "method": "Export the exact before/after commits, use the unchanged dependency lockfile and installed browser, run both revisions with identical environment settings and viewport dimensions, and compare complete static-render markup and full-page PNG bytes.",
+  "captureRetention": "This tracked report retains results/digests. Raw captures were temporary and are not archived. This recreation makes no assertion about the original environment or original capture bytes."
+}
