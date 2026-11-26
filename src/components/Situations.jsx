@@ -151,7 +151,7 @@ export function SituationsCarousel({ items = situations }) {
   );
 }
 
-export default function Projects() {
+export default function Situations() {
   return (
     <div className="container">
       <div className="section-intro-row">

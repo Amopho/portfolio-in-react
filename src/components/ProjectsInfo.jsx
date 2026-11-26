@@ -26,7 +26,7 @@ const ProjectsInfo = (props) => {
     <React.Fragment>
       <h3>Product farther infos</h3>
       <ul>{moreInfo}</ul>
-      <a href={`${import.meta.env.BASE_URL}#projects`} style={{ textDecoration: "none" }}>
+      <a href={`${import.meta.env.BASE_URL}#situations`} style={{ textDecoration: "none" }}>
         Back
       </a>
     </React.Fragment>

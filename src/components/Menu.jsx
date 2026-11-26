@@ -4,7 +4,7 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { Arrow } from "./LandingUI";
 const links = [
   ["Start", "home"],
-  ["Projekte", "projects"],
+  ["Kennst du das?", "situations"],
   ["Meine Werte", "values"],
   ["Beratung", "consultation"],
   ["Über mich", "about"],

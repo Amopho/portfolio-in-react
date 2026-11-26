@@ -1,6 +1,6 @@
 import { afterEach, expect, test, vi } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { SituationsCarousel } from "./Projects";
+import { SituationsCarousel } from "./Situations";
 
 const items = (count) =>
   Array.from({ length: count }, (_, index) => ({

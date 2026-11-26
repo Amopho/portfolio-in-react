@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import App from "./App";
 import Home from "./components/Home";
-import { SituationsCarousel } from "./components/Projects";
+import { SituationsCarousel } from "./components/Situations";
 import ProjectsInfo from "./components/ProjectsInfo";
 import { contactHref } from "./components/LandingUI";
 beforeEach(() => vi.stubEnv("VITE_PREVIEW_UNAPPROVED_TESTIMONIAL", "false"));
@@ -18,7 +18,7 @@ afterEach(() => {
 });
 const sections = [
   "home",
-  "projects",
+  "situations",
   "values",
   "benefits",
   "about",

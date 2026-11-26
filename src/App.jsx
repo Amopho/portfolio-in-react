@@ -1,6 +1,6 @@
 import Menu from "./components/Menu";
 import Home from "./components/Home";
-import Projects from "./components/Projects";
+import Situations from "./components/Situations";
 import Values from "./components/Values";
 import Consultation from "./components/Consultation";
 import Story from "./components/Story";
@@ -21,11 +21,11 @@ export default function App() {
           <Home />
         </section>
         <section
-          id="projects"
+          id="situations"
           aria-label="Kennst du das?"
           className="section-space wave-section"
         >
-          <Projects />
+          <Situations />
         </section>
         <section id="values" aria-label="Meine Werte" className="section-space">
           <Values />

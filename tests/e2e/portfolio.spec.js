@@ -27,7 +27,7 @@ for (const [name, width, height] of [
     expect(await page.locator("h1").count()).toBe(1);
     for (const id of [
       "home",
-      "projects",
+      "situations",
       "values",
       "benefits",
       "about",

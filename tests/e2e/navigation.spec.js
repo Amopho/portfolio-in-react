@@ -5,7 +5,7 @@ test("desktop navigation lands below the sticky header and all CTA targets work"
   await page.goto("./");
   const header = page.getByRole("banner");
   for (const [name, id] of [
-    ["Projekte", "projects"],
+    ["Kennst du das?", "situations"],
     ["Meine Werte", "values"],
     ["Beratung", "consultation"],
     ["Über mich", "about"],
@@ -43,7 +43,7 @@ test("mobile menu, keyboard navigation and situation selection work", async ({
   await nav.getByRole("link", { name: "Beratung", exact: true }).click();
   await expect(nav).toBeHidden();
   await expect(page).toHaveURL(/#consultation$/);
-  await page.locator("#projects").scrollIntoViewIfNeeded();
+  await page.locator("#situations").scrollIntoViewIfNeeded();
   const next = page.getByRole("button", { name: "Nächste Situation" });
   await next.focus();
   await page.keyboard.press("Enter");

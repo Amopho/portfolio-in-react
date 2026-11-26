@@ -27,7 +27,7 @@ App
 ├── Menu                         local mobile-menu state
 ├── main#main
 │   ├── #home                    Home: hero and value indicators
-│   ├── #projects                Projects: situations introduction/carousel
+│   ├── #situations              Situations: situations introduction/carousel
 │   ├── #values                  Values: outcomes, support and Approach
 │   ├── #benefits                Benefits: service advantages
 │   ├── #about                   About: biography and credentials summary
@@ -45,10 +45,11 @@ section-composition planning; PFE-19 does not introduce `HomePage.jsx`.
 `Values` composes outcomes, support and the independent stateless `Approach`.
 These boundaries follow responsibilities, rather than file length.
 
-The internal ID `projects` is retained for existing fragment links; its current
-content is the seven-card “Kennst du das?” situations carousel, not a project
-placeholder. `#scroll` is retired. There is no client-side router, network data
-fetching, global state store, checkout or booking integration.
+The seven-card “Kennst du das?” section uses `Situations.jsx` and `#situations`.
+Navigation links target that ID. The former `#projects` fragment has been replaced;
+external bookmarks must use `#situations`. `#scroll` is retired. There is no
+client-side router, network data fetching, global state store, checkout or booking
+integration.
 
 ## Data, state and publication
 
